@@ -1,0 +1,1 @@
+﻿# T3 Academic Public Portal V1.0.0 (Preview Locked)`n`nRead-only information site. No school identity login, staff enrollment, API, PII, or secrets. Internal Memo remains in its existing repository. Auth backend requires separate owner-approved release.`n
