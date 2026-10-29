@@ -69,6 +69,7 @@ dialog{border:1px solid var(--border);border-radius:16px;padding:0;width:min(640
 <div class="field full"><label for="nNext">แนวทางแก้ไข / พัฒนาครั้งต่อไป</label><textarea name="next" id="nNext" maxlength="1000"></textarea></div></div>
 <p class="foot">การบันทึกนี้เป็นแบบจำลอง ไม่มีลายเซ็นหรือการอนุมัติทางราชการ</p>
 </div><div class="dlgfoot"><button class="btn" type="button" data-dismiss="noteDialog">ยกเลิก</button><button class="btn primary" type="submit">บันทึกหลังสอนสาธิต</button></div></form></dialog>
+<dialog id="detailDialog"><div class="dlghead"><h2 id="detailTitle">รายละเอียดแผน</h2><button id="detailClose" class="close" aria-label="ปิดรายละเอียด" type="button">×</button></div><div id="detailBody" class="dlgbody"></div><div class="dlgfoot"><button class="btn primary" type="button" id="detailOkay">ปิดรายละเอียด</button></div></dialog>
 <div role="status" aria-live="polite" class="toast" id="toast" hidden></div>
 <script>
 (function(){
@@ -158,13 +159,12 @@ function find(id){return plans.find(p=>p.id===id)}
 function openPlan(p){editing=p?p.id:null;$("dialogTitle").textContent=p?"แก้ไขแผนสาธิต":"สร้างแผนสาธิต";$("planForm").reset();if(p){for(const k of ["title","subject","grade","unit","period","objective","method"]){$("planForm").elements.namedItem(k).value=p[k]||""}}$("editor").showModal()}
 function openNote(p){noteTarget=p.id;$("noteTitle").textContent="บันทึกหลังสอน · "+p.title;$("noteForm").reset();if(p.note){for(const k of ["outcome","issue","next"]){$("noteForm").elements.namedItem(k).value=p.note[k]||""}}$("noteDialog").showModal()}
 function details(p){
-let d=$("editor");editing=null;$("dialogTitle").textContent="รายละเอียด · "+p.id;
+const d=$("detailDialog");$("detailTitle").textContent="รายละเอียด · "+p.id;
 const fields=[["ชื่อแผน",p.title],["รายวิชา",p.subject],["ระดับชั้น",p.grade],["ภาคเรียน",p.period],["หน่วย",p.unit],["สถานะ",states[p.state][0]],["จุดประสงค์",p.objective],["กิจกรรมการเรียนรู้",p.method],["ข้อเสนอแนะผู้ตรวจ",p.reviewNote||"—"],["ผลหลังสอน",p.note?.outcome||"—"]];
-d.querySelector(".dlgbody").innerHTML='<div class="detail">'+fields.map(x=>'<div><small>'+safe(x[0])+'</small><strong>'+safe(x[1]||"—")+'</strong></div>').join("")+'</div><p class="foot">ข้อมูลสาธิต ไม่มีเอกสาร PDF หรือการลงนามจริง</p>';
-d.querySelector(".dlgfoot").hidden=true;
+$("detailBody").innerHTML='<div class="detail">'+fields.map(x=>'<div><small>'+safe(x[0])+'</small><strong>'+safe(x[1]||"—")+'</strong></div>').join("")+'</div><p class="foot">ข้อมูลสาธิต ไม่มีเอกสาร PDF หรือการลงนามจริง</p>';
 d.showModal();
-d.addEventListener("close",()=>{$("dialogTitle").textContent="สร้างแผน";d.querySelector(".dlgfoot").hidden=false;d.querySelector(".dlgbody").innerHTML='<div class="formgrid"></div>';location.reload()}, {once:true});
 }
+
 function reset(){plans=[
 {id:"LP-SYN-001",owner:SELF,title:"Asking for Directions at School",subject:"ภาษาอังกฤษ",grade:"ป.6/3",unit:"Directions",period:"2/2569",objective:"สามารถถามและบอกเส้นทางภายในโรงเรียนได้",method:"บทสนทนาคู่และแผนที่โรงเรียนสมมติ",state:"DRAFT",version:1,note:null,reviewNote:""},
 {id:"LP-SYN-002",owner:SELF,title:"Signs Around Us",subject:"ภาษาอังกฤษ",grade:"ป.6/3",unit:"Signs and Notices",period:"2/2569",objective:"อ่านป้ายสัญลักษณ์ง่าย ๆ ได้",method:"กิจกรรมกลุ่มอ่านป้ายจำลอง",state:"SUBMITTED",version:2,note:null,reviewNote:""},
@@ -180,6 +180,7 @@ const a=document.createElement("a");a.href=url;a.download="T3_LessonPlan_SYNTHET
 }
 $("role").addEventListener("change",e=>{role=e.target.value;search="";filter="ALL";addEvent("สลับบทบาทจำลองเป็น "+e.target.options[e.target.selectedIndex].text);render();alertToast("เปลี่ยนบทบาทสาธิตแล้ว · ไม่ใช่การเข้าสู่ระบบจริง")});
 document.querySelectorAll("[data-view]").forEach(b=>b.addEventListener("click",()=>{page=b.dataset.view;search="";filter="ALL";render()}));
+$("detailClose").onclick=()=>$("detailDialog").close();$("detailOkay").onclick=()=>$("detailDialog").close();
 $("closeDialog").onclick=()=>$("editor").close();$("cancelDialog").onclick=()=>$("editor").close();
 document.querySelectorAll("[data-dismiss]").forEach(b=>b.addEventListener("click",()=>$(b.dataset.dismiss).close()));
 $("content").addEventListener("input",e=>{if(e.target.id==="search"){search=e.target.value;const pos=e.target.selectionStart;render();const n=$("search");if(n){n.focus();n.setSelectionRange(pos,pos)}}});
