@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'; object-src 'none'; connect-src 'none'">
+<title>T3 LessonPlan NextGen | แอปจัดการแผนการสอน — สาธิต</title>
+<meta name="description" content="แอปสาธิตระบบจัดทำ ส่งตรวจ และบันทึกหลังสอน โรงเรียนเทศบาล ๓ (วัดท่ามะปราง)">
+<style>
+:root{color-scheme:light;--navy:#163447;--ink:#233c4c;--teal:#077d76;--teal2:#e5f5f2;--muted:#64798a;--border:#dce6ea;--bg:#f4f7f9;--white:#fff;--orange:#a65b1e;--blue:#3268ac;--green:#147b55;--red:#b63a4e;--shadow:0 8px 32px rgba(28,55,74,.05)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);font-family:"Noto Sans Thai","Sarabun",Tahoma,Arial,sans-serif;color:var(--ink);font-size:15px;line-height:1.6}button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{opacity:.48;cursor:not-allowed}a{color:var(--teal)}:focus-visible{outline:3px solid #f2ae56!important;outline-offset:2px}
+.layout{min-height:100vh;display:grid;grid-template-columns:252px 1fr}.side{background:var(--navy);color:white;padding:25px 15px;display:flex;flex-direction:column;gap:22px}
+.brand{display:flex;gap:11px;align-items:center;padding:0 10px}.brandmark{background:var(--teal);width:43px;height:43px;display:grid;place-items:center;border-radius:13px;font-size:15px;font-weight:900;color:#fff;flex-shrink:0}.brand strong{font-size:15px;line-height:1.25;display:block}.brand small{font-size:11px;opacity:.75;line-height:1.4;display:block}
+.side-label{font-size:10px;color:#99b5c0;letter-spacing:.1em;margin:0 13px 5px;font-weight:800}.nav{display:flex;flex-direction:column;gap:4px}.nav button{border:0;background:transparent;text-align:left;color:#b9ced6;border-radius:10px;padding:11px 14px;display:flex;align-items:center;gap:10px;font-weight:650;font-size:13px;width:100%}.nav button:hover,.nav button.active{background:#2a5063;color:#fff}.nav .nav-ico{font-size:17px;width:23px;text-align:center}.side-footer{margin-top:auto;padding:15px 12px;border-top:1px solid #3c5a6b;font-size:11px;color:#a8beca}
+.work{min-width:0}.topbar{min-height:70px;background:white;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:15px;padding:12px 30px;flex-wrap:wrap}.crumb{color:var(--muted);font-size:13px}.top-right{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.badge{font-size:11px;font-weight:800;letter-spacing:.02em;border-radius:7px;padding:5px 10px;display:inline-block;white-space:nowrap}.badge.demo{background:#fff0da;color:#955318}.badge.state-draft{background:#edf1f5;color:#556d7c}.badge.state-submitted{background:#e7f0ff;color:#2e67a7}.badge.state-returned{background:#fff1e5;color:#a35419}.badge.state-approved{background:#e1f6ed;color:#087146}.badge.state-done{background:#e3f2f2;color:#006e72}
+.role-picker{font-size:12px;border:1px solid #cddce2;border-radius:9px;background:#fff;padding:8px 10px;max-width:180px;color:#193e50}
+.main{width:min(1320px,100%);margin:auto;padding:31px 30px 54px}.pagehead{display:flex;align-items:flex-start;justify-content:space-between;gap:15px;margin-bottom:22px;flex-wrap:wrap}.kicker{font-size:11px;letter-spacing:.1em;color:var(--teal);font-weight:850}.pagehead h1{font-size:clamp(23px,2.8vw,31px);margin:5px 0;color:#173a4a;line-height:1.35}.pagehead p{color:var(--muted);margin:0;font-size:13px}.btn{display:inline-flex;gap:7px;align-items:center;justify-content:center;border:1px solid var(--border);border-radius:10px;padding:10px 15px;color:#335363;background:#fff;font-weight:750;font-size:13px;text-decoration:none;min-height:42px}.btn:hover:not(:disabled){border-color:#86c5c2;background:#f3faf9}.btn.primary{background:var(--teal);border-color:var(--teal);color:#fff}.btn.primary:hover{background:#086961}.btn.danger{color:var(--red);border-color:#f1c4ce}.btn.sm{font-size:12px;min-height:34px;padding:6px 10px}.btnrow{display:flex;gap:8px;flex-wrap:wrap}.notice{background:#fff9ef;border:1px solid #f1ddb4;color:#7b5429;border-radius:13px;padding:13px 17px;font-size:12px;margin-bottom:21px;display:flex;gap:10px;align-items:flex-start}.notice strong{white-space:nowrap}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:20px}.stat,.panel{background:#fff;border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow)}.stat{padding:20px}.stat .label{color:var(--muted);font-size:12px}.stat .count{font-size:31px;line-height:1.3;font-weight:850;color:var(--navy);margin-top:7px}.stat .sub{font-size:11px;color:var(--teal);margin-top:4px}.panel{padding:22px;margin-bottom:18px}.panel h2{font-size:17px;color:#194156;margin:0 0 4px}.panel p.sub{font-size:12px;color:var(--muted);margin:0 0 18px}.two{display:grid;grid-template-columns:1.5fr 1fr;gap:17px}.activity{list-style:none;padding:0;margin:0}.activity li{padding:12px 0;border-bottom:1px solid #edf1f4;display:flex;gap:12px;align-items:flex-start;font-size:13px}.activity li:last-child{border:0}.activity time{font-size:11px;color:var(--muted);white-space:nowrap}.activity span{min-width:0}.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;margin-top:15px}.flowstep{border:1px solid var(--border);border-radius:10px;text-align:center;padding:14px 8px;background:#fafcfc}.flowstep strong{display:block;font-size:12px}.flowstep small{display:block;color:var(--muted);font-size:10px}.flowstep i{font-style:normal;display:block;margin-bottom:7px;color:var(--teal);font-weight:900}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:17px}.toolbar input,.toolbar select{background:#fff;border:1px solid #d5e2e7;border-radius:9px;padding:10px 12px;color:var(--ink);min-height:40px}.toolbar input{flex:2;min-width:190px}.toolbar select{flex:1;min-width:160px}
+.scrolltable{overflow:auto}.tbl{border-collapse:collapse;width:100%;min-width:700px}.tbl th{font-size:11px;color:#748995;text-transform:uppercase;letter-spacing:.04em;background:#f9fbfc;text-align:left;padding:12px}.tbl td{border-top:1px solid #edf1f4;padding:13px 12px;font-size:12px;vertical-align:middle}.tbl strong{font-size:13px;color:var(--navy)}.tbl .small{font-size:11px;color:var(--muted)}.tbl tr:hover td{background:#fcfdfd}.empty{padding:45px 12px;text-align:center;color:var(--muted);font-size:13px}.empty i{font-style:normal;font-size:28px;display:block;margin-bottom:10px}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.plan-card{border:1px solid var(--border);border-radius:12px;background:#fff;padding:18px}.plan-card h3{margin:7px 0 6px;font-size:15px;color:var(--navy)}.plan-card p{font-size:12px;color:var(--muted);margin:0 0 13px}.plan-card .meta{font-size:11px;color:#4e7381;margin:8px 0}.formgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.field{display:flex;flex-direction:column;gap:5px}.field.full{grid-column:1/-1}.field label{font-size:12px;font-weight:750;color:#395967}.field input,.field select,.field textarea{padding:11px 12px;border:1px solid #cadce2;border-radius:9px;width:100%;background:white;color:#203d4c}.field textarea{min-height:92px;resize:vertical}.field em{font-size:11px;color:var(--muted);font-style:normal}.foot{font-size:11px;color:#8496a1;margin-top:18px}.sys{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.sys .box{padding:15px;border-radius:12px;border:1px solid var(--border);background:#fbfdfd}.sys strong{display:block;font-size:12px}.sys small{display:block;margin-top:6px;color:var(--muted)}.state-dot{height:9px;width:9px;border-radius:50%;background:#cb762b;display:inline-block;margin-right:7px}.state-dot.good{background:#1a9064}
+dialog{border:1px solid var(--border);border-radius:16px;padding:0;width:min(640px,calc(100vw - 24px));max-height:90vh;box-shadow:0 28px 70px #001f2950;color:var(--ink)}dialog::backdrop{background:#102e40a8}.dlghead{padding:20px 23px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}.dlghead h2{font-size:17px;margin:0}.dlgbody{padding:22px;max-height:65vh;overflow:auto}.dlgfoot{padding:13px 22px;display:flex;justify-content:flex-end;gap:8px;border-top:1px solid var(--border)}.close{font-size:20px;border:0;background:transparent;color:#6e8796}
+.toast{position:fixed;bottom:20px;right:20px;max-width:360px;background:#153c46;color:white;padding:14px 18px;border-radius:10px;box-shadow:0 10px 35px #1235;z-index:20;font-size:13px}.toast[hidden]{display:none}.hint{border-left:3px solid var(--teal);background:#f0f8f6;padding:12px 14px;font-size:12px;margin-top:12px}.detail{display:grid;grid-template-columns:1fr 1fr;gap:14px}.detail div{padding-bottom:8px;border-bottom:1px solid #edf2f4}.detail small{display:block;color:var(--muted)}.footer{margin-top:30px;color:#8a9aa5;font-size:11px}
+@media(max-width:1050px){.layout{grid-template-columns:72px 1fr}.brand div:not(.brandmark),.side-label,.nav .nav-text,.side-footer{display:none}.brand{padding:0}.side{padding:16px 10px}.nav button{justify-content:center;padding:12px}.nav button .nav-ico{width:auto}}
+@media(max-width:760px){.layout{display:block}.side{padding:8px 13px;gap:7px}.brand{display:none}.nav{flex-direction:row;overflow:auto}.nav button{min-width:52px;flex-direction:column;padding:7px 10px;gap:0}.nav .nav-text{display:block;font-size:9px;white-space:nowrap}.nav .nav-ico{font-size:16px}.topbar{padding:12px 16px}.main{padding:22px 15px 45px}.stats{grid-template-columns:repeat(2,1fr)}.two,.cards{grid-template-columns:1fr}.sys{grid-template-columns:1fr}.flow{grid-template-columns:repeat(2,1fr)}.formgrid,.detail{grid-template-columns:1fr}.field.full{grid-column:1}.notice{display:block}.notice strong{display:block;margin-bottom:4px}}
+@media(max-width:420px){.main{padding:18px 12px}.stat{padding:14px}.stat .count{font-size:26px}.panel{padding:15px}.top-right{width:100%;justify-content:space-between}.role-picker{max-width:150px}.flowstep:last-child{grid-column:span 2}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="side" aria-label="เมนูระบบ">
+  <div class="brand"><span class="brandmark">ท๓</span><div><strong>LessonPlan NextGen</strong><small>กลุ่มงานบริหารงานวิชาการ<br>โรงเรียนเทศบาล ๓ (วัดท่ามะปราง)</small></div></div>
+  <div><p class="side-label">WORKSPACE</p><nav class="nav" aria-label="หน้าระบบ">
+    <button type="button" data-view="dashboard" class="active"><span class="nav-ico">▦</span><span class="nav-text">ภาพรวม</span></button>
+    <button type="button" data-view="plans"><span class="nav-ico">▤</span><span class="nav-text">แผนการสอน</span></button>
+    <button type="button" data-view="reviews"><span class="nav-ico">✓</span><span class="nav-text">งานตรวจแผน</span></button>
+    <button type="button" data-view="post"><span class="nav-ico">◷</span><span class="nav-text">บันทึกหลังสอน</span></button>
+    <button type="button" data-view="reports"><span class="nav-ico">≡</span><span class="nav-text">รายงาน</span></button>
+    <button type="button" data-view="system"><span class="nav-ico">⚙</span><span class="nav-text">สถานะระบบ</span></button>
+  </nav></div>
+  <div class="side-footer">T3 ACADEMIC ADMINISTRATION<br>Prototype 0.2 · 29 ต.ค. 2569<br>เฉพาะข้อมูลจำลอง</div>
+</aside>
+<div class="work">
+<header class="topbar"><div class="crumb">โรงเรียนเทศบาล ๓ / <strong id="crumbText">ภาพรวม</strong></div>
+  <div class="top-right"><span class="badge demo">● โหมดสาธิต · ไม่เชื่อมฐานจริง</span>
+   <label for="role" class="srlabel" style="font-size:11px;color:#687f8b">บทบาทจำลอง</label>
+   <select id="role" class="role-picker" aria-label="สลับบทบาทจำลอง"><option value="teacher">ครูผู้สอน (สาธิต)</option><option value="reviewer">ผู้ตรวจแผน (สาธิต)</option><option value="admin">ผู้ดูแลระบบ (สาธิต)</option></select>
+  </div>
+</header>
+<main class="main"><div id="content" aria-live="polite"></div>
+<footer class="footer">T3 LessonPlan NextGen · Interactive Prototype 0.2 · ข้อมูลทั้งหมดเป็นตัวอย่างสมมติ ไม่มีการส่งข้อมูลไปยังเซิร์ฟเวอร์</footer>
+</main></div></div>
+<dialog id="editor"><div class="dlghead"><h2 id="dialogTitle">สร้างแผน</h2><button id="closeDialog" class="close" aria-label="ปิด" type="button">×</button></div>
+<form id="planForm"><div class="dlgbody"><div class="formgrid">
+  <div class="field full"><label for="fTitle">ชื่อแผนการจัดการเรียนรู้ *</label><input id="fTitle" name="title" maxlength="120" required placeholder="เช่น Asking for Directions"></div>
+  <div class="field"><label for="fSubject">กลุ่มสาระ / รายวิชา *</label><select name="subject" id="fSubject" required><option>ภาษาอังกฤษ</option><option>ภาษาไทย</option><option>คณิตศาสตร์</option><option>วิทยาศาสตร์</option><option>สังคมศึกษา</option><option>อื่น ๆ</option></select></div>
+  <div class="field"><label for="fGrade">ชั้นเรียน *</label><select name="grade" id="fGrade" required><option>ป.6/3</option><option>ป.6/2</option><option>ป.6/1</option><option>ป.5/1</option><option>ป.4/1</option><option>ป.3/1</option><option>ป.2/1</option><option>ป.1/1</option></select></div>
+  <div class="field"><label for="fUnit">หน่วยการเรียนรู้ *</label><input name="unit" id="fUnit" maxlength="100" required></div>
+  <div class="field"><label for="fPeriod">ภาคเรียน</label><select name="period" id="fPeriod"><option>2/2569</option><option>1/2569</option></select></div>
+  <div class="field full"><label for="fObjective">จุดประสงค์การเรียนรู้</label><textarea name="objective" id="fObjective" maxlength="1000" placeholder="ระบุจุดประสงค์ที่วัดได้..."></textarea></div>
+  <div class="field full"><label for="fMethod">กิจกรรมการจัดการเรียนรู้</label><textarea name="method" id="fMethod" maxlength="1500" placeholder="นำเข้าสู่บทเรียน / กิจกรรม / สรุปผล..."></textarea></div>
+  <div class="field full"><em>แบบฟอร์มนี้ใช้ข้อมูลสาธิตในหน่วยความจำของเบราว์เซอร์ ไม่บันทึกลง Google Sheets</em></div>
+</div></div><div class="dlgfoot"><button class="btn" type="button" id="cancelDialog">ยกเลิก</button><button class="btn primary" type="submit">บันทึกแผนสาธิต</button></div></form></dialog>
+<dialog id="noteDialog"><div class="dlghead"><h2 id="noteTitle">บันทึกหลังสอน</h2><button class="close" type="button" data-dismiss="noteDialog" aria-label="ปิด">×</button></div>
+<form id="noteForm"><div class="dlgbody"><div class="formgrid">
+<div class="field full"><label for="nOutcome">ผลการจัดการเรียนรู้ *</label><textarea name="outcome" id="nOutcome" maxlength="1500" required></textarea></div>
+<div class="field full"><label for="nIssue">ปัญหา / อุปสรรค</label><textarea name="issue" id="nIssue" maxlength="1000"></textarea></div>
+<div class="field full"><label for="nNext">แนวทางแก้ไข / พัฒนาครั้งต่อไป</label><textarea name="next" id="nNext" maxlength="1000"></textarea></div></div>
+<p class="foot">การบันทึกนี้เป็นแบบจำลอง ไม่มีลายเซ็นหรือการอนุมัติทางราชการ</p>
+</div><div class="dlgfoot"><button class="btn" type="button" data-dismiss="noteDialog">ยกเลิก</button><button class="btn primary" type="submit">บันทึกหลังสอนสาธิต</button></div></form></dialog>
+<div role="status" aria-live="polite" class="toast" id="toast" hidden></div>
+<script>
+(function(){
+"use strict";
+const SELF="T-SYN-001";
+const captions={dashboard:"ภาพรวม",plans:"แผนการสอน",reviews:"งานตรวจแผน",post:"บันทึกหลังสอน",reports:"รายงาน",system:"สถานะระบบ"};
+const states={DRAFT:["ฉบับร่าง","state-draft"],SUBMITTED:["รอตรวจ","state-submitted"],RETURNED:["ส่งกลับแก้ไข","state-returned"],APPROVED:["ผ่านการตรวจ (จำลอง)","state-approved"],DONE:["บันทึกหลังสอนแล้ว","state-done"]};
+let plans=[
+{id:"LP-SYN-001",owner:SELF,title:"Asking for Directions at School",subject:"ภาษาอังกฤษ",grade:"ป.6/3",unit:"Directions",period:"2/2569",objective:"สามารถถามและบอกเส้นทางภายในโรงเรียนได้",method:"บทสนทนาคู่และแผนที่โรงเรียนสมมติ",state:"DRAFT",version:1,note:null,reviewNote:""},
+{id:"LP-SYN-002",owner:SELF,title:"Signs Around Us",subject:"ภาษาอังกฤษ",grade:"ป.6/3",unit:"Signs and Notices",period:"2/2569",objective:"อ่านป้ายสัญลักษณ์ง่าย ๆ ได้",method:"กิจกรรมกลุ่มอ่านป้ายจำลอง",state:"SUBMITTED",version:2,note:null,reviewNote:""},
+{id:"LP-SYN-003",owner:SELF,title:"My Daily Routine",subject:"ภาษาอังกฤษ",grade:"ป.6/3",unit:"Daily Routines",period:"2/2569",objective:"บรรยายกิจวัตรประจำวัน",method:"ฝึกเรียงประโยคและพูดหน้าชั้น",state:"APPROVED",version:3,note:null,reviewNote:""},
+{id:"LP-SYN-004",owner:"T-SYN-002",title:"Reading a Short Story",subject:"ภาษาไทย",grade:"ป.5/1",unit:"การอ่านจับใจความ",period:"2/2569",objective:"สรุปใจความสำคัญได้",method:"อ่านนิทานตัวอย่าง",state:"SUBMITTED",version:2,note:null,reviewNote:""}
+];
+let events=[{t:"ข้อมูลตัวอย่าง",text:"เริ่มต้น Workspace พร้อมแผนตัวอย่าง 4 รายการ"},{t:"ข้อมูลตัวอย่าง",text:"ระบบนี้ไม่ได้เชื่อม Google Sheets หรือบัญชีครูจริง"}];
+let page="dashboard",role="teacher",search="",filter="ALL",editing=null,noteTarget=null,serial=5,toastTimer=null;
+const $=id=>document.getElementById(id);
+const safe=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const stamp=()=>new Date().toLocaleTimeString("th-TH",{hour:"2-digit",minute:"2-digit"});
+const status=s=>'<span class="badge '+(states[s]||states.DRAFT)[1]+'">'+(states[s]||states.DRAFT)[0]+'</span>';
+const visible=()=>role==="teacher"?plans.filter(p=>p.owner===SELF):plans;
+const own=p=>p.owner===SELF;
+const isTeacher=()=>role==="teacher";
+const escAttr=safe;
+const alertToast=s=>{let x=$("toast");x.textContent=s;x.hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>x.hidden=true,3200)};
+function addEvent(text){events.unshift({t:stamp(),text:text});events=events.slice(0,40)}
+function actButton(action,id,label,cls){return '<button class="btn sm '+(cls||"")+'" type="button" data-action="'+safe(action)+'" data-id="'+safe(id)+'">'+safe(label)+'</button>'}
+function actions(p){
+let a=[actButton("details",p.id,"รายละเอียด")];
+if(isTeacher()&&own(p)){
+ if(p.state==="DRAFT"||p.state==="RETURNED"){a.push(actButton("edit",p.id,"แก้ไข"));a.push(actButton("submit",p.id,"ส่งตรวจ","primary"))}
+ if(p.state==="APPROVED"||p.state==="DONE")a.push(actButton("note",p.id,p.note?"แก้บันทึกหลังสอน":"บันทึกหลังสอน","primary"))
+}
+if(role==="reviewer"&&p.state==="SUBMITTED"){a.push(actButton("return",p.id,"ส่งกลับ"));a.push(actButton("approve",p.id,"ผ่านการตรวจ","primary"))}
+return '<div class="btnrow">'+a.join("")+'</div>'}
+function head(title,sub,cta){return '<div class="pagehead"><div><div class="kicker">T3 ACADEMIC WORKSPACE · SIMULATION</div><h1>'+title+'</h1><p>'+sub+'</p></div>'+(cta||"")+'</div>'}
+function info(){return '<div class="notice"><strong>โหมดสาธิตเท่านั้น</strong><span>ใช้ข้อมูลสมมติและเก็บการเปลี่ยนแปลงในหน่วยความจำของแท็บนี้ ไม่มี Login จริง ไม่อัปโหลด PDF ไม่เขียน Google Sheets และข้อมูลจะเริ่มต้นใหม่เมื่อรีเฟรชหน้า</span></div>'}
+function renderDash(){
+const mine=visible(), count=s=>mine.filter(p=>p.state===s).length;
+return head("ภาพรวมแผนการจัดการเรียนรู้","ติดตามงานตามขั้นตอน ตั้งแต่สร้างแผนจนถึงบันทึกหลังสอน",isTeacher()?'<button class="btn primary" data-action="new">＋ สร้างแผนใหม่</button>':"")+info()+
+'<div class="stats">'+[['แผนทั้งหมด',mine.length,'รายการในมุมมองนี้'],['ฉบับร่าง',count("DRAFT")+count("RETURNED"),'ร่างและรอแก้ไข'],['รอตรวจ',count("SUBMITTED"),'ส่งถึงผู้ตรวจแบบจำลอง'],['ผ่านการตรวจ',count("APPROVED")+count("DONE"),'พร้อมบันทึกหลังสอน']].map(o=>'<div class="stat"><div class="label">'+o[0]+'</div><div class="count">'+o[1]+'</div><div class="sub">'+o[2]+'</div></div>').join("")+'</div>'+
+'<div class="two"><section class="panel"><h2>งานที่ต้องดำเนินการ</h2><p class="sub">เลือกแผนแล้วกดดำเนินการตามบทบาทจำลอง</p>'+
+(mine.length?'<div class="scrolltable"><table class="tbl"><thead><tr><th>แผน</th><th>สถานะ</th><th>ดำเนินการ</th></tr></thead><tbody>'+
+mine.slice(0,4).map(p=>'<tr><td><strong>'+safe(p.title)+'</strong><div class="small">'+safe(p.subject)+' · '+safe(p.grade)+'</div></td><td>'+status(p.state)+'</td><td>'+actions(p)+'</td></tr>').join("")+'</tbody></table></div>':'<div class="empty">ยังไม่มีรายการ</div>')+'</section>'+
+'<section class="panel"><h2>กิจกรรมล่าสุด</h2><p class="sub">บันทึกการกระทำเฉพาะในหน้าสาธิตนี้</p><ul class="activity">'+events.slice(0,6).map(e=>'<li><time>'+safe(e.t)+'</time><span>'+safe(e.text)+'</span></li>').join("")+'</ul></section></div>'+
+'<section class="panel"><h2>ขั้นตอนการทำงาน</h2><p class="sub">การอนุมัติและลายเซ็นในหน้านี้เป็นการจำลอง ไม่ใช่เอกสารราชการ</p><div class="flow">'+[['01','สร้างแผน','ครูผู้สอน'],['02','ส่งตรวจ','ครูผู้สอน'],['03','ตรวจ / ส่งกลับ','ผู้ตรวจแผน'],['04','ผ่านการตรวจ','ผู้ตรวจแผน'],['05','บันทึกหลังสอน','ครูผู้สอน']].map(x=>'<div class="flowstep"><i>'+x[0]+'</i><strong>'+x[1]+'</strong><small>'+x[2]+'</small></div>').join("")+'</div></section>'}
+function renderPlans(){
+let subset=visible().filter(p=>(filter==="ALL"||p.state===filter)&&[p.title,p.subject,p.grade,p.unit,p.id].some(s=>String(s).toLowerCase().includes(search.toLowerCase())));
+return head("แผนการจัดการเรียนรู้","จัดทำและติดตามรายการแผนในพื้นที่ทดลอง",isTeacher()?'<button class="btn primary" data-action="new">＋ สร้างแผนใหม่</button>':"")+info()+
+'<section class="panel"><div class="toolbar"><input id="search" aria-label="ค้นหาแผน" placeholder="ค้นหาชื่อแผน วิชา หรือชั้น..." value="'+escAttr(search)+'"><select id="filter" aria-label="กรองสถานะ"><option value="ALL">ทุกสถานะ</option>'+Object.keys(states).map(k=>'<option value="'+k+'" '+(filter===k?"selected":"")+'>'+states[k][0]+'</option>').join("")+'</select><button type="button" class="btn" data-action="clearFilters">ล้างตัวกรอง</button></div>'+
+(subset.length?'<div class="scrolltable"><table class="tbl"><thead><tr><th>รหัส / แผนการสอน</th><th>รายวิชา / ชั้น</th><th>ภาคเรียน</th><th>สถานะ</th><th>ดำเนินการ</th></tr></thead><tbody>'+
+subset.map(p=>'<tr><td><span class="small">'+safe(p.id)+'</span><div><strong>'+safe(p.title)+'</strong></div></td><td>'+safe(p.subject)+'<div class="small">'+safe(p.grade)+'</div></td><td>'+safe(p.period)+'</td><td>'+status(p.state)+'</td><td>'+actions(p)+'</td></tr>').join("")+'</tbody></table></div>':'<div class="empty"><i>▤</i>ไม่พบรายการตามตัวกรอง</div>')+'</section>'}
+function renderReviews(){
+const subset=visible().filter(p=>p.state==="SUBMITTED"||p.state==="RETURNED");
+return head("ตรวจแผนการจัดการเรียนรู้","เปลี่ยนบทบาทจำลองเป็นผู้ตรวจ เพื่อทดลองการส่งกลับและผ่านการตรวจ")+info()+
+'<section class="panel"><h2>งานในกระบวนการตรวจ</h2><p class="sub">รายการรอตรวจและรายการส่งกลับแก้ไข · ผู้ตรวจแผนสาธิตสามารถเปลี่ยนสถานะได้เฉพาะรายการรอตรวจ</p>'+
+(subset.length?'<div class="cards">'+subset.map(p=>'<article class="plan-card">'+status(p.state)+'<h3>'+safe(p.title)+'</h3><p>'+safe(p.subject)+' · '+safe(p.grade)+' · '+safe(p.period)+'</p><div class="meta">รหัส '+safe(p.id)+' · รุ่นแก้ไข '+p.version+'</div>'+actions(p)+'</article>').join("")+'</div>':'<div class="empty">ไม่มีแผนอยู่ระหว่างตรวจในขณะนี้</div>')+
+(role!=="reviewer"?'<div class="hint">ต้องเลือก “ผู้ตรวจแผน (สาธิต)” ด้านบนเพื่อทดลองผ่านการตรวจหรือส่งกลับ</div>':"")+'</section>'}
+function renderPost(){
+const subset=visible().filter(p=>p.state==="APPROVED"||p.state==="DONE");
+return head("บันทึกหลังสอน","บันทึกผลการสอน ปัญหา และแนวทางพัฒนา หลังผ่านการตรวจแบบจำลอง")+info()+
+'<section class="panel"><h2>รายการที่พร้อมบันทึกหลังสอน</h2><p class="sub">มีเฉพาะแผนผ่านการตรวจหรือบันทึกหลังสอนแล้ว</p>'+
+(subset.length?'<div class="cards">'+subset.map(p=>'<article class="plan-card">'+status(p.state)+'<h3>'+safe(p.title)+'</h3><p>'+safe(p.subject)+' · '+safe(p.grade)+'</p>'+(p.note?'<div class="hint"><strong>ผลการสอน:</strong> '+safe(p.note.outcome).slice(0,240)+'</div>':"")+'<div style="margin-top:13px">'+actions(p)+'</div></article>').join("")+'</div>':'<div class="empty">ยังไม่มีแผนที่ผ่านการตรวจ</div>')+'</section>'}
+function renderReports(){
+const data=visible();let counts=Object.keys(states).map(k=>[states[k][0],data.filter(p=>p.state===k).length]);
+return head("รายงานและสรุปผล","ดูภาพรวมรายการและดาวน์โหลด CSV เฉพาะข้อมูลสาธิต")+info()+
+'<div class="two"><section class="panel"><h2>สรุปจำนวนแผนตามสถานะ</h2><p class="sub">คำนวณจากข้อมูลตัวอย่างที่อยู่ในหน่วยความจำปัจจุบัน</p>'+
+counts.map(([label,n])=>'<div style="padding:11px 0;border-bottom:1px solid #eff3f4;display:flex;justify-content:space-between"><span>'+label+'</span><strong>'+n+' แผน</strong></div>').join("")+
+'<div class="btnrow" style="margin-top:20px"><button class="btn primary" data-action="csv">↓ ส่งออก CSV สาธิต</button><button class="btn" data-action="print">พิมพ์หน้านี้</button></div></section>'+
+'<section class="panel"><h2>ประวัติกิจกรรมสาธิต</h2><p class="sub">บันทึกเหตุการณ์เฉพาะในแท็บนี้</p><ul class="activity">'+events.slice(0,12).map(e=>'<li><time>'+safe(e.t)+'</time><span>'+safe(e.text)+'</span></li>').join("")+'</ul></section></div>'}
+function renderSystem(){
+return head("สถานะระบบ","แยกสถานะหน้าสาธิตและส่วน Backend โรงเรียนอย่างชัดเจน")+info()+
+'<section class="panel"><h2>องค์ประกอบระบบ</h2><p class="sub">ไม่มีการส่งข้อมูลเข้า Google Sheets จากหน้าเว็บนี้</p><div class="sys">'+
+'<div class="box"><strong><i class="state-dot good"></i>Frontend สาธิต</strong><small>HTML / CSS / JavaScript · ใช้งานในเบราว์เซอร์ · ไม่มี Server Call</small></div>'+
+'<div class="box"><strong><i class="state-dot"></i>GAS Backend โรงเรียน</strong><small>ยังไม่มี ScriptID / DeploymentID ที่ยืนยันสำหรับ NextGen</small></div>'+
+'<div class="box"><strong><i class="state-dot"></i>Google Sheets จริง</strong><small>ตรวจโครงสร้างตารางเดิมแล้ว แต่ยังไม่เชื่อมข้อมูลจริงผ่าน GAS</small></div>'+
+'<div class="box"><strong><i class="state-dot"></i>เข้าสู่ระบบครูจริง</strong><small>ยังไม่เชื่อม School Identity Gateway และ PersonnelID</small></div>'+
+'<div class="box"><strong><i class="state-dot"></i>ไฟล์ PDF / การลงนาม</strong><small>ปิดไว้จนผ่านการตรวจสิทธิ์และการอนุมัติ</small></div>'+
+'<div class="box"><strong><i class="state-dot good"></i>ข้อมูลตัวอย่าง</strong><small>ข้อมูลสมมติ ไม่คงอยู่หลังรีโหลดและไม่ส่งออกนอกเบราว์เซอร์ ยกเว้นผู้ใช้กดส่งออก CSV เอง</small></div>'+
+'</div><div class="hint" style="margin-top:17px">Technology Stack ที่ต้องใช้จริง: Google Apps Script + Google Sheets เดิม + Google Drive ภายใต้สิทธิ์โรงเรียน การเปิดหน้าเว็บสาธารณะไม่ได้เปิดข้อมูลภายใน</div>'+
+'<div class="btnrow" style="margin-top:18px"><button class="btn danger" data-action="reset">รีเซ็ตข้อมูลตัวอย่าง</button><a class="btn" href="../">กลับหน้าแนะนำระบบ</a></div></section>'}
+function render(){
+document.querySelectorAll("[data-view]").forEach(b=>{b.classList.toggle("active",b.dataset.view===page);b.setAttribute("aria-current",b.dataset.view===page?"page":"false")});
+$("crumbText").textContent=captions[page];
+$("content").innerHTML={dashboard:renderDash,plans:renderPlans,reviews:renderReviews,post:renderPost,reports:renderReports,system:renderSystem}[page]();
+}
+function find(id){return plans.find(p=>p.id===id)}
+function openPlan(p){editing=p?p.id:null;$("dialogTitle").textContent=p?"แก้ไขแผนสาธิต":"สร้างแผนสาธิต";$("planForm").reset();if(p){for(const k of ["title","subject","grade","unit","period","objective","method"]){$("planForm").elements.namedItem(k).value=p[k]||""}}$("editor").showModal()}
+function openNote(p){noteTarget=p.id;$("noteTitle").textContent="บันทึกหลังสอน · "+p.title;$("noteForm").reset();if(p.note){for(const k of ["outcome","issue","next"]){$("noteForm").elements.namedItem(k).value=p.note[k]||""}}$("noteDialog").showModal()}
+function details(p){
+let d=$("editor");editing=null;$("dialogTitle").textContent="รายละเอียด · "+p.id;
+const fields=[["ชื่อแผน",p.title],["รายวิชา",p.subject],["ระดับชั้น",p.grade],["ภาคเรียน",p.period],["หน่วย",p.unit],["สถานะ",states[p.state][0]],["จุดประสงค์",p.objective],["กิจกรรมการเรียนรู้",p.method],["ข้อเสนอแนะผู้ตรวจ",p.reviewNote||"—"],["ผลหลังสอน",p.note?.outcome||"—"]];
+d.querySelector(".dlgbody").innerHTML='<div class="detail">'+fields.map(x=>'<div><small>'+safe(x[0])+'</small><strong>'+safe(x[1]||"—")+'</strong></div>').join("")+'</div><p class="foot">ข้อมูลสาธิต ไม่มีเอกสาร PDF หรือการลงนามจริง</p>';
+d.querySelector(".dlgfoot").hidden=true;
+d.showModal();
+d.addEventListener("close",()=>{$("dialogTitle").textContent="สร้างแผน";d.querySelector(".dlgfoot").hidden=false;d.querySelector(".dlgbody").innerHTML='<div class="formgrid"></div>';location.reload()}, {once:true});
+}
+function reset(){plans=[
+{id:"LP-SYN-001",owner:SELF,title:"Asking for Directions at School",subject:"ภาษาอังกฤษ",grade:"ป.6/3",unit:"Directions",period:"2/2569",objective:"สามารถถามและบอกเส้นทางภายในโรงเรียนได้",method:"บทสนทนาคู่และแผนที่โรงเรียนสมมติ",state:"DRAFT",version:1,note:null,reviewNote:""},
+{id:"LP-SYN-002",owner:SELF,title:"Signs Around Us",subject:"ภาษาอังกฤษ",grade:"ป.6/3",unit:"Signs and Notices",period:"2/2569",objective:"อ่านป้ายสัญลักษณ์ง่าย ๆ ได้",method:"กิจกรรมกลุ่มอ่านป้ายจำลอง",state:"SUBMITTED",version:2,note:null,reviewNote:""},
+{id:"LP-SYN-003",owner:SELF,title:"My Daily Routine",subject:"ภาษาอังกฤษ",grade:"ป.6/3",unit:"Daily Routines",period:"2/2569",objective:"บรรยายกิจวัตรประจำวัน",method:"ฝึกเรียงประโยคและพูดหน้าชั้น",state:"APPROVED",version:3,note:null,reviewNote:""},
+{id:"LP-SYN-004",owner:"T-SYN-002",title:"Reading a Short Story",subject:"ภาษาไทย",grade:"ป.5/1",unit:"การอ่านจับใจความ",period:"2/2569",objective:"สรุปใจความสำคัญได้",method:"อ่านนิทานตัวอย่าง",state:"SUBMITTED",version:2,note:null,reviewNote:""}];serial=5;events=[{t:stamp(),text:"รีเซ็ตข้อมูลตัวอย่างแล้ว"}];search="";filter="ALL";render();alertToast("รีเซ็ตข้อมูลสาธิตแล้ว")}
+function downloadCSV(){
+const arr=visible();
+const rows=[["PlanID","Title","Subject","Class","Term","State","Version"],...arr.map(p=>[p.id,p.title,p.subject,p.grade,p.period,p.state,p.version])];
+const cell=v=>{let s=String(v??"");if(/^[=+\-@\t\r]/.test(s))s="'"+s;return '"'+s.replace(/"/g,'""')+'"';};
+const text="\ufeff"+rows.map(r=>r.map(cell).join(",")).join("\r\n");
+const blob=new Blob([text],{type:"text/csv;charset=utf-8"}),url=URL.createObjectURL(blob);
+const a=document.createElement("a");a.href=url;a.download="T3_LessonPlan_SYNTHETIC_DEMO.csv";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);addEvent("ส่งออกข้อมูลตัวอย่างเป็น CSV");alertToast("ส่งออก CSV เฉพาะข้อมูลสาธิตแล้ว")
+}
+$("role").addEventListener("change",e=>{role=e.target.value;search="";filter="ALL";addEvent("สลับบทบาทจำลองเป็น "+e.target.options[e.target.selectedIndex].text);render();alertToast("เปลี่ยนบทบาทสาธิตแล้ว · ไม่ใช่การเข้าสู่ระบบจริง")});
+document.querySelectorAll("[data-view]").forEach(b=>b.addEventListener("click",()=>{page=b.dataset.view;search="";filter="ALL";render()}));
+$("closeDialog").onclick=()=>$("editor").close();$("cancelDialog").onclick=()=>$("editor").close();
+document.querySelectorAll("[data-dismiss]").forEach(b=>b.addEventListener("click",()=>$(b.dataset.dismiss).close()));
+$("content").addEventListener("input",e=>{if(e.target.id==="search"){search=e.target.value;const pos=e.target.selectionStart;render();const n=$("search");if(n){n.focus();n.setSelectionRange(pos,pos)}}});
+$("content").addEventListener("change",e=>{if(e.target.id==="filter"){filter=e.target.value;render()}});
+$("content").addEventListener("click",e=>{const b=e.target.closest("button[data-action]");if(!b)return;const a=b.dataset.action,p=find(b.dataset.id);
+if(a==="new"){if(!isTeacher()){alertToast("เลือกบทบาทครูก่อน");return}openPlan(null);return}
+if(a==="clearFilters"){search="";filter="ALL";render();return}
+if(a==="csv"){downloadCSV();return}if(a==="print"){window.print();return}
+if(a==="reset"){if(window.confirm("รีเซ็ตข้อมูลสาธิตทั้งหมดในแท็บนี้?"))reset();return}
+if(!p)return;
+if(a==="details"){details(p);return}
+if(a==="edit"){if(!isTeacher()||!own(p)||!["DRAFT","RETURNED"].includes(p.state))return;openPlan(p);return}
+if(a==="submit"){if(!isTeacher()||!own(p)||!["DRAFT","RETURNED"].includes(p.state))return;p.state="SUBMITTED";p.version++;addEvent("ส่งแผน "+p.id+" เข้าคิวตรวจ (จำลอง)");render();alertToast("ส่งแผนเข้าคิวตรวจสาธิตแล้ว");return}
+if(a==="approve"||a==="return"){
+if(role!=="reviewer"||p.state!=="SUBMITTED")return;
+if(a==="return"){const msg=window.prompt("ข้อเสนอแนะให้แก้ไข (ข้อมูลสาธิต)","กรุณาปรับกิจกรรมให้สอดคล้องกับจุดประสงค์");if(msg===null)return;p.reviewNote=msg.slice(0,500);p.state="RETURNED";}
+else{if(!window.confirm("จำลองการผ่านการตรวจแผนนี้? ไม่ใช่การอนุมัติราชการ"))return;p.reviewNote="ตรวจผ่านในระบบสาธิต";p.state="APPROVED";}
+p.version++;addEvent((a==="approve"?"ผ่านการตรวจ":"ส่งกลับแก้ไข")+" "+p.id+" (จำลอง)");render();alertToast("บันทึกผลตรวจสาธิตแล้ว");return}
+if(a==="note"){if(!isTeacher()||!own(p)||!["APPROVED","DONE"].includes(p.state))return;openNote(p);return}
+});
+$("planForm").addEventListener("submit",e=>{e.preventDefault();if(!isTeacher()){alertToast("บทบาทนี้บันทึกไม่ได้");return}
+const f=e.target;if(!f.reportValidity())return;
+const data={};for(const key of ["title","subject","grade","unit","period","objective","method"])data[key]=String(f.elements.namedItem(key).value||"").trim();
+if(!data.title||!data.unit){alertToast("กรุณากรอกชื่อแผนและหน่วยการเรียนรู้");return}
+if(editing){const p=find(editing);if(!p||!own(p)||!["DRAFT","RETURNED"].includes(p.state))return;Object.assign(p,data);p.state="DRAFT";p.version++;addEvent("แก้ไขแผน "+p.id+" (จำลอง)");}
+else{const id="LP-SYN-"+String(serial++).padStart(3,"0");plans.unshift({id,owner:SELF,...data,state:"DRAFT",version:1,note:null,reviewNote:""});addEvent("สร้างแผน "+id+" (จำลอง)")}
+$("editor").close();page="plans";search="";filter="ALL";render();alertToast("บันทึกแผนสาธิตแล้ว")});
+$("noteForm").addEventListener("submit",e=>{e.preventDefault();const p=find(noteTarget);if(!p||!isTeacher()||!own(p)||!["APPROVED","DONE"].includes(p.state))return;
+if(!e.target.reportValidity())return;
+p.note={};for(const k of ["outcome","issue","next"])p.note[k]=String(e.target.elements.namedItem(k).value||"").trim();p.state="DONE";p.version++;
+addEvent("บันทึกหลังสอน "+p.id+" (จำลอง)");$("noteDialog").close();render();alertToast("บันทึกหลังสอนสาธิตแล้ว")});
+render();
+})();
+</script>
+</body></html>
