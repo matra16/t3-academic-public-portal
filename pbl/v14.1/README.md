@@ -1,0 +1,12 @@
+# PBL LMS V14.1 — friendly UI, window autofocus, instant learner-name search
+
+**Route:** `/pbl/v14.1/` • **Baseline:** V14 adaptive UI • **Change set:** isolated assets in `pbl/v14.1`.
+
+- Responsive friendly UX for the landing screen, student 20-step workspace, class-group admin tabs, password-change screen and dark Admin dialog. Preserves V14's viewport-aware, no-visible-scrollbar layout.
+- Automatically focuses the relevant, visible, enabled control when opening the landing screen, lessons, Admin tabs, password-change screen, Admin modal, or temporary-password dialog. Uses `focus({preventScroll:true})`, restores the prior button focus on closing the Admin modal, and permits full keyboard navigation.
+- Instantly filters **fictional public-demo learners** from the first typed character, normalizes Thai Unicode and spacing, performs case-insensitive lookup, sorts names, differentiates same names by classroom, caps displayed suggestions at 8, supports ArrowUp/ArrowDown/Enter/Escape, shows result counts and a clear-search button.
+- A school-authorized Apps Script backend uses the existing `apiV12` / `searchStudents` contract, with a short network delay (120 ms), stale-response rejection and private in-memory results cache. **Anonymous pupil-name lookup stays restricted to 3+ characters and at most 8 results** pending school owner/consent review; it would be unsafe to publish an enumerable real P6 roster just to make the suggestions appear earlier.
+- Public GitHub Pages has no real student roster and does not accept real Admin/student passwords. It only includes the existing synthetic preview. **This route does not create or authorize a GAS /exec deployment, import school records, modify the existing 22-tab DB, change ACL, or spend paid credits.**
+- Preserves P6-only scope, exact copyright footer, bright student style, no repeated top banner, and all earlier release routes. Supports mobile/desktop and landscape.
+- **QA (fictional data only, 8 Nov 2026):** 152/152 Chrome scripted checks PASS on 1440×900, 390×844, 320×568, 768×1024, 844×390 and mock approved backend; JS syntax PASS. No child PII in test fixtures; search/role validation on real Google Apps Script remains NOT DEPLOYED.
+- Accessibility: dynamic focus, high-contrast focus outline, descriptive controls, matching name/class options, readable touch targets; long content can still scroll internally when needed.
