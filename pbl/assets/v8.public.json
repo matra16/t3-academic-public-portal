@@ -1,0 +1,11 @@
+{
+  "version": 8,
+  "uiLanguageSwitchEnabled": true,
+  "defaultUiLanguage": "th",
+  "aiExpertEnabled": false,
+  "centralActivityLogEnabled": false,
+  "cloudGroupSyncEnabled": false,
+  "videoUploadsEnabled": false,
+  "changedBy": "owner-github-commit-only",
+  "scope": "public-ui-configuration-not-auth-or-a-student-record"
+}
