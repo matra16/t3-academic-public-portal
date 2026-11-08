@@ -74,7 +74,7 @@
    const meta=document.createElement('small');meta.textContent='ป.'+u.classId;
    name.append(title,meta);
    const badge=document.createElement('span');badge.className='v16-learner-status';
-   badge.textContent=u.alreadyEnrolled?'อยู่ในระบบแล้ว':'พร้อมนำเข้า';
+   badge.textContent=u.existingStatus==='REVIEW_MATCH'?'ตรวจสอบบัญชีเดิม':u.alreadyEnrolled?'อยู่ในระบบแล้ว':'พร้อมนำเข้า';
    label.append(cb,name,badge);fragment.append(label);
   });
   list.append(fragment);
@@ -92,7 +92,7 @@
    preview=Boolean(r.preview||r.status==='DEMO'||api.isPreview());
    all=Array.isArray(r.candidates)?r.candidates.filter(u=>p6(u.classId)).slice(0,300)
     .map(u=>({sourceId:safe(u.sourceId),name:safe(u.name),classId:safe(u.classId),
-     alreadyEnrolled:Boolean(u.alreadyEnrolled)})):[];
+     alreadyEnrolled:Boolean(u.alreadyEnrolled),existingStatus:safe(u.existingStatus||'')})):[];
    all.sort((a,b)=>a.classId.localeCompare(b.classId)||a.name.localeCompare(b.name,'th'));
    loaded=true;
    if(r.status==='NOT_CONFIGURED'){
