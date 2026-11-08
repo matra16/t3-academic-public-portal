@@ -238,6 +238,13 @@ function saveStep_(s,d) {
   if(!note)throw Error('กรุณาบันทึกแนวคิดก่อน');
   if(/[=+@]/.test(note.charAt(0))||note.charAt(0)==='-')throw Error('โปรดเริ่มบันทึกด้วยข้อความปกติ');
   return withLock_(()=>{
+    // Sequence is enforced on the server, not just disabled client buttons.
+    if(step>1) {
+      const prior=ownerKey_(s,step-1);
+      const priorRow=rows_('work').find(x=>String(x.OWNER_KEY)===prior.key&&Number(x.STEP)===step-1);
+      if(!priorRow || !(priorRow.DONE===true||String(priorRow.DONE)==='TRUE'))
+        throw Error('กรุณาทำขั้นที่ '+(step-1)+' ให้เสร็จก่อน');
+    }
     const target=ownerKey_(s,step),old=rows_('work').find(x=>String(x.OWNER_KEY)===target.key&&Number(x.STEP)===step);
     const expect=Number(d.revision)||0;
     if(old&&Number(old.REVISION)!==expect)throw Error('มีการแก้ไขงานจากอีกอุปกรณ์ โปรดโหลดข้อมูลใหม่');
