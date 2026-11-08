@@ -1,0 +1,145 @@
+/* PBL LMS 14.1 — friendly student + Admin interface.
+   Extends V14 without external tracking or a second database. */
+:root{
+ --friendly-primary:#079c87;
+ --friendly-accent:#297ed4;
+ --friendly-ink:#174768;
+ --friendly-ring:#2078be;
+ --friendly-line:#b8dcd7;
+}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{color:var(--friendly-ink)}
+button,input,select,textarea{font-family:inherit;accent-color:var(--friendly-primary)}
+button{touch-action:manipulation}
+input[type=search]{-webkit-appearance:none;appearance:none}
+input[type=search]::-webkit-search-cancel-button{display:none}
+input:focus-visible,textarea:focus-visible,select:focus-visible,
+button:focus-visible,[role=tab]:focus-visible,[role=option]:focus-visible{
+ outline:3px solid var(--friendly-ring)!important;
+ outline-offset:2px;box-shadow:0 0 0 5px rgba(47,145,205,.14)!important
+}
+button:disabled{cursor:not-allowed}
+#main #welcome .student-card{border-radius:clamp(17px,2.4vw,25px);border-color:#b3e9dc}
+#main #welcome .student-card-head h2{color:#154a6a}
+#main #welcome .student-card input{
+ border-radius:13px;transition:border-color .15s,background-color .15s,box-shadow .15s;
+}
+#main #welcome #studentSearch:focus{border-color:#0fa38c;background:white}
+#main #welcome #studentSearch:not(:placeholder-shown){border-color:#43b5b3}
+#main #welcome .student-card .btn.primary{background:linear-gradient(112deg,#079e8c,#238add);font-weight:800}
+#main #welcome .student-card .btn.primary:disabled{
+ background:linear-gradient(110deg,#b9dad3,#afd3e3);opacity:1;color:#fff;box-shadow:none
+}
+#main #welcome .student-card label{letter-spacing:0}
+#main #welcome .student-card .help{color:#5e7b8e}
+#main #welcome #searchResults{
+ border:1px solid #9cdcd4;border-radius:12px;
+ box-shadow:0 12px 30px rgba(13,95,113,.15);
+ min-width:0;max-height:min(26vh,215px);
+ overscroll-behavior:contain;scrollbar-width:none
+}
+#main #welcome #searchResults::-webkit-scrollbar{display:none;width:0}
+#main #welcome #searchResults [role=option]{
+ min-height:44px;font-size:clamp(13px,1.8vh,15px);line-height:1.35;
+ padding:clamp(7px,1.3vh,12px) 13px;
+ border-bottom:1px solid #e7f2ee;
+ transition:background-color .13s;
+}
+#main #welcome #searchResults [role=option]:hover,
+#main #welcome #searchResults [role=option]:focus{
+ background:#e0fbf1;color:#075e70;
+}
+#main #welcome #searchResults .result-name{
+ flex:1;min-width:0;overflow-wrap:anywhere
+}
+#main #welcome #searchResults .result-class{
+ color:#277895;background:#e7f6fd;padding:4px 7px;
+ border-radius:7px;font-weight:800;font-size:12px
+}
+#main #welcome #searchResults .hint{font-size:13px;font-weight:600}
+#main #welcome #searchStatus{
+ min-height:17px;line-height:1.35;font-size:11px;color:#467b8c;
+ margin:0;text-align:left;
+}
+#main #welcome #searchStatus[hidden]{display:none!important}
+#main #welcome .field-with-icon{position:relative}
+#main #welcome .field-with-icon #clearStudentQuery{
+ position:absolute;right:6px;top:50%;transform:translateY(-50%);
+ width:36px;height:36px;min-height:36px;padding:0;
+ background:#ecf7f4;color:#3d7b84;border:1px solid #d6eae5;
+ border-radius:10px;font-size:21px;line-height:1;
+ display:grid;place-items:center;
+}
+#main #welcome .field-with-icon #clearStudentQuery[hidden]{display:none!important}
+#main #welcome .field-with-icon #clearStudentQuery:hover{background:#d5f3e9;color:#12746e}
+#main #welcome #studentSearch{padding-right:46px}
+#main #welcome .selected-student{
+ border-radius:12px;background:linear-gradient(110deg,#e2fbf0,#e8f7ff);
+ border-color:#a4e8cf;padding:clamp(8px,1.1vh,12px);color:#145e65
+}
+#main #welcome .change-selection{min-height:40px;min-width:75px;padding:6px 9px;text-decoration:none;border-radius:9px;background:#d9f3e9}
+#main #welcome .change-selection:hover{background:#c5ebdf}
+#main #welcome #studentSubmit:focus-visible{outline-color:#14769f!important}
+#main #welcome .admin-launch-button{font-weight:800;border-color:#a7d7e2;color:#2d6b86}
+#main #welcome .lesson-explore button{border-radius:9px;min-height:32px}
+#studentScreen .sidebar,#studentScreen .task,#adminScreen .panel,#passwordScreen .panel{
+ border:1px solid #d4e9e6;border-radius:clamp(13px,1.8vw,20px)
+}
+#studentScreen #v14StepSelect{background:#e6f7f3;color:#155a67;border-color:#a3dccc}
+#studentScreen #taskPanel:focus-within{border-color:#b6dacf}
+#studentScreen #taskTitle{line-height:1.28}
+#studentScreen #taskDescription{color:#567284}
+#studentScreen .language{border-radius:12px;background:linear-gradient(115deg,#e9fcf6,#f0f8ff)}
+#studentScreen .task textarea{
+ resize:none;border:1px solid #c0ded9;border-radius:12px;background:#fcfffe;
+ line-height:1.45;font-size:clamp(13px,1.7vh,15px)
+}
+#studentScreen .task textarea:focus{background:white;border-color:#0e9b87}
+#studentScreen .task .actions{gap:7px}
+#studentScreen .task .actions .btn{flex:1;min-width:115px}
+#studentScreen .task .help{font-size:12px;color:#587e88}
+#adminScreen .v14-admin-tabs{gap:clamp(4px,1vw,8px)}
+#adminScreen .v14-admin-tabs button{
+ transition:background .15s,border-color .15s;
+ border:1px solid #b6dcdb;border-radius:12px;min-height:44px
+}
+#adminScreen .v14-admin-tabs button[aria-selected=true]{
+ background:linear-gradient(110deg,#009c8b,#267ece);
+ box-shadow:0 6px 13px rgba(21,130,148,.12)
+}
+#adminScreen .panel label{color:#285469}
+#adminScreen .panel input,#adminScreen .panel select{
+ border-radius:11px;background:#fcfffd;border:1px solid #b9d8d4;
+ font-size:clamp(13px,1.7vh,15px)
+}
+#adminScreen .panel input:focus,#adminScreen .panel select:focus{border-color:#159b8b;background:white}
+#adminScreen .panel .btn{border-radius:10px}
+#adminScreen .roster-item{min-height:52px}
+#adminScreen .roster-tools .mini{min-height:36px;padding:7px 10px}
+#passwordScreen .panel{background:#fff;max-width:590px;margin:auto}
+#passwordScreen .panel h2{color:#15475f}
+#passwordScreen .panel input{min-height:44px}
+#passwordScreen .panel .actions .btn{min-height:44px}
+#secretDialog .modal{border:1px solid #bbe1d9}
+#secretDialog .modal .btn{min-height:44px}
+.admin-backdrop .admin-access{outline:none}
+.admin-backdrop .admin-access .btn:disabled{background:#27445d}
+#toast{font-weight:700;line-height:1.4;border:1px solid #367589}
+@media(hover:hover){
+ .btn:not(:disabled):hover,.mini:not(:disabled):hover{filter:saturate(1.08)}
+}
+@media(max-width:480px){
+ #main #welcome .student-card{border-radius:19px}
+ #studentScreen .task .actions .btn{min-height:42px}
+ #adminScreen .v14-admin-tabs button{font-size:11px}
+ #main #welcome #searchResults{max-height:min(22vh,170px)}
+}
+@media(max-height:510px){
+ #main #welcome .field-with-icon #clearStudentQuery{height:30px;min-height:30px;width:30px}
+ #main #welcome .student-card .selected-student{padding:6px}
+ #main #welcome #searchStatus{min-height:0;font-size:10px}
+}
+@media(prefers-reduced-motion:reduce){
+ #main #welcome .student-card input,#main #welcome #searchResults [role=option],
+ #adminScreen .v14-admin-tabs button{transition:none}
+}
