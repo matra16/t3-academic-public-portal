@@ -125,7 +125,7 @@ body.v16-admin-dark #toast{background:#144457!important;color:white!important;bo
  display:flex;flex-direction:column;gap:7px;min-height:125px;
  max-height:clamp(130px,26vh,270px);overflow-y:auto;overflow-x:hidden;
  padding:8px;border:1px solid #345e74;background:#071b2b;
- border-radius:13px;scrollbar-width:thin;scrollbar-color:#4b7890 #10293c;
+ border-radius:13px;scrollbar-width:none;
 }
 #adminScreen .v16-roster-list .v16-empty{color:#a9c5d4;line-height:1.6;margin:13px;font-size:13px}
 #adminScreen .v16-learner{
@@ -181,3 +181,6 @@ body.v16-admin-dark #toast{background:#144457!important;color:white!important;bo
  #adminScreen .v16-roster-list{max-height:37vh}
  #adminScreen .v16-enrol-head h3{font-size:17px}
 }
+
+#adminScreen .v16-roster-list::-webkit-scrollbar,#adminScreen .v16-import-results::-webkit-scrollbar{width:0;height:0;display:none}
+#adminScreen .v16-import-results{scrollbar-width:none}
