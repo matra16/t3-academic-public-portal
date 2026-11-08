@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="th" data-surface="student">
+<head>
+<meta charset="utf-8">
+<base href="../">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f1faf5">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="T3 PBL Classroom — ระบบห้องเรียนโครงงานภาษาอังกฤษ">
+<meta name="color-scheme" content="light">
+<title>T3 PBL Classroom V9 — ระบบห้องเรียนโครงงาน</title>
+<link rel="canonical" href="https://matra16.github.io/t3-academic-public-portal/pbl/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="assets/v9.css?v=9">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'">
+</head>
+<body>
+<a class="skip" href="#main" data-ui="skip">ข้ามไปเนื้อหาหลัก</a>
+<header class="topbar">
+  <div class="topbar__inner">
+    <button type="button" class="logo" id="goHome" aria-label="T3 PBL Classroom">
+      <span class="logo__symbol" aria-hidden="true">🎬</span>
+      <span class="logo__type"><strong>T3 PBL CLASSROOM</strong><small data-ui="headerSub">ระบบห้องเรียนโครงงาน · V9</small></span>
+    </button>
+    <div class="topbar__actions">
+      <div class="language" id="languageControl" role="group" aria-label="UI language">
+        <button type="button" data-lang="th" lang="th" aria-pressed="true">ไทย</button>
+        <button type="button" data-lang="en" lang="en" aria-pressed="false">EN</button>
+      </div>
+      <button type="button" id="returnLearning" class="head-button" hidden data-ui="returnLearning">กลับไปเรียนรู้</button>
+    </div>
+  </div>
+</header>
+
+<div id="studentPreviewBanner" class="student-preview-banner" hidden role="status">
+ <span data-ui="previewWarning">มุมมองนักเรียนสำหรับตรวจหน้าจอเท่านั้น — อ่านอย่างเดียว ไม่บันทึกกิจกรรม</span>
+ <a href="admin/" data-ui="returnToAdmin">กลับหน้า Admin</a>
+</div>
+<main id="main" tabindex="-1">
+<section id="landing" class="landing" aria-labelledby="appName">
+ <div class="landing__inner">
+  <div class="landing__mark" aria-hidden="true">🎬</div>
+  <p class="landing__eyebrow">T3 PBL CLASSROOM · V9</p>
+  <h1 id="appName" data-ui="appTitle">ระบบห้องเรียนโครงงาน</h1>
+  <p class="landing__sub" data-ui="appSubtitle">Project-Based English Learning</p>
+  <button type="button" class="button button--primary button--large" id="enterLearning">
+   <span data-ui="enterLearning">เข้าสู่การเรียนรู้</span><span aria-hidden="true">→</span>
+  </button>
+ </div>
+</section>
+
+<section id="studio" class="studio" hidden aria-label="Learning workspace">
+  <div class="studio__head">
+    <div><p class="eyebrow" data-ui="studioEyebrow">ENGLISH VIDEO TOUR · VLOG</p>
+      <h1 data-ui="studioTitle">สร้าง Vlog แนะนำสถานที่ด้วยภาษาอังกฤษ</h1>
+      <p data-ui="studioIntro">พื้นที่ฝึกสร้างสรรค์สำหรับโครงงานตัวอย่าง ป.6 โดยใช้แนวทางการเรียนร่วมและการทำงานเป็นกลุ่ม</p>
+    </div>
+    <span class="scope-pill" data-ui="demoNotice">พื้นที่ฝึกทดลองบนอุปกรณ์นี้</span>
+  </div>
+  <nav class="studio-tabs" role="tablist" aria-label="Learning areas">
+    <button type="button" data-tab="project" role="tab" aria-selected="true" data-ui="tabProject">🎯 โครงงาน</button>
+    <button type="button" data-tab="workspace" role="tab" aria-selected="false" data-ui="tabWorkspace">📝 ลงมือสร้าง</button>
+    <button type="button" data-tab="coach" role="tab" aria-selected="false" data-ui="tabCoach">💡 โค้ชฝึกคิด</button>
+    <button type="button" data-tab="records" role="tab" aria-selected="false" data-ui="tabRecords">🕒 บันทึกกิจกรรม</button>
+  </nav>
+  <div id="tab-project" class="tab-panel" role="tabpanel">
+    <div class="notice" data-lesson-content="immutable">เนื้อหานี้อ้างอิงแผนโครงงานเดิมซึ่งยังไม่ใช่ตารางเรียนหรือเกณฑ์ประเมินที่อนุมัติใช้จริง</div>
+    <div class="project-layout">
+      <div class="paper">
+       <p class="eyebrow" data-ui="projectEyebrow">T3 ENGLISH VIDEO TOUR</p>
+       <h2 data-ui="projectHeading">โครงงานของเรา: วิดีโอแนะนำสถานที่</h2>
+       <p class="copy" data-lesson-content="immutable">สร้าง Vlog ภาษาอังกฤษ 6 ฉาก ความยาวประมาณ 3–4 นาที เพื่อแนะนำสถานที่ให้ผู้มาเยือนเข้าใจ โดยตรวจสอบข้อมูล ซ้อมพูด รับคำเสนอแนะ และปรับปรุงผลงาน</p>
+       <div class="project-chips"><span>🎬 6 SCENES</span><span>⏱️ 3–4 MIN</span><span>🔎 20 STEPS</span></div>
+       <h3 data-ui="chooseSite">เลือกสถานที่ตัวอย่าง</h3>
+       <div class="site-grid" id="siteGrid" role="group" aria-label="Place types"></div>
+       <p id="siteWarning" class="hint" data-lesson-content="immutable">การถ่ายทำหรือเผยแพร่จริงต้องได้รับอนุญาตจากโรงเรียน ผู้ดูแลพื้นที่ และผู้เกี่ยวข้องก่อน</p>
+      </div>
+      <aside class="paper paper--soft">
+       <h3 data-ui="learningMode">รูปแบบการเรียนรู้</h3>
+       <div class="mode-switch" role="group" aria-label="Mode">
+        <button type="button" data-mode="individual" aria-pressed="true"><span data-ui="individual">👤 รายบุคคล</span></button>
+        <button type="button" data-mode="team" aria-pressed="false"><span data-ui="team">👥 กลุ่มทดลอง</span></button>
+       </div>
+       <p id="modeExplanation" class="copy" data-ui="individualInfo">ฝึกภาษาอังกฤษและบันทึกความคิดรายบุคคล ก่อนเริ่มจัดกลุ่มตามแผนการสอน</p>
+       <div class="boundary">
+         <strong data-ui="scopeHeading">ขอบเขตของ V9</strong>
+         <p data-ui="scopeExplanation">ยังไม่มีระบบบัญชีผู้เรียน การทำงานพร้อมกันข้ามเครื่อง หรือทะเบียนรายชื่อจริง โปรดใช้รหัสตัวอย่างเท่านั้น</p>
+       </div>
+       <button type="button" class="button button--primary" id="startProject"><span data-ui="beginProject">เริ่มทำโครงงาน</span> →</button>
+      </aside>
+    </div>
+    <div class="paper guide-paper">
+     <h3 data-ui="workflowHeading">ขั้นตอนการสร้าง Vlog</h3>
+     <p class="hint" data-lesson-content="immutable">กระบวนการ 20 ขั้นจากแผนเดิม ครอบคลุมการสืบค้น พัฒนาภาษาอังกฤษ การผลิต และการสะท้อนคิด</p>
+     <ol id="milestoneOverview" class="workflow-list"></ol>
+<section class="share-card" aria-labelledby="shareHeading">
+  <div><h3 id="shareHeading" data-ui="shareProjectHeading">ลิงก์และ QR เข้าห้องเรียนโครงงาน</h3><p class="hint" data-ui="shareProjectNotice">QR นี้เปิดเฉพาะพื้นที่เรียนรู้ตัวอย่าง ไม่บรรจุข้อมูลผู้เรียนหรือรหัสกลุ่ม</p><a id="projectInviteLink" href="#"></a><div class="workspace-actions"><button type="button" id="copyProjectLink" class="button button--light" data-ui="copyProjectURL">คัดลอกลิงก์โครงงาน</button><button type="button" id="printProjectQR" class="button button--light" data-ui="printProjectQR">พิมพ์ QR</button></div></div>
+  <div id="projectQR" class="qr-box" role="img" aria-label="QR เข้าสู่การเรียนรู้"></div>
+ </section>
+    </div>
+  </div>
+
+  <div id="tab-workspace" class="tab-panel" role="tabpanel" hidden>
+   <div class="workspace">
+    <aside class="paper workflow-side">
+     <h2 data-ui="workspaceSteps">กระบวนการเรียนรู้</h2>
+     <label for="stepSelect" data-ui="selectStep">เลือกกิจกรรม</label>
+     <select id="stepSelect"></select>
+     <div class="progress-info"><span data-ui="draftSaved">บันทึกไว้บนอุปกรณ์</span><strong id="savedCount">0</strong></div>
+     <p class="hint" data-ui="draftPrivacy">ข้อความที่บันทึกจะอยู่เฉพาะในเบราว์เซอร์นี้ ไม่ใช่การส่งงานให้ครู</p>
+    </aside>
+    <section class="paper workspace-main">
+      <p class="eyebrow" id="stepCounter">STEP 01 / 20</p>
+      <h2 id="stepName">Project Entry</h2>
+      <p class="copy" id="stepTask"></p>
+      <div class="language-card">
+       <small data-ui="englishPrompt">ENGLISH PRACTICE · ไม่เปลี่ยนตามภาษาของเมนู</small>
+       <p id="englishQuestion" lang="en"></p>
+       <blockquote id="englishFrame" lang="en"></blockquote>
+      </div>
+      <label for="workNote" data-ui="noteLabel">แนวคิดและร่างงานของฉัน</label>
+      <textarea id="workNote" maxlength="1500" rows="5" spellcheck="true" data-ui-placeholder="notePlaceholder" placeholder="บันทึกแนวคิดสั้น ๆ"></textarea>
+      <div class="workspace-actions">
+       <button type="button" class="button button--primary" id="saveWork" data-ui="saveWork">บันทึกในอุปกรณ์นี้</button>
+       <button type="button" class="button button--light" id="nextStep" data-ui="nextStep">ไปขั้นต่อไป →</button>
+      </div>
+      <p class="hint" id="saveHint" data-ui="saveHint">ไม่มีการอัปโหลดข้อมูลไปยังฐานข้อมูลโรงเรียน</p>
+    </section>
+   </div>
+  </div>
+
+  <div id="tab-coach" class="tab-panel" role="tabpanel" hidden>
+    <div class="coach-layout">
+     <div class="paper">
+      <p class="eyebrow" data-ui="coachEyebrow">GUIDED PRACTICE · SAFETY FIRST</p>
+      <h2 data-ui="coachHeading">โค้ชฝึกคิดสำหรับงาน Vlog</h2>
+      <p class="copy" data-ui="offlineCoachNotice">ขณะนี้เป็นโค้ชแบบกฎและคำถามชี้แนะที่ทำงานในเบราว์เซอร์ ไม่ใช่ AI สร้างข้อความจริง และไม่มีการส่งคำตอบออกนอกอุปกรณ์</p>
+      <div id="chatHistory" class="chat-history" aria-live="polite"></div>
+      <label for="coachInput" data-ui="coachQuestionLabel">สิ่งที่อยากขอคำแนะนำ</label>
+      <textarea id="coachInput" rows="3" maxlength="500" data-ui-placeholder="coachPlaceholder" placeholder="เช่น เราจะเริ่มเขียนบท Vlog อย่างไรดี"></textarea>
+      <div class="workspace-actions"><button type="button" class="button button--primary" id="askCoach" data-ui="askCoach">ส่งคำถามฝึกคิด</button><button type="button" class="button button--light" id="resetCoach" data-ui="resetCoach">เริ่มบทสนทนาใหม่</button></div>
+     </div>
+     <aside class="paper paper--soft">
+      <h3>🤖 AI Expert</h3>
+      <p class="copy" data-ui="aiGate">โหมด AI ผู้เชี่ยวชาญสำหรับรายบุคคลและหลายกลุ่มยังไม่เปิดจริง เนื่องจากต้องตรวจผู้ให้บริการที่อนุญาตให้เด็กใช้ ระบบสิทธิ์ การควบคุมข้อมูล และค่าใช้จ่ายก่อน</p>
+      <p class="hint" data-ui="aiNotLive">สถานะ: รอระบบ AI ฝั่งเซิร์ฟเวอร์ที่ผ่านการตรวจรับ — ไม่ใช่ AI ที่ออนไลน์</p>
+      <h3 data-ui="coachTopics">ตัวอย่างเรื่องที่ปรึกษาได้</h3>
+      <ul class="coach-topics" id="coachTopics"></ul>
+     </aside>
+    </div>
+  </div>
+
+  <div id="tab-records" class="tab-panel" role="tabpanel" hidden>
+   <div class="paper">
+    <p class="eyebrow">LOCAL DEMO LOG · V9</p>
+    <h2 data-ui="recordsHeading">บันทึกกิจกรรมในอุปกรณ์นี้</h2>
+    <p class="copy" data-ui="recordsExplanation">เป็นบันทึกเฉพาะเบราว์เซอร์นี้เพื่อทดสอบขั้นตอน ไม่ใช่ระบบติดตามการเข้าใช้งานนักเรียนหลายคนหรือหลายเครื่องของโรงเรียน และไม่เก็บข้อความสนทนาหรือไฟล์วิดีโอในรายการเหตุการณ์</p>
+    <div class="record-actions"><button type="button" class="button button--light" id="clearLogs" data-ui="clearLogs">ล้างบันทึกทดลอง</button><span class="hint" data-ui="recordsRetention">เก็บสูงสุด 100 เหตุการณ์ล่าสุด ไม่เกิน 7 วัน</span></div>
+    <div class="record-table-wrap"><table><thead><tr><th data-ui="eventTime">เวลา</th><th data-ui="eventAction">เหตุการณ์</th><th data-ui="eventScope">รูปแบบ</th></tr></thead><tbody id="logRows"></tbody></table></div>
+   </div>
+  </div>
+  <div class="footer-warning" data-ui="studioFooter">เว็บไซต์นี้เป็นพื้นที่ฝึกทดลองสาธารณะ ไม่ใช่ระบบส่งงาน การประเมินคะแนน หรือการเก็บหลักฐานส่วนบุคคลอย่างเป็นทางการ</div>
+</section>
+</main>
+<div id="toast" role="status" aria-live="polite" hidden></div>
+<script src="assets/qrcode.min.js?v=1.0.0" defer></script>
+<script src="assets/v9.js?v=9" defer></script>
+</body>
+</html>
