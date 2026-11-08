@@ -143,3 +143,11 @@ button:disabled{cursor:not-allowed}
  #main #welcome .student-card input,#main #welcome #searchResults [role=option],
  #adminScreen .v14-admin-tabs button{transition:none}
 }
+
+
+/* Informational toast must never intercept lesson and Admin buttons. */
+#toast{pointer-events:none!important}
+@media(max-height:520px){
+ #toast{top:max(5px,env(safe-area-inset-top,0px));bottom:auto;left:50%;right:auto;
+  transform:translateX(-50%);max-width:min(480px,calc(100vw - 18px));padding:7px 12px;font-size:11px}
+}
