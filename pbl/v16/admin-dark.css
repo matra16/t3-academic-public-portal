@@ -1,0 +1,186 @@
+/* PBL V16 — complete Admin Dark Mode. Scope excludes all student-facing UI. */
+body.v16-admin-dark{
+ --v16-bg:#081726;--v16-panel:#10283e;--v16-panel-alt:#153449;
+ --v16-border:#2b5068;--v16-ink:#e7f4fc;--v16-muted:#a9c4d1;
+ --v16-teal:#33d6b4;--v16-blue:#76b8ff;
+ background:#071727!important;color:var(--v16-ink)!important;
+}
+body.v16-admin-dark #main{background:linear-gradient(145deg,#071728 0%,#0a1d33 45%,#08293a 100%)!important}
+body.v16-admin-dark #adminScreen,
+body.v16-admin-dark #passwordScreen{
+ color:var(--v16-ink);background:transparent!important;
+}
+body.v16-admin-dark #adminScreen .dashboard-head h1,
+body.v16-admin-dark #passwordScreen h1,
+body.v16-admin-dark #passwordScreen h2,
+body.v16-admin-dark #adminScreen .panel h2,
+body.v16-admin-dark #adminScreen .group-overview h2{color:#f0f9ff!important}
+body.v16-admin-dark #adminScreen .dashboard-head .eyebrow,
+body.v16-admin-dark #adminScreen .tag{color:#47e0c5!important}
+body.v16-admin-dark #adminScreen .muted,
+body.v16-admin-dark #passwordScreen .muted,
+body.v16-admin-dark #adminScreen .panel .help,
+body.v16-admin-dark #adminScreen .group-overview .muted{color:var(--v16-muted)!important}
+body.v16-admin-dark #adminScreen .panel,
+body.v16-admin-dark #passwordScreen .panel,
+body.v16-admin-dark #adminScreen .admin-grid>.panel,
+body.v16-admin-dark #adminScreen .group-overview{
+ background:linear-gradient(145deg,#122b40,#0d2338)!important;
+ border:1px solid #2d5671!important;
+ color:var(--v16-ink)!important;
+ box-shadow:0 12px 31px rgba(0,0,0,.13)!important;
+}
+body.v16-admin-dark #adminScreen label,
+body.v16-admin-dark #passwordScreen label{color:#cfe6f1!important}
+body.v16-admin-dark #adminScreen input,
+body.v16-admin-dark #adminScreen select,
+body.v16-admin-dark #adminScreen textarea,
+body.v16-admin-dark #passwordScreen input,
+body.v16-admin-dark #passwordScreen select{
+ background:#071e30!important;color:#effbff!important;
+ border:1px solid #40647c!important;
+ caret-color:#5de1d1;
+}
+body.v16-admin-dark #adminScreen input::placeholder,
+body.v16-admin-dark #passwordScreen input::placeholder{color:#8eacc0!important;opacity:1}
+body.v16-admin-dark #adminScreen input:focus,
+body.v16-admin-dark #adminScreen select:focus,
+body.v16-admin-dark #passwordScreen input:focus{
+ border-color:#4bd6be!important;outline:2px solid #55d7c0!important;outline-offset:2px;
+}
+body.v16-admin-dark #adminScreen .v14-admin-tabs button{
+ background:#18394e!important;color:#cfe3ef!important;border-color:#355b73!important;
+}
+body.v16-admin-dark #adminScreen .v14-admin-tabs button[aria-selected="true"]{
+ background:linear-gradient(120deg,#078d84,#2579b9)!important;
+ color:#fff!important;border-color:#42bfc0!important;
+}
+body.v16-admin-dark #adminScreen .btn.primary,
+body.v16-admin-dark #passwordScreen .btn.primary{
+ background:linear-gradient(112deg,#0c9f91,#2475bf)!important;color:white!important;
+}
+body.v16-admin-dark #adminScreen .btn.neutral,
+body.v16-admin-dark #passwordScreen .btn.neutral{
+ background:#1a4156!important;color:#e0f6fc!important;border:1px solid #377087!important;
+}
+body.v16-admin-dark #adminScreen .roster-item{
+ background:#153247!important;color:#edf8ff!important;border:1px solid #345a70!important;
+}
+body.v16-admin-dark #adminScreen .roster-item strong{color:#f4fbff!important}
+body.v16-admin-dark #adminScreen .roster-item small{color:#aacbd9!important}
+body.v16-admin-dark #adminScreen .mini{
+ background:#22445b!important;border-color:#44718a!important;color:#d9f9fd!important;
+}
+body.v16-admin-dark #adminScreen .mini.warn{color:#ffd9b9!important}
+body.v16-admin-dark #adminScreen .group-chip{
+ background:#1b4254!important;border-color:#346b76!important;color:#daf5f4!important;
+}
+body.v16-admin-dark #adminScreen .group-chip strong{color:#e5fbfb}
+body.v16-admin-dark #adminScreen .v151-preview-notice,
+body.v16-admin-dark #adminScreen .v16-roster-tag[data-kind="warning"]{
+ background:#544024!important;border:1px solid #886e3f!important;color:#ffe5aa!important;
+}
+body.v16-admin-dark #adminScreen .v16-roster-tag[data-kind="preview"]{
+ background:#184453;border-color:#316f7c;color:#94f0dd;
+}
+body.v16-admin-dark .footer{
+ background:#081d2d!important;color:#aac5d5!important;border-top:1px solid #24465c!important;
+}
+body.v16-admin-dark .session-toolbar button:not([hidden]){
+ background:#163c50!important;color:#d4f5fa!important;border:1px solid #3f7387!important;
+}
+body.v16-admin-dark #secretDialog{background:#030d19c9}
+body.v16-admin-dark #secretDialog .modal{
+ color:#e9f6fc;background:#112c44!important;border:1px solid #41637b!important;
+}
+body.v16-admin-dark #secretDialog h2{color:#f0fbff}
+body.v16-admin-dark #secretDialog .muted{color:#b2cbd6}
+body.v16-admin-dark #secretDialog .secret{
+ background:#082036;color:#aff5e6;border-color:#499f92;
+}
+body.v16-admin-dark #toast{background:#144457!important;color:white!important;border:1px solid #448ea0!important}
+
+/* Source selection panel, designed for both desktop and touch devices. */
+#adminScreen .v16-enrolment{max-width:100%;padding:0;margin:0 0 16px}
+#adminScreen .v16-enrol-head{display:flex;align-items:flex-start;justify-content:space-between;gap:13px;flex-wrap:wrap;margin-bottom:12px}
+#adminScreen .v16-enrol-head h3{font-size:clamp(17px,2.5vh,22px);line-height:1.4;margin:0 0 4px;color:#f0f8ff}
+#adminScreen .v16-enrol-head p{font-size:12px;color:#a9c5d3;line-height:1.65;margin:0}
+#adminScreen .v16-roster-tag{
+ display:inline-flex;align-items:center;white-space:nowrap;font-weight:800;font-size:11px;
+ border:1px solid #357b87;background:#164a53;color:#91f5d9;border-radius:99px;padding:6px 10px;
+}
+#adminScreen .v16-roster-filters{display:grid;grid-template-columns:170px minmax(0,1fr);gap:10px;margin:12px 0}
+#adminScreen .v16-roster-filters label{display:flex;flex-direction:column;gap:4px;font-size:12px}
+#adminScreen .v16-roster-filters input,#adminScreen .v16-roster-filters select{width:100%;min-height:44px}
+#adminScreen .v16-roster-toolbar{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin:8px 0}
+#adminScreen .v16-minibtn{
+ background:#194456;color:#daf7fa;border:1px solid #437489;border-radius:10px;
+ min-height:40px;padding:7px 11px;font-size:12px;font-weight:750;cursor:pointer;
+}
+#adminScreen .v16-minibtn:hover:not(:disabled){background:#236077}
+#adminScreen .v16-minibtn:focus-visible{outline:3px solid #61ddc6;outline-offset:2px}
+#adminScreen .v16-minibtn:disabled{opacity:.43;cursor:not-allowed}
+#adminScreen #v16SelectionCount{margin-left:auto;color:#81e9d1;font-size:13px;font-weight:800}
+#adminScreen .v16-roster-list{
+ display:flex;flex-direction:column;gap:7px;min-height:125px;
+ max-height:clamp(130px,26vh,270px);overflow-y:auto;overflow-x:hidden;
+ padding:8px;border:1px solid #345e74;background:#071b2b;
+ border-radius:13px;scrollbar-width:none;
+}
+#adminScreen .v16-roster-list .v16-empty{color:#a9c5d4;line-height:1.6;margin:13px;font-size:13px}
+#adminScreen .v16-learner{
+ display:flex;align-items:center;gap:10px;min-height:51px;
+ padding:8px 11px;border:1px solid #294e66;background:#17344a;
+ border-radius:10px;cursor:pointer;margin:0;
+}
+#adminScreen .v16-learner:has(input:checked){background:#114a53;border-color:#26bca5}
+#adminScreen .v16-learner.v16-existing{opacity:.62;cursor:not-allowed}
+#adminScreen .v16-learner input[type=checkbox]{
+ appearance:auto!important;width:19px!important;min-width:19px!important;height:19px!important;
+ min-height:19px!important;flex:0 0 auto;accent-color:#1ed7a8!important;margin:0;
+}
+#adminScreen .v16-person{display:flex;flex-direction:column;flex:1;min-width:0;gap:3px}
+#adminScreen .v16-person strong{color:#effaff;font-size:13px;font-weight:800;overflow-wrap:anywhere}
+#adminScreen .v16-person small{color:#b0cfe0;font-size:11px}
+#adminScreen .v16-learner-status{
+ color:#a9dccf;font-size:11px;font-weight:700;
+ white-space:nowrap;max-width:94px;text-align:right;
+}
+#adminScreen .v16-existing .v16-learner-status{color:#ffc993}
+#adminScreen .v16-enrol-footer{padding-top:12px;display:flex;flex-direction:column;gap:9px}
+#adminScreen .v16-help{font-size:12px;color:#a7cbd7;line-height:1.6;margin:0}
+#adminScreen .v16-help[data-kind=warning]{color:#ffd291}
+#adminScreen .v16-help[data-kind=success]{color:#80efd4}
+#adminScreen .v16-enrol-btn{width:100%;min-height:47px;font-size:14px}
+#adminScreen .v16-enrol-btn:disabled{background:#29455b!important;opacity:.6}
+#adminScreen .v16-import-results{
+ padding:12px;margin-top:14px;border:1px solid #428a90;
+ border-radius:12px;background:#0d3546;color:#e6f9fa;
+ max-height:min(34vh,260px);overflow-y:auto;overflow-x:hidden;
+}
+#adminScreen .v16-import-results h4{margin:0 0 5px;color:#9bece0;font-size:15px}
+#adminScreen .v16-import-results p{font-size:12px;margin:6px 0;line-height:1.5}
+#adminScreen .v16-import-results details{margin:7px 0;border-top:1px solid #35677b;padding-top:7px}
+#adminScreen .v16-import-results summary{cursor:pointer;font-size:13px;font-weight:800}
+#adminScreen .v16-import-results li{font-size:12px;line-height:1.5;margin:5px 0}
+#adminScreen .v16-import-results code{
+ display:inline;color:#b8ffe6;background:#174e52;padding:2px 5px;border-radius:4px;
+ overflow-wrap:anywhere;word-break:break-word;
+}
+#adminScreen .v16-manual-entry{border-top:1px solid #36556b;margin-top:19px;padding-top:13px}
+#adminScreen .v16-manual-entry summary{font-size:12px;color:#9ebfcf;font-weight:800;cursor:pointer;min-height:32px}
+#adminScreen .v16-manual-entry form{padding:5px 0 0}
+@media(max-width:520px){
+ #adminScreen .v16-roster-filters{grid-template-columns:1fr}
+ #adminScreen .v16-roster-toolbar .v16-minibtn{flex:1 1 40%;font-size:11px}
+ #adminScreen #v16SelectionCount{width:100%;text-align:right}
+ #adminScreen .v16-learner{padding:7px;gap:7px}
+ #adminScreen .v16-learner-status{font-size:10px}
+}
+@media(max-height:520px){
+ #adminScreen .v16-roster-list{max-height:37vh}
+ #adminScreen .v16-enrol-head h3{font-size:17px}
+}
+
+#adminScreen .v16-roster-list::-webkit-scrollbar,#adminScreen .v16-import-results::-webkit-scrollbar{width:0;height:0;display:none}
+#adminScreen .v16-import-results{scrollbar-width:none}
