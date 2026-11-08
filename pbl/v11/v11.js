@@ -26,6 +26,7 @@ const STEPS=[
  ['Reflection · สะท้อนคิด','What did I learn and contribute?','I learned… I contributed by…','สะท้อนรายบุคคลและกลุ่ม สรุปทักษะที่ฝึกและสิ่งที่ควรพัฒนา']
 ];
 const individualSteps=[1,2,9,13,20];
+const p6Classes=['6.1','6.2','6.3'];
 const S={token:'',role:'',dashboard:null,admin:null,step:1,preview:false};
 const status=(message,type='')=>{const b=$('banner');b.textContent=message;b.className='banner '+type;};
 let toastTimer;
@@ -46,6 +47,7 @@ function updateToken(token) {
 }
 function togglePrivateInputs(){
  if(backend)return;
+ fillClasses(p6Classes);
  $('studentPassword').disabled=true;$('adminPassword').disabled=true;
  $('studentPassword').placeholder='ต้องเปิดผ่านระบบโรงเรียน';$('adminPassword').placeholder='ต้องเปิดผ่านระบบโรงเรียน';
  const tools=document.createElement('div');tools.className='preview-links';
@@ -80,6 +82,7 @@ function fillSelect(sel,items,placeholder) {
  if(items.includes(chosen))sel.value=chosen;
 }
 function fillClasses(items){
+ items=items.filter(cls=>p6Classes.includes(cls));
  ['studentClass','addClass','groupClass','rosterFilter'].forEach(id=>fillSelect($(id),items,id==='rosterFilter'?'ทุกห้อง':'เลือกห้องเรียน'));
  const params=new URLSearchParams(location.search),cls=params.get('class'),code=params.get('gate');
  if(cls&&items.includes(cls))$('studentClass').value=cls;
