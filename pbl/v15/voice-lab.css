@@ -1,0 +1,98 @@
+/* PBL V15 British Listening & Speaking Studio — additive to V14.1 */
+#studentScreen .voice-lab{
+ width:100%;max-width:100%;min-width:0;margin:clamp(10px,1.8vh,19px) 0;
+ padding:clamp(13px,2vh,20px);
+ background:linear-gradient(134deg,#f0fffa 0%,#f4faff 62%,#fff9ef 100%);
+ border:1px solid #b1e4d6;border-radius:17px;
+ box-shadow:0 8px 28px rgba(19,108,139,.07);
+}
+#studentScreen .voice-lab *{box-sizing:border-box;min-width:0}
+.voice-lab-head{display:flex;align-items:center;gap:12px;margin-bottom:13px}
+.voice-lab-mark{display:grid;place-items:center;flex:none;width:43px;height:43px;border-radius:13px;color:white;background:linear-gradient(135deg,#09b69c,#327fd2);box-shadow:0 7px 15px #0d9d9a2a}
+#studentScreen .voice-lab h3{font-size:clamp(16px,2.4vh,20px);line-height:1.35;margin:0;color:#164966;font-weight:800}
+#studentScreen .voice-lab-head p{font-size:12px;line-height:1.5;color:#487f88;margin:3px 0 0}
+.voice-lab-selects{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+#studentScreen .voice-lab label{display:flex;flex-direction:column;gap:5px;color:#1c5368;font-weight:800;font-size:clamp(12px,1.7vh,14px);margin:0}
+#studentScreen .voice-lab select,#studentScreen .voice-lab textarea{
+ width:100%;max-width:100%;border:1px solid #abd6d4;border-radius:11px;
+ background:white;color:#163d58;font:600 clamp(13px,1.75vh,15px) "Sarabun",sans-serif;
+ padding:9px 11px;line-height:1.4;
+}
+#studentScreen .voice-lab select{min-height:44px}
+#studentScreen .voice-lab textarea{min-height:65px;max-height:115px;resize:vertical;overflow:auto}
+#studentScreen .voice-lab select:focus-visible,#studentScreen .voice-lab textarea:focus-visible,
+#studentScreen .voice-lab button:focus-visible{
+ outline:3px solid #1d7fc3;outline-offset:2px;
+}
+#studentScreen .voice-lab .voice-sub-label{margin-top:11px;margin-bottom:4px}
+#studentScreen .voice-lab .voice-availability{
+ font-size:12px;line-height:1.45;color:#376f7d;background:#e5f6f4;
+ border-radius:9px;padding:8px 10px;margin:6px 0 10px;
+}
+#studentScreen .voice-lab .voice-availability[data-alert=warning]{
+ background:#fff1d8;color:#815512;
+}
+#studentScreen .voice-lab .voice-availability[data-alert=error]{
+ background:#ffebeb;color:#9a3340;
+}
+.voice-sample-actions{display:flex;gap:7px;flex-wrap:wrap;margin:4px 0 10px}
+#studentScreen .voice-lab .voice-mini-btn{
+ flex:1 1 145px;min-height:39px;padding:7px 10px;border-radius:11px;
+ background:#e7f4f5;color:#266b83;border:1px solid #c5dfe0;
+ font-size:12px;font-weight:800;white-space:normal;
+}
+#studentScreen .voice-lab .voice-mini-btn[aria-pressed=true]{
+ color:#065c62;background:#d1f6e7;border-color:#58caaa;
+}
+.voice-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+#studentScreen .voice-lab .voice-action{
+ flex:1 1 104px;display:flex;align-items:center;justify-content:center;
+ gap:5px;border:1px solid #badedc;border-radius:11px;
+ min-height:44px;padding:8px 10px;background:#fff;color:#21617b;
+ font-size:clamp(12px,1.8vh,14px);font-weight:800;
+ line-height:1.3;text-align:center;
+}
+#studentScreen .voice-lab .voice-action:not(:disabled):hover{border-color:#39aa9d;background:#e8fbf2}
+#studentScreen .voice-lab .voice-action-primary{
+ background:linear-gradient(108deg,#009f8b,#2684d4);color:white;border-color:transparent;
+}
+#studentScreen .voice-lab .voice-action-primary:not(:disabled):hover{background:linear-gradient(108deg,#007e6c,#1864b1);color:white}
+#studentScreen .voice-lab .voice-action-record{background:#ffebef;border-color:#f4c2cc;color:#9d3753}
+#studentScreen .voice-lab .voice-action-record:not(:disabled):hover{background:#ffdae4;border-color:#ea94a6}
+#studentScreen .voice-lab .voice-action:disabled{opacity:.5;cursor:not-allowed}
+.voice-practice{margin-top:14px;padding-top:12px;border-top:1px solid #c8e9e0}
+.voice-practice-label{display:flex;gap:6px;flex-wrap:wrap;justify-content:space-between;align-items:baseline}
+.voice-practice-label strong{color:#194c6e;font-size:14px}
+.voice-practice-label span{font-size:11px;color:#538291}
+#studentScreen .voice-lab audio{display:block;width:100%;max-width:100%;height:44px;margin:11px auto 0}
+#studentScreen .voice-lab audio[hidden]{display:none!important}
+#studentScreen .voice-lab .voice-check{width:100%;margin-top:9px;background:#e3effd;color:#1a6593}
+#studentScreen .voice-lab .voice-recognised{
+ border-radius:10px;border:1px solid #a7d7cf;background:white;
+ color:#14566f;font-size:14px;line-height:1.5;padding:10px;
+ margin:9px 0;overflow-wrap:anywhere;
+}
+#studentScreen .voice-lab .voice-recognised[hidden]{display:none}
+#studentScreen .voice-lab .voice-privacy{
+ font-size:11px;line-height:1.6;color:#55788a;margin:11px 0 0;
+}
+#studentScreen .voice-lab .voice-lab-status{
+ font-size:12px;line-height:1.5;font-weight:700;color:#1d6576;
+ margin:12px 0 0;padding:9px 11px;border-radius:10px;
+ background:#e4f5f6;border:1px solid #c4e7e6;
+}
+#studentScreen .voice-lab .voice-lab-status[data-kind=warning]{background:#fff2df;color:#875719;border-color:#f3d8a4}
+#studentScreen .voice-lab .voice-lab-status[data-kind=success]{background:#e2f8ed;color:#126e55;border-color:#a8e8c9}
+@media(max-width:520px){
+ #studentScreen .voice-lab{padding:12px 10px;border-radius:13px}
+ .voice-lab-selects{gap:7px}
+ #studentScreen .voice-lab select{padding:8px 6px;font-size:12px}
+ #studentScreen .voice-lab .voice-action{min-height:44px;flex:1 1 calc(50% - 8px)}
+ #studentScreen .voice-lab .voice-action-primary{flex:1 1 100%}
+}
+@media(orientation:landscape) and (max-height:540px){
+ #studentScreen .voice-lab{padding:11px}
+ #studentScreen .voice-lab .voice-action{min-height:38px}
+ #studentScreen .voice-lab textarea{min-height:52px}
+}
+@media(prefers-reduced-motion:reduce){#studentScreen .voice-lab *{transition:none!important}}
