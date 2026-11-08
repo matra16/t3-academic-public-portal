@@ -1,0 +1,45 @@
+/* V15.1: Admin enters a password immediately, dark theme inherited from V15. */
+#adminBackdrop #demoAdminBtn[hidden],
+#adminBackdrop #adminPreviewHelp[hidden]{display:none!important}
+#adminBackdrop .admin-access #adminPassword:not(:disabled){
+ background:#0b1c32;color:#f4faff;border-color:#479eae;
+ font-size:18px;letter-spacing:.08em;
+}
+#adminBackdrop .admin-access #adminPassword:not(:disabled):focus{
+ outline:3px solid #42dcca;outline-offset:2px;
+ border-color:#45d3c1;background:#10283c;
+}
+#adminBackdrop .admin-access #adminLogin button[type=submit]:not(:disabled){
+ opacity:1;color:#fff;
+ background:linear-gradient(112deg,#0bbc9c,#277ed4);
+ border:1px solid rgba(106,220,223,.4);
+ box-shadow:0 8px 21px rgba(4,137,155,.27);
+ cursor:pointer;
+ min-height:50px;
+ font-size:15px;
+}
+#adminBackdrop .admin-access #adminLogin button[type=submit]:not(:disabled):hover{
+ background:linear-gradient(112deg,#009d83,#1569bb);
+}
+#adminBackdrop .admin-access .v151-admin-help{
+ font-size:12px;line-height:1.55;
+ color:#a7c9d6;text-align:center;
+ margin:13px 0 0;
+}
+#adminBackdrop .admin-access .v151-admin-feedback{
+ font-size:13px;line-height:1.45;font-weight:800;
+ background:#562938;color:#ffdee3;border:1px solid #9c4d67;
+ border-radius:10px;padding:9px 11px;margin:12px 0 0;
+ text-align:center;
+}
+#adminBackdrop .admin-access .v151-admin-feedback[hidden]{display:none!important}
+#adminScreen .v151-preview-notice{
+ border:1px solid #fad79a;background:#fff4df;color:#81531a;
+ border-radius:12px;padding:10px 13px;
+ font-size:13px;line-height:1.55;font-weight:700;
+ margin:2px 0 10px;flex:0 0 auto;
+}
+@media(max-height:520px){
+ #adminBackdrop .admin-access .v151-admin-help{font-size:11px;margin:7px 0 0}
+ #adminScreen .v151-preview-notice{font-size:11px;padding:7px 9px}
+}
