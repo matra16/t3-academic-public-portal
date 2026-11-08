@@ -1,0 +1,11 @@
+{
+  "version": 10,
+  "uiLanguageSwitchEnabled": true,
+  "defaultUiLanguage": "th",
+  "aiExpertEnabled": false,
+  "centralActivityLogEnabled": false,
+  "cloudGroupSyncEnabled": false,
+  "videoUploadsEnabled": false,
+  "changedBy": "authorized-github-contributor-only",
+  "scope": "public UI only; no official roster, group sync or student identity"
+}
