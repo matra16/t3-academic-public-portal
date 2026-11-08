@@ -4,6 +4,10 @@
 **Status:** SOURCE_STAGED / SYNTHETIC_TESTED • NOT SCHOOL GAS DEPLOYED • NO REAL ROSTER IMPORTED  
 **Owner-facing version:** V11 • **Safe public path:** /pbl/v11/ preview UI (if merged) • **V10 stays untouched at** /pbl/.
 
+## Explicit cohort: Grade 6 only
+
+**Allowed classes: P.6/1, P.6/2 and P.6/3 (6.1 / 6.2 / 6.3).** Only Grade 6 student accounts may be created, listed, authenticated, reset, enabled, grouped or assigned progress in V11. Admin is authorized separately. Server RPC rejects other class identifiers, even if an older configuration still contains class codes. This is a hard restriction on the Apps Script adapter, not just a dropdown filter. No Kindergarten or Grades P1–P5 roster data is required or permitted for this PBL project. The restricted P6 official roster still requires owner source reconciliation and privacy review before account import.
+
 ## User workflow
 
 - Admin account **username**: \`matra160114\`. The initial password is **not** defined in repository code or chat. School owner configures it privately and must change it on first login.
@@ -32,7 +36,7 @@ After owner-approved backup/revision and scope decision, the school can attach *
 | 24_LMS_WORK | Individual/group step evidence, edit revision, last editor | RESTRICTED STUDENT |
 | 25_LMS_AUDIT | Admin creates/resets/disables, group management, password-change events; **no secrets** | RESTRICTED AUDIT |
 
-The 22-tab workbook is currently **P6-project-teaching** focused. Importing K–P6 schoolwide records is a **separate data-owner/schema decision**, not inferred from the code or the V10 November candidate workbook. **Do not copy school roster names to GitHub Pages, public JSON, public admin UI or external AI.**
+The existing 22-tab workbook is **P6-project-teaching** focused, matching this newly confirmed Grade 6-only scope. Import only approved P6 records, using the existing restricted source and owner gate. Never import K–P5 learners, create a schoolwide roster clone or copy student names to GitHub Pages, public JSON, public admin UI or external AI.
 
 ## Owner-controlled GAS installation checklist (not yet executed)
 
