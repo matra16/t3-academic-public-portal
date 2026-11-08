@@ -7,12 +7,13 @@
 <meta name="referrer" content="no-referrer">
 <meta name="description" content="T3 PBL Classroom — ระบบห้องเรียนโครงงานภาษาอังกฤษ">
 <meta name="color-scheme" content="light">
-<title>T3 PBL Classroom V9 — ระบบห้องเรียนโครงงาน</title>
+<title>T3 PBL Classroom V10 — ระบบห้องเรียนโครงงาน</title>
 <link rel="canonical" href="https://matra16.github.io/t3-academic-public-portal/pbl/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700;800&display=swap">
 <link rel="stylesheet" href="assets/v9.css?v=9-1">
+<link rel="stylesheet" href="assets/v10-onboarding.css?v=10">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'">
 </head>
 <body>
@@ -21,7 +22,7 @@
   <div class="topbar__inner">
     <button type="button" class="logo" id="goHome" aria-label="T3 PBL Classroom">
       <span class="logo__symbol" aria-hidden="true">🎬</span>
-      <span class="logo__type"><strong>T3 PBL CLASSROOM</strong><small data-ui="headerSub">ระบบห้องเรียนโครงงาน · V9</small></span>
+      <span class="logo__type"><strong>T3 PBL CLASSROOM</strong><small data-ui="headerSub">ระบบห้องเรียนโครงงาน · V10</small></span>
     </button>
     <div class="topbar__actions">
       <div class="language" id="languageControl" role="group" aria-label="UI language">
@@ -45,7 +46,7 @@
 <section id="landing" class="landing" aria-labelledby="appName">
  <div class="landing__inner">
   <div class="landing__mark" aria-hidden="true">🎬</div>
-  <p class="landing__eyebrow">T3 PBL CLASSROOM · V9</p>
+  <p class="landing__eyebrow">T3 PBL CLASSROOM · V10</p>
   <h1 id="appName" data-ui="appTitle">ระบบห้องเรียนโครงงาน</h1>
   <p class="landing__sub" data-ui="appSubtitle">Project-Based English Learning</p>
   <button type="button" class="button button--primary button--large" id="enterLearning">
@@ -54,6 +55,44 @@
  </div>
 </section>
 
+
+<section id="v10Onboarding" hidden class="v10-onboarding" aria-labelledby="v10Title">
+ <div class="v10-header"><p>🎒 STUDENT PROFILE · GROUP WORKSPACE · V10</p><h1 id="v10Title" data-v10="title">สร้างโปรไฟล์เพื่อเริ่มโครงงาน</h1>
+ <p data-v10="subtitle">สแกน QR แล้วเลือกโปรไฟล์ของตนเอง ก่อนเริ่มเรียนรายบุคคลและเตรียมสร้างกลุ่ม Vlog</p></div>
+ <div class="v10-warning" role="note"><strong data-v10="privacyHead">พื้นที่ทดลองบนอุปกรณ์นี้เท่านั้น</strong>
+ <p data-v10="privacyText">ใช้ชื่อสมมติเท่านั้น ห้ามกรอกชื่อจริง นามสกุล เลขประจำตัว หรือข้อมูลส่วนตัว ระบบยังไม่เชื่อมทะเบียนนักเรียนจริง</p></div>
+ <div class="v10-grid">
+ <section class="v10-card"><p class="v10-overline" data-v10="stepProfile">STEP 1 · PROFILE</p><h2 data-v10="profileTitle">โปรไฟล์ของฉัน</h2>
+  <form id="v10ProfileForm" novalidate autocomplete="off">
+   <label for="v10Alias" data-v10="aliasLabel">ชื่อสมมติของฉัน</label>
+   <input type="text" id="v10Alias" minlength="2" maxlength="16" placeholder="Explorer7" autocomplete="off" required>
+   <p class="v10-help" data-v10="aliasHelp">ใช้อักษรอังกฤษและตัวเลข 2–16 ตัวเท่านั้น ไม่ใช้ชื่อจริง</p>
+   <label for="v10Class" data-v10="classLabel">ห้องเรียน</label>
+   <select id="v10Class"><option value="5.1">ป.5/1</option><option value="5.2">ป.5/2</option><option value="5.3">ป.5/3</option>
+    <option value="6.1">ป.6/1</option><option value="6.2">ป.6/2</option><option value="6.3">ป.6/3</option></select>
+   <fieldset><legend data-v10="avatarLabel">สัญลักษณ์โปรไฟล์</legend><div class="v10-avatars" id="v10Avatars"></div></fieldset>
+   <label class="v10-check"><input type="checkbox" id="v10Remember"><span data-v10="rememberLabel">จำโปรไฟล์ในเบราว์เซอร์นี้ (อุปกรณ์ส่วนตัวเท่านั้น)</span></label>
+   <p class="v10-help" data-v10="rememberHelp">ไม่เลือก = เก็บเพียงในเซสชันนี้ ลบโปรไฟล์ได้ทุกเมื่อ</p>
+   <p class="v10-feedback" id="v10ProfileMessage" role="status" aria-live="polite"></p>
+   <div class="v10-actions"><button type="submit" class="button button--primary" data-v10="saveProfile">บันทึกโปรไฟล์</button><button type="button" class="button button--light" id="v10ClearProfile" data-v10="clearProfile">ล้างโปรไฟล์</button></div>
+  </form><div id="v10ProfileCard" class="v10-saved" hidden aria-live="polite"></div>
+ </section>
+ <section class="v10-card"><p class="v10-overline" data-v10="stepGroup">STEP 2 · GROUP</p><h2 data-v10="groupTitle">สร้างกลุ่มโครงงาน</h2>
+  <p class="v10-help" data-v10="teacherGate">ให้เริ่มเรียนรายบุคคลก่อน ครูจะเป็นผู้อนุมัติกลุ่มจริงขนาด 4–5 คน ส่วนกลุ่มในหน้านี้เป็นการทดลองบนเบราว์เซอร์เท่านั้น</p>
+  <label for="v10GroupName" data-v10="groupNameLabel">ชื่อกลุ่มตัวอย่าง</label><input id="v10GroupName" type="text" maxlength="24" placeholder="VLOG TEAM A">
+  <div class="v10-actions"><button type="button" id="v10CreateGroup" class="button button--primary" data-v10="createGroup">สร้างกลุ่มตัวอย่าง</button>
+  <button type="button" id="v10LeaveGroup" class="button button--light" data-v10="leaveGroup">ออกจากกลุ่ม</button></div>
+  <div class="v10-saved" id="v10GroupCard" hidden></div>
+  <label for="v10GroupCode" data-v10="joinLabel">รหัสกลุ่มตัวอย่างในอุปกรณ์นี้</label><div class="v10-join">
+   <input type="text" maxlength="8" id="v10GroupCode" placeholder="ABC123" autocomplete="off">
+   <button type="button" class="button button--light" id="v10JoinGroup" data-v10="joinGroup">เข้าร่วม</button></div>
+  <p class="v10-feedback" id="v10GroupMessage" role="status" aria-live="polite"></p>
+  <p class="v10-help" data-v10="crossDevice">ยังไม่รองรับการเข้ากลุ่มข้ามอุปกรณ์หรือการเชื่อมรายชื่อเด็กจริง</p>
+ </section>
+ </div>
+ <div class="v10-finish"><button type="button" class="button button--primary button--large" id="v10Continue" data-v10="continue">เข้าสู่พื้นที่เรียนรู้รายบุคคล →</button>
+ <button type="button" class="button button--light" id="v10Back" data-v10="backHome">กลับหน้าแรก</button></div>
+</section>
 <section id="studio" class="studio" hidden aria-label="Learning workspace">
   <div class="studio__head">
     <div><p class="eyebrow" data-ui="studioEyebrow">ENGLISH VIDEO TOUR · VLOG</p>
@@ -88,7 +127,7 @@
        </div>
        <p id="modeExplanation" class="copy" data-ui="individualInfo">ฝึกภาษาอังกฤษและบันทึกความคิดรายบุคคล ก่อนเริ่มจัดกลุ่มตามแผนการสอน</p>
        <div class="boundary">
-         <strong data-ui="scopeHeading">ขอบเขตของ V9</strong>
+         <strong data-ui="scopeHeading">ขอบเขตของ V10</strong>
          <p data-ui="scopeExplanation">ยังไม่มีระบบบัญชีผู้เรียน การทำงานพร้อมกันข้ามเครื่อง หรือทะเบียนรายชื่อจริง โปรดใช้รหัสตัวอย่างเท่านั้น</p>
        </div>
        <button type="button" class="button button--primary" id="startProject"><span data-ui="beginProject">เริ่มทำโครงงาน</span> →</button>
@@ -157,7 +196,7 @@
 
   <div id="tab-records" class="tab-panel" role="tabpanel" hidden>
    <div class="paper">
-    <p class="eyebrow">LOCAL DEMO LOG · V9</p>
+    <p class="eyebrow">LOCAL DEMO LOG · V10</p>
     <h2 data-ui="recordsHeading">บันทึกกิจกรรมในอุปกรณ์นี้</h2>
     <p class="copy" data-ui="recordsExplanation">เป็นบันทึกเฉพาะเบราว์เซอร์นี้เพื่อทดสอบขั้นตอน ไม่ใช่ระบบติดตามการเข้าใช้งานนักเรียนหลายคนหรือหลายเครื่องของโรงเรียน และไม่เก็บข้อความสนทนาหรือไฟล์วิดีโอในรายการเหตุการณ์</p>
     <div class="record-actions"><button type="button" class="button button--light" id="clearLogs" data-ui="clearLogs">ล้างบันทึกทดลอง</button><span class="hint" data-ui="recordsRetention">เก็บสูงสุด 100 เหตุการณ์ล่าสุด ไม่เกิน 7 วัน</span></div>
@@ -169,6 +208,7 @@
 </main>
 <div id="toast" role="status" aria-live="polite" hidden></div>
 <script src="assets/qrcode.min.js?v=1.0.0" defer></script>
-<script src="assets/v9.js?v=9-1" defer></script>
+<script src="assets/v10-core.js?v=10" defer></script>
+<script src="assets/v10-onboarding.js?v=10" defer></script>
 </body>
 </html>
