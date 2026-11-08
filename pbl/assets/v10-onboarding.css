@@ -1,0 +1,35 @@
+/* V10 profile/group learning workspace. Student light-only. Protected Admin remains separate dark-only. */
+.v10-onboarding{max-width:1130px;margin:0 auto;padding:30px 0 55px}
+.v10-header{text-align:center;padding:8px 12px 18px}
+.v10-header>p:first-child{font-size:12px;font-weight:800;letter-spacing:.14em;color:#177562}
+.v10-header>p:last-child{color:#54707c;font-size:17px;margin:12px auto;max-width:720px}
+.v10-warning{display:block;background:#fff7e6;border:1px solid #efcc88;border-radius:17px;padding:14px 22px;margin:0 0 20px;color:#775112;font-size:15px}
+.v10-warning p{margin-top:5px}
+.v10-grid{display:grid;grid-template-columns:1fr 1fr;gap:17px;align-items:start}
+.v10-card{background:#fff;border:1px solid #cee2db;border-radius:20px;padding:25px 26px;min-width:0;box-shadow:0 12px 32px rgba(8,57,57,.07)}
+.v10-card h2{font-size:25px;margin:3px 0 18px}
+.v10-overline{font-size:12px;font-weight:800;letter-spacing:.12em;color:#168068}
+.v10-card label:not(.v10-check,.v10-avatar){display:block;margin:14px 0 6px;font-size:15px;font-weight:800}
+.v10-card input[type=text],.v10-card select{width:100%;min-height:48px;border:1px solid #a9cfc6;border-radius:11px;background:white;color:#203e4a;padding:11px 14px}
+.v10-card input[type=text]:focus-visible,.v10-card select:focus-visible{outline:3px solid #d69a2f}
+.v10-card fieldset{border:0;padding:0;margin:15px 0}.v10-card legend{font-weight:800;margin-bottom:9px}
+.v10-avatars{display:flex;flex-wrap:wrap;gap:8px}
+.v10-avatar{display:inline-flex;align-items:center;justify-content:center;position:relative;cursor:pointer}
+.v10-avatar input{position:absolute;opacity:0}
+.v10-avatar span{display:grid;place-items:center;font-size:26px;width:53px;height:51px;border-radius:13px;background:#eaf5f4;border:2px solid transparent}
+.v10-avatar input:checked+span{border-color:#118069;background:#d9f5e7}
+.v10-avatar input:focus-visible+span{outline:3px solid #da8a09}
+.v10-check{display:flex;align-items:start;gap:9px;font-size:14px;font-weight:700;line-height:1.6;cursor:pointer}
+.v10-check input{width:17px;height:17px;accent-color:#146b56;margin-top:4px}
+.v10-help{font-size:14px;color:#59757f;line-height:1.75;margin:4px 0 12px}
+.v10-actions{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0 8px}
+.v10-actions .button{font-size:15px;min-height:44px}
+.v10-feedback{min-height:24px;font-size:14px;color:#0a5f4e;font-weight:700;margin-top:9px}
+.v10-saved{background:#e6f7ed;border:1px solid #b8dfcb;padding:13px 16px;border-radius:12px;margin-top:14px}
+.v10-saved strong{display:block;color:#10594a;font-weight:800;overflow-wrap:anywhere}
+.v10-saved p{font-size:13px;color:#47736c;margin-top:4px}
+.v10-join{display:flex;gap:8px}.v10-join input{min-width:0;flex:1}.v10-join button{flex-shrink:0}
+.v10-finish{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:center;margin-top:21px}
+.v10-finish .button{font-size:17px}
+@media(max-width:750px){.v10-grid{grid-template-columns:1fr}.v10-card{padding:19px}.v10-header h1{font-size:clamp(27px,7vw,40px)}}
+@media(max-width:450px){.v10-onboarding{padding-top:17px}.v10-header>p:last-child{font-size:15px}.v10-join{flex-wrap:wrap}.v10-join button{width:100%}.v10-finish .button{width:100%}}
