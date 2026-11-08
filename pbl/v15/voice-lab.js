@@ -29,6 +29,7 @@
   let recorder=null;
   let recordingStream=null;
   let recordChunks=[];
+  let discardRecording=false;
   let audioUrl='';
   let maxTimer=null;
   let activeRecognition=null;
@@ -73,6 +74,7 @@
     $record.disabled=false;$recordStop.disabled=true;
   }
   function cancelRecording(){
+    discardRecording=true;
     recordChunks=[];
     finishRecording();
     releaseAudio();
@@ -102,7 +104,7 @@
     // New lesson: discard previous phrase and audio. Nothing is uploaded.
     setText(frame||question,'frame');
     if(audioUrl)releaseAudio();
-    if(recorder&&recorder.state!=='inactive')finishRecording();
+    if(recorder&&recorder.state!=='inactive')cancelRecording();
     status('เลือกเสียง British แล้วกดฟัง จากนั้นฝึกพูดตามได้');
   }
   const ukVoice=v=>v&&v.localService===true&&/^en[-_]GB$/i.test(String(v.lang||'').replace('_','-')); // avoid sending learner-written text to remote voice services
@@ -193,7 +195,7 @@
   async function record(){
     if($record.disabled||recorder?.state==='recording')return;
     if(activeRecognition){try{activeRecognition.abort()}catch(e){}activeRecognition=null}
-    resetPlay();releaseAudio();recordChunks=[];recognized('');
+    resetPlay();releaseAudio();recordChunks=[];discardRecording=false;recognized('');
     try{
       // Gesture-gated microphone permission. Audio is kept in a local Blob URL only.
       const stream=await navigator.mediaDevices.getUserMedia({audio:true,video:false});
@@ -202,9 +204,10 @@
       const mime=formats.find(s=>window.MediaRecorder.isTypeSupported?.(s))||'';
       const mr=mime?new MediaRecorder(stream,{mimeType:mime}):new MediaRecorder(stream);
       recorder=mr;
-      mr.ondataavailable=e=>{if(e.data&&e.data.size)recordChunks.push(e.data)};
+      mr.ondataavailable=e=>{if(!discardRecording&&e.data&&e.data.size)recordChunks.push(e.data)};
       mr.onstop=()=>{
         stopTracks();
+        if(discardRecording){recordChunks=[];releaseAudio();return}
         if(maxTimer){clearTimeout(maxTimer);maxTimer=null}
         $record.disabled=false;$recordStop.disabled=true;
         if(!recordChunks.length){status('ยังไม่มีเสียงที่บันทึก ลองอีกครั้ง','warning');return}
