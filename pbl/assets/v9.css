@@ -113,3 +113,23 @@ th{color:#356365;background:#f0faf6;font-weight:800}
 .student-preview-banner{display:flex;flex-wrap:wrap;gap:13px;justify-content:space-between;align-items:center;background:#fff2d7;border-bottom:1px solid #eccb85;color:#65470c;padding:10px max(20px,calc((100vw - 1200px)/2));font-size:14px;font-weight:700}
 .student-preview-banner a{color:#0e5e51;font-weight:800}
 body:has(.student-preview-banner:not([hidden])) .workspace-main label:after{content:" · READ ONLY";font-size:11px;color:#8b652b}
+/* V9.1 UI-only integration: student header provides a route to the existing dark Admin workspace.
+   This link does not grant authorization. Admin edit rights remain GitHub-gated. */
+.admin-entry{display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  flex-shrink:0;white-space:nowrap;min-height:42px;padding:8px 12px;border:1px solid #b8d9dc;
+  border-radius:12px;background:#f4fbfd;color:#15546a;font-weight:700;font-size:14px;text-decoration:none}
+.admin-entry:hover{background:#e5f4f8}
+.admin-entry__icon{font-size:18px;line-height:1}
+@media(max-width:540px){
+  .admin-entry{min-width:38px;min-height:38px;padding:7px}
+  .admin-entry__label{display:none}
+}
+@media(max-width:380px){
+  .topbar__inner{gap:6px}
+  .topbar__actions{gap:4px}
+  .logo__symbol{width:31px;height:31px}
+  .logo__type strong{font-size:10px}
+  .logo__type small{font-size:9px}
+  .language button{padding:4px 6px;min-width:29px;font-size:12px}
+  .admin-entry{min-width:34px;min-height:36px;padding:6px}
+}
