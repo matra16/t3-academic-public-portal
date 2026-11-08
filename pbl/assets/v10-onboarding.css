@@ -33,3 +33,6 @@
 .v10-finish .button{font-size:17px}
 @media(max-width:750px){.v10-grid{grid-template-columns:1fr}.v10-card{padding:19px}.v10-header h1{font-size:clamp(27px,7vw,40px)}}
 @media(max-width:450px){.v10-onboarding{padding-top:17px}.v10-header>p:last-child{font-size:15px}.v10-join{flex-wrap:wrap}.v10-join button{width:100%}.v10-finish .button{width:100%}}
+
+/* Keep the V10 onboarding controls clickable after scroll; preserve sticky header in learning studio. */
+body:has(#v10Onboarding:not([hidden])) .topbar{position:static}
