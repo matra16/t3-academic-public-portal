@@ -2,15 +2,16 @@
  * PBL LMS V11 — school-owned Apps Script adapter (NOT deployed by this commit).
  * Execute as: owner; access: Anyone, only after school approval & security UAT.
  * No student national IDs, passwords, roster or secrets in source/GitHub.
- * Reuses existing PBL 22-tab master; three additive tabs require owner gate.
+ * Reuses existing PBL 22-tab master; four additive tabs require owner gate.
  */
 const PBL11 = Object.freeze({
   admin: 'matra160114',
-  tabs: {users:'22_LMS_ACCOUNTS', groups:'23_LMS_GROUPS', work:'24_LMS_WORK'},
+  tabs: {users:'22_LMS_ACCOUNTS', groups:'23_LMS_GROUPS', work:'24_LMS_WORK', audit:'25_LMS_AUDIT'},
   headers: {
     users:['UID','CLASS','DISPLAY_NAME','ROLE','SALT','PASSWORD_HASH','MUST_CHANGE','ACTIVE','PASSWORD_VERSION','CREATED_AT','UPDATED_AT'],
     groups:['GROUP_ID','CLASS','GROUP_NAME','PROJECT_ID','MEMBER_UIDS_JSON','UPDATED_AT'],
-    work:['OWNER_KEY','STEP','MODE','NOTE','DONE','REVISION','UPDATED_AT']
+    work:['OWNER_KEY','STEP','MODE','NOTE','DONE','REVISION','UPDATED_BY','UPDATED_AT'],
+    audit:['EVENT_ID','ACTOR_UID','ACTION','TARGET_ID','CLASS','TIMESTAMP']
   },
   individual: [1,2,9,13,20], stepCount:20,
   sessionSeconds:1800, failedLimit:6, failedSeconds:900
@@ -79,6 +80,10 @@ function add_(type,row) {
 function update_(type,n,row) {
   const sh=sheet_(type), v=PBL11.headers[type].map(h=>row[h]===undefined?'':row[h]);
   sh.getRange(n,1,1,v.length).setValues([v]);
+}
+function audit_(actor,action,target,cls){
+  add_('audit',{EVENT_ID:'E'+random_().slice(0,24),ACTOR_UID:String(actor),ACTION:String(action),
+    TARGET_ID:String(target||''),CLASS:String(cls||''),TIMESTAMP:new Date()});
 }
 function withLock_(fn) {
   const lock=LockService.getScriptLock();
@@ -199,6 +204,7 @@ function changePassword_(s,d) {
     const c=makeCredential_(next);
     u.SALT=c.salt;u.PASSWORD_HASH=c.hash;u.MUST_CHANGE=false;u.PASSWORD_VERSION=Number(u.PASSWORD_VERSION)+1;u.UPDATED_AT=new Date();
     update_('users',u._row,u);
+    audit_(s.uid,'PASSWORD_CHANGED',s.uid,String(u.CLASS||''));
     return {changed:true,loginRequired:true};
   });
 }
@@ -250,7 +256,7 @@ function saveStep_(s,d) {
     if(old&&Number(old.REVISION)!==expect)throw Error('มีการแก้ไขงานจากอีกอุปกรณ์ โปรดโหลดข้อมูลใหม่');
     if(!old&&expect!==0)throw Error('ข้อมูลเปลี่ยนแปลง โปรดโหลดใหม่');
     const rev=expect+1,now=new Date();
-    const rec={OWNER_KEY:target.key,STEP:step,MODE:target.mode,NOTE:note,DONE:true,REVISION:rev,UPDATED_AT:now};
+    const rec={OWNER_KEY:target.key,STEP:step,MODE:target.mode,NOTE:note,DONE:true,REVISION:rev,UPDATED_BY:s.uid,UPDATED_AT:now};
     if(old)update_('work',old._row,rec);else add_('work',rec);
     return {step,revision:rev,mode:target.mode,updatedAt:now.toISOString()};
   });
@@ -271,6 +277,7 @@ function adminAddStudent_(d) {
     const uid='S'+random_().slice(0,18),pwd=temporaryPassword_(),c=makeCredential_(pwd),now=new Date();
     add_('users',{UID:uid,CLASS:cls,DISPLAY_NAME:name,ROLE:'STUDENT',SALT:c.salt,PASSWORD_HASH:c.hash,
       MUST_CHANGE:true,ACTIVE:true,PASSWORD_VERSION:1,CREATED_AT:now,UPDATED_AT:now});
+    audit_(PBL11.admin,'STUDENT_CREATED',uid,cls);
     return {user:{uid,classId:cls,name,role:'STUDENT',mustChange:true,active:true},temporaryPassword:pwd};
   });
 }
@@ -280,7 +287,7 @@ function adminResetPassword_(d) {
     const u=findUser_(uid);if(!u||u.ROLE!=='STUDENT')throw Error('ไม่พบบัญชีนักเรียน');
     const pwd=temporaryPassword_(),c=makeCredential_(pwd);
     u.SALT=c.salt;u.PASSWORD_HASH=c.hash;u.MUST_CHANGE=true;u.PASSWORD_VERSION=Number(u.PASSWORD_VERSION)+1;u.UPDATED_AT=new Date();
-    update_('users',u._row,u);return {temporaryPassword:pwd,uid};
+    update_('users',u._row,u);audit_(PBL11.admin,'STUDENT_PASSWORD_RESET',uid,String(u.CLASS));return {temporaryPassword:pwd,uid};
   });
 }
 function adminSetActive_(d) {
@@ -288,6 +295,7 @@ function adminSetActive_(d) {
   return withLock_(()=>{
     const u=findUser_(uid);if(!u||u.ROLE!=='STUDENT')throw Error('ไม่พบบัญชีนักเรียน');
     u.ACTIVE=active;u.PASSWORD_VERSION=Number(u.PASSWORD_VERSION)+1;u.UPDATED_AT=new Date();update_('users',u._row,u);
+    audit_(PBL11.admin,active?'STUDENT_ENABLED':'STUDENT_DISABLED',uid,String(u.CLASS));
     return {uid,active};
   });
 }
@@ -304,8 +312,8 @@ function adminSaveGroup_(d) {
        JSON.parse(String(g.MEMBER_UIDS_JSON)||'[]').some(id=>ids.includes(id))))throw Error('มีสมาชิกอยู่ในกลุ่มอื่นแล้ว');
     const rec={GROUP_ID:groupId,CLASS:cls,GROUP_NAME:name,PROJECT_ID:'VLOG20',MEMBER_UIDS_JSON:JSON.stringify(ids),UPDATED_AT:new Date()};
     const old=groups_().find(g=>String(g.GROUP_ID)===groupId);
-    if(old) {if(String(old.CLASS)!==cls)throw Error('ไม่อนุญาตย้ายกลุ่มข้ามห้อง');update_('groups',old._row,rec);}
-    else add_('groups',rec);
+    if(old)throw Error('กลุ่มเดิมถูกล็อกสมาชิกไว้ การเปลี่ยนกลุ่มต้องผ่านเวิร์กโฟลว์อนุมัติแยก');
+    add_('groups',rec);audit_(PBL11.admin,'GROUP_CREATED',groupId,cls);
     return {groupId,classId:cls,name,memberCount:ids.length};
   });
 }
@@ -315,6 +323,7 @@ function adminSetClassCode_(d) {
   return withLock_(()=>{
     const c=classCodes_(),newCode=random_().slice(0,16);
     c[cls]=newCode;properties_().setProperty('PBL_V11_CLASS_CODES_JSON',JSON.stringify(c));
+    audit_(PBL11.admin,'CLASS_CODE_ROTATED',cls,cls);
     return {classId:cls,classCode:newCode,rotated:true};
   });
 }
