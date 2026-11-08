@@ -235,7 +235,7 @@ async function changePassword(event){
  const old=$('oldPassword').value,next=$('newPassword').value,confirmValue=$('confirmPassword').value;
  if(next!==confirmValue){notify('รหัสผ่านใหม่และยืนยันไม่ตรงกัน');return}
  if(/^\d{13}$/.test(next)){notify('ห้ามใช้เลขบัตรประชาชนเป็นรหัสผ่าน');return}
- try{await api('changePassword',{current:old,next});await api('logout');logout();notify('เปลี่ยนรหัสผ่านแล้ว กรุณาเข้าสู่ระบบอีกครั้ง')}
+ try{await api('changePassword',{current:old,next});try{await api('logout')}catch(e){/* password change has already revoked old session */}logout();notify('เปลี่ยนรหัสผ่านแล้ว กรุณาเข้าสู่ระบบอีกครั้ง')}
  catch(e){notify(e.message)}
 }
 $('loadNames').addEventListener('click',()=>loadNames());
