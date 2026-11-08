@@ -43,9 +43,17 @@ function detectProfile(){
  return {family,layout,pointer,orientation,width,height,keyboard,screen:
    ['welcome','studentScreen','adminScreen','passwordScreen'].find(id=>!$(id)?.hidden)||'other'};
 }
+function relocateExplore(p){
+ const card=q('#welcome .student-card'),launch=q('#welcome .admin-launch'),explore=q('#welcome .lesson-explore')||q('#welcome .admin-launch > .lesson-explore');
+ if(!card||!launch||!explore)return;
+ const inline=p.orientation==='landscape'&&p.height<=520&&p.width>=600;
+ if(inline && explore.parentNode!==launch)launch.insertBefore(explore,launch.firstChild);
+ else if(!inline && explore.parentNode!==card)card.append(explore);
+}
 function applyProfile(){
  raf=0;
  const p=detectProfile();
+ relocateExplore(p);
  root.dataset.deviceFamily=p.family;
  root.dataset.screenLayout=p.layout;
  root.dataset.pointerMode=p.pointer;
