@@ -2,44 +2,132 @@
 <html lang="th">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f3faf8">
+  <meta name="color-scheme" content="light">
   <meta name="referrer" content="no-referrer">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="light"><meta name="theme-color" content="#f4faf8">
-  <meta name="description" content="ระบบห้องเรียนโครงงานภาษาอังกฤษ ป.5–6 | T3 PBL Classroom">
-  <title>ระบบห้องเรียนโครงงาน | T3 PBL Classroom V6</title>
+  <meta name="description" content="ระบบห้องเรียนโครงงานภาษาอังกฤษ ป.5–6">
+  <title>ระบบห้องเรียนโครงงาน | T3 PBL Classroom V7</title>
+  <link rel="canonical" href="https://matra16.github.io/t3-academic-public-portal/pbl/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700;800;900&display=swap">
-  <link rel="stylesheet" href="assets/styles.css?v=6">
-  <link rel="canonical" href="https://matra16.github.io/t3-academic-public-portal/pbl/">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none';">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="assets/styles-v7.css?v=7">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none';">
 </head>
-<body data-surface="student" data-start-class="">
-<a href="#content" class="skip">ข้ามไปเนื้อหา</a>
-<header><div class="brand"><span aria-hidden="true">🧩</span><div>T3 PBL CLASSROOM<small>ระบบห้องเรียนโครงงาน · ภาษาอังกฤษ ป.5–6 · V6</small></div></div><button class="secondary" id="openDrawer" type="button" aria-haspopup="dialog" aria-controls="drawer" aria-expanded="false">☰ เมนูการเรียนรู้</button></header>
-<div id="overlay" hidden></div>
-<aside id="drawer" role="dialog" aria-label="เมนูด้านขวา" aria-modal="true" hidden>
-  <div class="drawer-head"><h2>เมนูหลัก</h2><button id="closeDrawer" class="ghost" type="button" aria-label="ปิดเมนู">✕ ปิด</button></div>
-  <nav aria-label="การนำทาง"><button type="button" data-view="home">🏡 หน้าหลัก</button><button type="button" data-view="classes">📚 ห้องเรียน</button><button type="button" data-view="lesson">🔎 กิจกรรมโครงงาน</button><button type="button" data-view="profile">🌟 Profile ของฉัน</button><button type="button" data-view="share">🔗 QR / เชิญเข้าห้อง</button><button type="button" data-view="about">🛡️ ความเป็นส่วนตัว</button></nav>
-  <p class="note">แสดงบทเรียนตัวอย่างเท่านั้น ไม่มีรายชื่อนักเรียน คะแนน หรือข้อมูลส่วนตัวของโรงเรียน</p>
-</aside>
-<main id="content" tabindex="-1">
-  <div id="home" class="view">
-    <section class="hero"><div class="eyebrow">LEARN · CREATE · SHARE</div><h1>ระบบห้องเรียนโครงงาน</h1><p class="lead">เรียนรู้ภาษาอังกฤษผ่านการทำโครงงาน ป.5–6 ตั้งคำถาม สำรวจข้อมูล ร่วมออกแบบชิ้นงาน สื่อสาร และนำเสนอผลงานอย่างสร้างสรรค์</p>
-      <div class="hero-actions"><button class="primary" data-go="classes">เริ่มเข้าเรียน <span aria-hidden="true">→</span></button><button class="secondary" data-go="profile">ตั้งค่า Profile ของฉัน</button></div>
-      <div class="stats"><span class="badge">📚 ภาษาอังกฤษ ป.5–6</span><span class="badge">🧩 เรียนรู้แบบโครงงาน</span><span class="badge">🎨 สร้างสรรค์ผลงาน</span></div>
+<body>
+  <a href="#main" class="skip" data-i18n="skip">ข้ามไปเนื้อหาหลัก</a>
+  <header class="site-header">
+    <div class="site-header__inner">
+      <button type="button" class="brand" data-go="home" aria-label="T3 PBL Classroom">
+        <span class="brand__mark" aria-hidden="true">🧩</span>
+        <span class="brand__words"><strong>T3 PBL CLASSROOM</strong><small data-i18n="brandSub">ระบบห้องเรียนโครงงาน · ป.5–6</small></span>
+      </button>
+      <nav class="desktop-nav" aria-label="Primary navigation" data-i18n-aria="primaryNav">
+        <button type="button" class="nav-button is-active" data-go="home" data-i18n="navHome">หน้าแรก</button>
+        <button type="button" class="nav-button" data-go="classes" data-i18n="navCourses">ห้องเรียน</button>
+        <button type="button" class="nav-button" data-go="how" data-i18n="navHow">วิธีเรียน</button>
+        <button type="button" class="nav-button" data-go="profile" data-i18n="navProfile">พื้นที่ของฉัน</button>
+      </nav>
+      <div class="site-header__tools">
+        <div class="lang-switch" role="group" aria-label="Choose language" data-i18n-aria="languageSelect">
+          <button type="button" data-set-lang="th" lang="th" aria-pressed="true">ไทย</button>
+          <span aria-hidden="true">/</span>
+          <button type="button" data-set-lang="en" lang="en" aria-pressed="false">EN</button>
+        </div>
+        <button type="button" class="menu-button" id="openMenu" aria-expanded="false" aria-controls="mobileMenu" data-i18n-aria="openMenu"><span aria-hidden="true">☰</span><span class="menu-button__label" data-i18n="menu">เมนู</span></button>
+      </div>
+    </div>
+  </header>
+  <div class="menu-overlay" id="menuOverlay" hidden></div>
+  <aside class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Navigation menu" data-i18n-aria="menu" hidden>
+    <div class="mobile-menu__heading"><strong data-i18n="menu">เมนู</strong><button type="button" id="closeMenu" class="button button--light" data-i18n-aria="closeMenu">✕</button></div>
+    <nav aria-label="Mobile navigation" data-i18n-aria="primaryNav">
+      <button type="button" data-go="home" data-i18n="navHome">หน้าแรก</button>
+      <button type="button" data-go="classes" data-i18n="navCourses">ห้องเรียน</button>
+      <button type="button" data-go="how" data-i18n="navHow">วิธีเรียน</button>
+      <button type="button" data-go="profile" data-i18n="navProfile">พื้นที่ของฉัน</button>
+      <button type="button" data-go="share" data-i18n="navShare">แชร์ห้องเรียน / QR</button>
+      <button type="button" data-go="about" data-i18n="navAbout">เกี่ยวกับระบบ</button>
+    </nav>
+  </aside>
+
+  <main id="main" tabindex="-1">
+    <div id="home" class="view">
+      <div class="hero-shell">
+        <section class="hero" aria-labelledby="heroTitle">
+          <div class="hero__content">
+            <p class="eyebrow"><span aria-hidden="true">✦</span> <span data-i18n="heroEyebrow">PROJECT-BASED ENGLISH · P.5–6</span></p>
+            <h1 id="heroTitle" data-i18n="heroTitle">ระบบห้องเรียนโครงงาน</h1>
+            <p class="hero__desc" data-i18n="heroDescription">เรียนรู้ภาษาอังกฤษผ่านการตั้งคำถาม สำรวจ ทดลอง สร้างชิ้นงาน และสื่อสารแนวคิดผ่านโครงงาน</p>
+            <div class="hero__buttons">
+              <button class="button button--primary" type="button" data-go="classes"><span data-i18n="exploreProjects">สำรวจห้องเรียน</span><span aria-hidden="true">→</span></button>
+              <button class="button button--quiet" type="button" data-go="how"><span data-i18n="howItWorks">เรียนอย่างไร</span><span aria-hidden="true">↗</span></button>
+            </div>
+            <div class="hero__tags"><span>🗣️ <span data-i18n="skillCommunicate">สื่อสารภาษาอังกฤษ</span></span><span>🔎 <span data-i18n="skillInquiry">เรียนรู้ผ่านการสืบค้น</span></span></div>
+          </div>
+          <div class="hero__visual" aria-label="Project learning pathway" data-i18n-aria="pathHeading">
+            <div class="journey">
+              <div class="journey__top"><span class="journey__label" data-i18n="pathHeading">เส้นทางการเรียนรู้</span><span aria-hidden="true">🧭</span></div>
+              <ol class="journey__steps">
+                <li><span aria-hidden="true">❓</span><div><strong data-i18n="pathAsk">ตั้งคำถาม</strong><small>ASK</small></div></li>
+                <li><span aria-hidden="true">🔍</span><div><strong data-i18n="pathExplore">ค้นคว้าและสำรวจ</strong><small>EXPLORE</small></div></li>
+                <li><span aria-hidden="true">🛠️</span><div><strong data-i18n="pathCreate">ออกแบบและสร้างสรรค์</strong><small>CREATE</small></div></li>
+                <li><span aria-hidden="true">🎤</span><div><strong data-i18n="pathShare">นำเสนอและสะท้อนคิด</strong><small>SHARE</small></div></li>
+              </ol>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <section class="quick-strip" aria-label="Learning summary" data-i18n-aria="learningSummary">
+        <div class="quick-strip__item"><span class="quick-strip__icon" aria-hidden="true">📚</span><div><strong id="courseCount">2</strong><span data-i18n="sampleProjects">โครงงานตัวอย่าง</span></div></div>
+        <div class="quick-strip__item"><span class="quick-strip__icon" aria-hidden="true">📝</span><div><strong id="notesCount">0</strong><span data-i18n="savedNotes">บันทึกบนอุปกรณ์นี้</span></div></div>
+        <div class="quick-strip__item quick-strip__item--cta"><span class="quick-strip__icon" aria-hidden="true">🔗</span><button type="button" data-go="share" data-i18n="openClassQR">เปิด QR ห้องเรียน</button></div>
+      </section>
+
+      <section class="section" id="projects" aria-labelledby="coursesHeading">
+        <div class="section__head"><div><p class="eyebrow eyebrow--small" data-i18n="courseEyebrow">EXPLORE PROJECTS</p><h2 id="coursesHeading" data-i18n="coursesHeading">เลือกโครงงานที่สนใจ</h2><p class="section__desc" data-i18n="courseIntro">เลือกหัวข้อ ฝึกใช้ภาษาอังกฤษ และบันทึกแนวคิดของตนเอง</p></div><button type="button" class="text-link" data-go="classes"><span data-i18n="viewAll">ดูห้องเรียนทั้งหมด</span> <span aria-hidden="true">→</span></button></div>
+        <div id="homeCourses" class="course-grid" aria-live="polite"></div>
+      </section>
+      <section class="section section--alt" id="learningPath" aria-labelledby="pathTitle">
+        <div class="section__head"><div><p class="eyebrow eyebrow--small" data-i18n="pathEyebrow">HOW IT WORKS</p><h2 id="pathTitle" data-i18n="pathTitle">เรียนรู้แบบโครงงาน 4 ขั้น</h2><p class="section__desc" data-i18n="pathIntro">กิจกรรมสั้น ๆ ที่ช่วยให้คิดเป็น สื่อสารเป็น และลงมือทำจริง</p></div></div>
+        <div class="step-grid">
+          <article><div class="step-grid__number">01</div><span aria-hidden="true">❓</span><h3 data-i18n="pathAsk">ตั้งคำถาม</h3><p data-i18n="pathAskDesc">สังเกตปัญหาหรือสิ่งน่าสนใจ และตั้งคำถามที่อยากค้นหา</p></article>
+          <article><div class="step-grid__number">02</div><span aria-hidden="true">🔎</span><h3 data-i18n="pathExplore">ค้นคว้าและสำรวจ</h3><p data-i18n="pathExploreDesc">รวบรวมข้อมูลจากแหล่งที่เหมาะสมและแลกเปลี่ยนความคิด</p></article>
+          <article><div class="step-grid__number">03</div><span aria-hidden="true">🧩</span><h3 data-i18n="pathCreate">ออกแบบและสร้างสรรค์</h3><p data-i18n="pathCreateDesc">ทดลองปรับปรุงแนวคิด และสร้างชิ้นงานที่สื่อความหมาย</p></article>
+          <article><div class="step-grid__number">04</div><span aria-hidden="true">🎤</span><h3 data-i18n="pathShare">นำเสนอและสะท้อนคิด</h3><p data-i18n="pathShareDesc">ฝึกพูดภาษาอังกฤษ รับข้อเสนอแนะ และปรับปรุงผลงาน</p></article>
+        </div>
+      </section>
+    </div>
+
+    <section id="classes" class="view content-view" hidden aria-labelledby="allCoursesTitle">
+      <div class="view-head"><span class="eyebrow eyebrow--small" data-i18n="courseEyebrow">EXPLORE PROJECTS</span><h1 id="allCoursesTitle" data-i18n="allCoursesTitle">ห้องเรียนโครงงาน</h1><p data-i18n="allCoursesDesc">เลือกหัวข้อโครงงานและเริ่มเรียนรู้ตามความสนใจ</p></div>
+      <div class="search-box"><span aria-hidden="true">🔎</span><label class="sr-only" for="courseSearch" data-i18n="searchLabel">ค้นหาห้องเรียน</label><input id="courseSearch" type="search" data-i18n-placeholder="searchPlaceholder" placeholder="ค้นหาชื่อหรือหัวข้อโครงงาน" autocomplete="off"></div>
+      <div id="allCourses" class="course-grid" aria-live="polite"></div>
+      <p id="noCourses" class="empty" data-i18n="noCourses" hidden>ไม่พบโครงงานที่ตรงกับคำค้น</p>
     </section>
-    <section class="section"><h2>เลือกห้องเรียนของคุณ</h2><div id="homeClasses" class="grid" aria-live="polite"></div></section>
-  </div>
-  <section id="classes" class="view" hidden><h1>📚 ห้องเรียน</h1><p class="muted">เลือกหัวข้อโครงงานภาษาอังกฤษ ป.5–6 ที่ต้องการเรียนรู้</p><div id="classGrid" class="grid"></div></section>
-  <section id="lesson" class="view" hidden><div class="banner"><button type="button" class="ghost" data-go="classes">← ห้องเรียน</button><span class="pill" id="classTag">Class</span></div><h1 id="classTitle">เลือกห้องเรียน</h1><p id="classDesc" class="lead"></p><div class="columns"><div id="lessonList"></div><aside class="panel"><h3>My Learning Notes</h3><p class="muted">จดแนวคิดของตัวเองไว้บนเครื่องนี้เท่านั้น ยังไม่ใช่การส่งงานหรือคะแนนทางการ</p><p id="localProgress" class="safe">0 กิจกรรมที่บันทึก</p><button id="clearLesson" class="secondary" type="button">ลบโน้ตในเครื่องนี้</button></aside></div></section>
-  <section id="profile" class="view" hidden><h1>🌟 Profile ของฉัน</h1><div class="columns"><div class="panel"><div id="profileAvatar" class="avatar" aria-hidden="true">🌟</div><p class="muted">ตั้งค่าหน้าตาและชื่อเล่นเฉพาะเครื่องนี้ ไม่ต้องใส่ชื่อจริงหรือข้อมูลติดต่อ</p><div class="field"><label for="alias">ชื่อเล่น (ไม่ต้องใช้ชื่อจริง)</label><input id="alias" maxlength="24" autocomplete="off" placeholder="เช่น Little Explorer"></div><div class="field"><label for="avatar">Avatar</label><select id="avatar"><option value="🌟">🌟 ดาว</option><option value="🌻">🌻 ดอกไม้</option><option value="🧭">🧭 นักสำรวจ</option><option value="🎨">🎨 นักออกแบบ</option><option value="🔬">🔬 นักวิทย์</option><option value="🌱">🌱 ต้นอ่อน</option></select></div><div class="field"><label for="language">ภาษาของหน้าจอ</label><select id="language"><option value="th">ไทย</option><option value="en">English (learning prompts)</option></select></div><div class="field"><label for="fontScale">ขนาดตัวอักษร</label><select id="fontScale"><option value="normal">ปกติ</option><option value="large">ใหญ่</option></select></div><button type="button" id="saveProfile" class="primary">บันทึก Profile ของฉัน</button></div><aside class="panel"><h3>📌 ใช้เครื่องร่วมกับคนอื่น?</h3><p class="muted">กดล้างข้อมูลก่อนส่งเครื่องต่อให้เพื่อน เพื่อไม่ให้คนอื่นเห็นชื่อเล่นหรือโน้ตของเรา</p><button type="button" id="clearProfile" class="secondary">ล้าง Profile และโน้ตในเครื่อง</button><p class="note">Profile V6 เก็บในเบราว์เซอร์เครื่องนี้เท่านั้น ยังไม่รองรับกู้คืนข้ามเครื่องหรือข้อมูลประเมินรายบุคคล</p></aside></div></section>
-  <section id="share" class="view" hidden><h1>🔗 QR และลิงก์เข้าห้อง</h1><div class="panel"><p>ครูสามารถเปิด QR นี้บนจอ หรือคัดลอกลิงก์ส่งให้ผู้เรียนได้</p><div class="field"><label for="shareClass">เลือกห้องเรียน</label><select id="shareClass"></select></div><div class="share-wrap"><div><p id="shareUrl" class="safe">กำลังเตรียมลิงก์…</p><div class="hero-actions"><button id="copyLink" type="button" class="primary">คัดลอกลิงก์</button><button id="printQR" type="button" class="secondary">พิมพ์ QR</button></div><p id="shareStatus" class="muted">QR และลิงก์ห้องเรียนใช้เว็บไซต์ GitHub Pages โดยตรง</p></div><div id="qr" aria-label="QR Code ของห้องเรียน">QR</div></div><div class="short-home" id="shortHomeWrap" hidden><h3>🔗 ลิงก์หน้าแรกของระบบห้องเรียน</h3><a id="shortHomeLink" href="#" rel="noopener noreferrer" target="_blank"></a><div class="hero-actions"><button id="copyShortLink" type="button" class="secondary">📋 คัดลอกลิงก์หน้าแรก</button></div><p>หน้าเว็บไซต์และ QR รายห้องใช้ GitHub Pages โดยตรง ไม่ผ่านบริการย่อลิงก์ภายนอก และไม่มีรหัสประจำตัวนักเรียนใน URL</p></div></div></section>
-  <section id="about" class="view" hidden><h1>🛡️ ความเป็นส่วนตัว</h1><div class="panel"><h3>ข้อมูลเกี่ยวกับระบบห้องเรียน</h3><p>เว็บไซต์ตัวอย่างนี้ทำงานแบบ Static บน GitHub Pages ไม่เชื่อมทะเบียนนักเรียน คะแนน งานส่ง หรือไฟล์ส่วนตัวของโรงเรียน</p><h3>Profile</h3><p>ชื่อเล่น Avatar และโน้ตกิจกรรมเก็บไว้ในเบราว์เซอร์เครื่องที่ใช้งาน ผู้ที่ใช้เครื่องเดียวกันอาจเห็นข้อมูลเหล่านี้ได้ จึงมีปุ่มล้างข้อมูล</p><h3>สำหรับการประเมินทางการ</h3><p>ระบบ V6 ยังไม่ออกคะแนนหรือบันทึกการส่งงานทางการ ต้องได้รับการอนุมัติระบบยืนยันผู้เรียนและสิทธิ์ก่อนเปิดโมดูลนั้น</p></div></section>
-</main>
-<footer>T3 PBL Classroom · ระบบห้องเรียนโครงงาน V6 · ภาษาอังกฤษ ป.5–6 · ไม่ใช่ระบบส่งงานหรือคะแนนทางการ</footer>
-<div id="toast" role="status" aria-live="polite" hidden></div>
+    <section id="lesson" class="view content-view" hidden aria-labelledby="lessonTitle">
+      <button type="button" class="back-link" data-go="classes"><span aria-hidden="true">←</span> <span data-i18n="backCourses">กลับไปห้องเรียน</span></button>
+      <div class="lesson-title"><span class="pill" id="classTag">English · P.5–6</span><h1 id="lessonTitle"></h1><p id="lessonDescription"></p></div>
+      <div class="lesson-layout"><div id="lessonList" class="lesson-list"></div><aside class="notes-panel"><h2>📝 <span data-i18n="notebookHeading">สมุดบันทึกการเรียนรู้</span></h2><p data-i18n="notebookDesc">บันทึกแนวคิดไว้เฉพาะบนอุปกรณ์นี้ ไม่ใช่การส่งงานหรือคะแนนทางการ</p><p id="localProgress" class="progress-summary" aria-live="polite"></p><button type="button" id="clearLesson" class="button button--outline" data-i18n="clearClassNotes">ล้างบันทึกของโครงงานนี้</button></aside></div>
+    </section>
+    <section id="profile" class="view content-view" hidden aria-labelledby="profileTitle">
+      <div class="view-head"><p class="eyebrow eyebrow--small" data-i18n="mySpace">MY LEARNING SPACE</p><h1 id="profileTitle" data-i18n="profileTitle">พื้นที่ของฉัน</h1><p data-i18n="profileIntro">ตั้งค่าการแสดงผลและชื่อเล่นบนอุปกรณ์นี้เท่านั้น</p></div>
+      <div class="profile-grid"><div class="panel"><div class="avatar-bubble" id="profileAvatar" aria-hidden="true">🌟</div><div class="field"><label for="alias" data-i18n="aliasLabel">ชื่อเล่น (ไม่จำเป็นต้องใช้ชื่อจริง)</label><input id="alias" maxlength="24" autocomplete="off" data-i18n-placeholder="aliasPlaceholder" placeholder="เช่น Little Explorer"></div><div class="field"><label for="avatar" data-i18n="avatarLabel">สัญลักษณ์แทนตัว</label><select id="avatar"><option value="🌟" data-i18n="avatarStar">🌟 ดาว</option><option value="🌻" data-i18n="avatarFlower">🌻 ดอกไม้</option><option value="🧭" data-i18n="avatarCompass">🧭 นักสำรวจ</option><option value="🎨" data-i18n="avatarArt">🎨 นักสร้างสรรค์</option><option value="🔬" data-i18n="avatarScience">🔬 นักวิทยาศาสตร์</option><option value="🌱" data-i18n="avatarSeed">🌱 ต้นอ่อน</option></select></div><div class="field"><label for="language" data-i18n="languageLabel">ภาษาของระบบ</label><select id="language"><option value="th">ภาษาไทย</option><option value="en">English</option></select></div><div class="field"><label for="fontScale" data-i18n="fontScaleLabel">ขนาดตัวอักษร</label><select id="fontScale"><option value="normal" data-i18n="normalFont">ปกติ</option><option value="large" data-i18n="largeFont">ใหญ่</option></select></div><button type="button" id="saveProfile" class="button button--primary" data-i18n="saveProfile">บันทึกการตั้งค่า</button></div><aside class="panel panel--soft"><h2>🛡️ <span data-i18n="privacyTipTitle">ใช้เครื่องร่วมกันอย่างปลอดภัย</span></h2><p data-i18n="privacyTip">ชื่อเล่นและโน้ตที่เก็บในเบราว์เซอร์อาจปรากฏให้ผู้ใช้เครื่องเดียวกันเห็นได้</p><button type="button" id="clearProfile" class="button button--outline" data-i18n="clearAll">ล้างชื่อเล่นและบันทึกในเครื่อง</button><p class="hint" data-i18n="noCloud">ไม่มีการซิงก์ข้อมูลไปยังระบบของโรงเรียน</p></aside></div>
+    </section>
+    <section id="share" class="view content-view" hidden aria-labelledby="shareTitle">
+      <div class="view-head"><p class="eyebrow eyebrow--small" data-i18n="shareEyebrow">CLASSROOM INVITE</p><h1 id="shareTitle" data-i18n="shareTitle">ลิงก์และ QR ห้องเรียน</h1><p data-i18n="shareIntro">เลือกหัวข้อโครงงาน แล้วคัดลอกลิงก์หรือแสดง QR ได้ทันที</p></div>
+      <div class="panel"><div class="field field--medium"><label for="shareClass" data-i18n="shareChoose">เลือกห้องเรียน</label><select id="shareClass"></select></div><div class="share-grid"><div><a id="shareUrl" class="link-box" href="#" target="_blank" rel="noopener noreferrer"></a><div class="actions"><button type="button" id="copyLink" class="button button--primary" data-i18n="copyLink">คัดลอกลิงก์ห้องเรียน</button><button type="button" id="printQR" class="button button--outline" data-i18n="printQR">พิมพ์ QR</button></div><p class="hint" id="shareStatus" aria-live="polite"></p></div><div id="qr" class="qr-frame" role="img" data-i18n-aria="qrLabel" aria-label="QR Code ของห้องเรียน"></div></div></div>
+      <div class="home-link-box"><h2>🔗 <span data-i18n="shareHomeTitle">ลิงก์หน้าแรกของระบบ</span></h2><a href="https://matra16.github.io/t3-academic-public-portal/pbl/" id="homeLink" rel="noopener noreferrer"></a><button type="button" id="copyHomeLink" class="button button--outline" data-i18n="copyHomeLink">คัดลอกลิงก์หน้าแรก</button></div>
+    </section>
+    <section id="about" class="view content-view" hidden aria-labelledby="aboutTitle">
+      <div class="view-head"><h1 id="aboutTitle" data-i18n="aboutTitle">เกี่ยวกับระบบ</h1><p data-i18n="aboutLead">พื้นที่สำหรับเรียนรู้ภาษาอังกฤษผ่านโครงงานตัวอย่างระดับ ป.5–6</p></div><div class="panel"><h2 data-i18n="scopeTitle">ขอบเขตการใช้งาน</h2><p data-i18n="scopeBody">ระบบนี้แสดงบทเรียนตัวอย่าง ไม่เชื่อมทะเบียนนักเรียนหรือคะแนนของโรงเรียน</p><h2 data-i18n="privacyTitle">การเก็บข้อมูล</h2><p data-i18n="privacyBody">ชื่อเล่นและบันทึกของผู้เรียนเก็บในเบราว์เซอร์บนอุปกรณ์นี้เท่านั้น</p><h2 data-i18n="languagePolicyTitle">การเรียนรู้สองภาษา</h2><p data-i18n="languagePolicyBody">เปลี่ยนภาษาไทยหรืออังกฤษได้ทุกหน้า แต่ประโยคฝึกสื่อสารภาษาอังกฤษยังคงเป็นภาษาอังกฤษเพื่อการเรียนรู้</p></div>
+    </section>
+  </main>
+  <footer class="site-footer"><span>T3 PBL CLASSROOM · V7</span><span data-i18n="footerScope">ห้องเรียนโครงงานตัวอย่าง · ไม่มีระบบส่งงานหรือคะแนนทางการ</span><button type="button" data-go="about" data-i18n="navAbout">เกี่ยวกับระบบ</button></footer>
+  <div id="toast" role="status" aria-live="polite" hidden></div>
   <script src="assets/qrcode.min.js?v=1.0.0" defer></script>
-  <script src="assets/app.js?v=6" defer></script>
+  <script src="assets/app-v7.js?v=7" defer></script>
 </body>
 </html>
