@@ -6,6 +6,7 @@
  */
 const PBL11 = Object.freeze({
   admin: 'matra160114',
+  eligibleClasses: ['6.1','6.2','6.3'],
   tabs: {users:'22_LMS_ACCOUNTS', groups:'23_LMS_GROUPS', work:'24_LMS_WORK', audit:'25_LMS_AUDIT'},
   headers: {
     users:['UID','CLASS','DISPLAY_NAME','ROLE','SALT','PASSWORD_HASH','MUST_CHANGE','ACTIVE','PASSWORD_VERSION','CREATED_AT','UPDATED_AT'],
@@ -90,10 +91,19 @@ function withLock_(fn) {
   if(!lock.tryLock(12000)) throw Error('ระบบกำลังบันทึก โปรดลองใหม่');
   try {return fn();} finally {lock.releaseLock();}
 }
+function isP6Class_(classId) {
+  return PBL11.eligibleClasses.indexOf(String(classId))!==-1;
+}
+function requireP6Class_(classId) {
+  if(!isP6Class_(classId)) throw Error('โครงงานนี้รับเฉพาะนักเรียน ป.6/1, ป.6/2 และ ป.6/3');
+  return String(classId);
+}
 function classCodes_() {
   try {
     const v=JSON.parse(properties_().getProperty('PBL_V11_CLASS_CODES_JSON')||'{}');
-    return v&&typeof v==='object'&&!Array.isArray(v)?v:{};
+    if(!v||typeof v!=='object'||Array.isArray(v))return {};
+    // Ignore any legacy class codes from a broader school pilot.
+    return Object.fromEntries(Object.entries(v).filter(([cls])=>isP6Class_(cls)));
   }catch(e){throw Error('รหัสเข้าห้องเรียนยังไม่พร้อม');}
 }
 function required_(value,max) {
@@ -138,6 +148,7 @@ function publicUser_(u) {
     active:String(u.ACTIVE)==='TRUE'||u.ACTIVE===true};
 }
 function requireClassCode_(classId,code) {
+  requireP6Class_(classId);
   const c=classCodes_();
   if(!c[classId]||!same_(String(c[classId]),String(code||''))) throw Error('ข้อมูลห้องเรียนหรือรหัสเข้าห้องไม่ถูกต้อง');
 }
@@ -170,7 +181,7 @@ function login_(d) {
   if(role==='STUDENT') requireClassCode_(required_(d.classId,16),d.classCode);
   const u=findUser_(uid);
   const eligible=u && String(u.ROLE)===role && (u.ACTIVE===true||String(u.ACTIVE)==='TRUE') &&
-    (role==='ADMIN'||String(u.CLASS)===String(d.classId));
+    (role==='ADMIN'||(isP6Class_(u.CLASS)&&String(u.CLASS)===String(d.classId)));
   const failMessage='ชื่อหรือรหัสผ่านไม่ถูกต้อง หรือบัญชีไม่พร้อมใช้งาน';
   const hasLock=blocked_('login:'+uid);
   // No credential value or password hash is returned to browser.
@@ -189,6 +200,7 @@ function authorize_(token) {
   if(!raw) throw Error('เซสชันหมดอายุ กรุณาเข้าสู่ระบบอีกครั้ง');
   const s=JSON.parse(raw),u=findUser_(s.uid);
   if(!u || !(u.ACTIVE===true||String(u.ACTIVE)==='TRUE') ||String(u.ROLE)!==s.role||
+    (s.role==='STUDENT'&&!isP6Class_(u.CLASS))||
     Number(u.PASSWORD_VERSION)!==s.v) throw Error('สิทธิ์การเข้าใช้เปลี่ยนแปลง กรุณาเข้าสู่ระบบอีกครั้ง');
   return {uid:String(u.UID),role:String(u.ROLE),user:u};
 }
@@ -263,14 +275,14 @@ function saveStep_(s,d) {
 }
 function adminList_() {
   return {
-    users:rows_('users').filter(u=>String(u.ROLE)==='STUDENT').map(u=>publicUser_(u)),
-    groups:groups_().map(g=>({id:String(g.GROUP_ID),classId:String(g.CLASS),name:String(g.GROUP_NAME),
+    users:rows_('users').filter(u=>String(u.ROLE)==='STUDENT'&&isP6Class_(u.CLASS)).map(u=>publicUser_(u)),
+    groups:groups_().filter(g=>isP6Class_(g.CLASS)).map(g=>({id:String(g.GROUP_ID),classId:String(g.CLASS),name:String(g.GROUP_NAME),
       projectId:String(g.PROJECT_ID),memberIds:JSON.parse(String(g.MEMBER_UIDS_JSON)||'[]')})),
     classIds:Object.keys(classCodes_()).sort()
   };
 }
 function adminAddStudent_(d) {
-  const name=required_(d.name,110),cls=required_(d.classId,16);
+  const name=required_(d.name,110),cls=requireP6Class_(required_(d.classId,16));
   if(!classCodes_()[cls])throw Error('Admin ต้องเปิดห้องเรียนและสร้างรหัสห้องก่อน');
   if(/^[=+@-]/.test(name))throw Error('ชื่อไม่ถูกต้อง');
   return withLock_(()=>{
@@ -284,7 +296,7 @@ function adminAddStudent_(d) {
 function adminResetPassword_(d) {
   const uid=required_(d.uid,80);if(uid===PBL11.admin)throw Error('Admin เปลี่ยนรหัสของตนเองผ่านเมนูเปลี่ยนรหัสผ่าน');
   return withLock_(()=>{
-    const u=findUser_(uid);if(!u||u.ROLE!=='STUDENT')throw Error('ไม่พบบัญชีนักเรียน');
+    const u=findUser_(uid);if(!u||u.ROLE!=='STUDENT'||!isP6Class_(u.CLASS))throw Error('ไม่พบบัญชีนักเรียน');
     const pwd=temporaryPassword_(),c=makeCredential_(pwd);
     u.SALT=c.salt;u.PASSWORD_HASH=c.hash;u.MUST_CHANGE=true;u.PASSWORD_VERSION=Number(u.PASSWORD_VERSION)+1;u.UPDATED_AT=new Date();
     update_('users',u._row,u);audit_(PBL11.admin,'STUDENT_PASSWORD_RESET',uid,String(u.CLASS));return {temporaryPassword:pwd,uid};
@@ -293,14 +305,14 @@ function adminResetPassword_(d) {
 function adminSetActive_(d) {
   const uid=required_(d.uid,80),active=d.active===true;
   return withLock_(()=>{
-    const u=findUser_(uid);if(!u||u.ROLE!=='STUDENT')throw Error('ไม่พบบัญชีนักเรียน');
+    const u=findUser_(uid);if(!u||u.ROLE!=='STUDENT'||!isP6Class_(u.CLASS))throw Error('ไม่พบบัญชีนักเรียน');
     u.ACTIVE=active;u.PASSWORD_VERSION=Number(u.PASSWORD_VERSION)+1;u.UPDATED_AT=new Date();update_('users',u._row,u);
     audit_(PBL11.admin,active?'STUDENT_ENABLED':'STUDENT_DISABLED',uid,String(u.CLASS));
     return {uid,active};
   });
 }
 function adminSaveGroup_(d) {
-  const cls=required_(d.classId,16),name=required_(d.name,60),ids=Array.isArray(d.memberIds)?d.memberIds.map(String):[];
+  const cls=requireP6Class_(required_(d.classId,16)),name=required_(d.name,60),ids=Array.isArray(d.memberIds)?d.memberIds.map(String):[];
   if(!classCodes_()[cls])throw Error('ไม่พบห้องเรียน');
   if(ids.length<4||ids.length>5||new Set(ids).size!==ids.length)throw Error('กลุ่มต้องมีสมาชิกไม่ซ้ำกัน 4–5 คน');
   return withLock_(()=>{
@@ -318,8 +330,7 @@ function adminSaveGroup_(d) {
   });
 }
 function adminSetClassCode_(d) {
-  const cls=required_(d.classId,16);
-  if(!/^(?:[1-6]\.[1-9]|K[1-3]\.[1-9])$/.test(cls))throw Error('ห้องเรียนไม่อยู่ในรูปแบบที่รองรับ');
+  const cls=requireP6Class_(required_(d.classId,16));
   return withLock_(()=>{
     const c=classCodes_(),newCode=random_().slice(0,16);
     c[cls]=newCode;properties_().setProperty('PBL_V11_CLASS_CODES_JSON',JSON.stringify(c));
