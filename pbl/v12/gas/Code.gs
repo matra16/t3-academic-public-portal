@@ -158,9 +158,9 @@ function requireClassCode_(classId,code) {
  * Never publish an enrolled roster in GitHub Pages or a public JSON file.
  */
 function searchStudents_(d) {
-  const query=String(d.query||'').trim().replace(/\\s+/g,' ').toLocaleLowerCase('th');
+  const query=String(d.query||'').trim().replace(/\s+/g,' ').toLocaleLowerCase('th');
   if(query.length<3||query.length>60) return {students:[]};
-  if(/[\\u0000-\\u001f]/.test(query)) return {students:[]};
+  if(/[\u0000-\u001f]/.test(query)) return {students:[]};
   const eligible=rows_('users').filter(u=>
     u.ROLE==='STUDENT'&&isP6Class_(u.CLASS) &&
     (u.ACTIVE===true||String(u.ACTIVE)==='TRUE') &&
