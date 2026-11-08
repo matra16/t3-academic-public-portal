@@ -4,27 +4,28 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="dark"><meta name="theme-color" content="#0b1120"><meta name="referrer" content="no-referrer">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'">
-<title>Admin · T3 PBL Classroom V9</title>
+<title>Admin · T3 PBL Classroom V10</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700;800&display=swap">
-<link rel="stylesheet" href="admin-v9.css?v=9"><script src="admin-v9.js?v=9" defer></script>
+<link rel="stylesheet" href="admin-v9.css?v=9"><script src="admin-v10.js?v=10" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">ข้ามไปเนื้อหาหลัก</a>
 <div class="shell">
 <aside class="sidebar">
- <div class="branding"><span class="mark">🎬</span><div><strong>T3 PBL</strong><small>ADMIN WORKSPACE · V9</small></div></div>
+ <div class="branding"><span class="mark">🎬</span><div><strong>T3 PBL</strong><small>ADMIN WORKSPACE · V10</small></div></div>
  <p class="nav-title">การจัดการระบบ</p>
  <nav aria-label="Admin panels">
   <a class="nav-link selected" href="#overview" data-panel="overview"><span>▦</span> ภาพรวมระบบ</a>
   <a class="nav-link" href="#settings" data-panel="settings"><span>⚙</span> ตั้งค่าเว็บไซต์</a>
   <a class="nav-link" href="#student" data-panel="student"><span>🎓</span> เข้าในมุมมองนักเรียน</a>
+  <a class="nav-link" href="#roster" data-panel="roster"><span>📋</span> ทะเบียนนักเรียน</a>
   <a class="nav-link" href="#security" data-panel="security"><span>🛡</span> ความปลอดภัย/สิทธิ์</a>
  </nav>
  <div class="sidebar-foot"><span class="dot"></span> PUBLIC ADMIN VIEW<p>ยังไม่มี School Admin Login ในรุ่นนี้</p></div>
 </aside>
 <div class="content-area">
- <header class="header"><div class="crumb">T3 PBL CLASSROOM <span>/</span> <strong>Admin Workspace</strong></div><div class="head-actions"><span class="version">V9.0</span><a class="btn btn-small" href="../v9/?view=learning&preview=admin">ดูมุมมองนักเรียน ↗</a></div></header>
+ <header class="header"><div class="crumb">T3 PBL CLASSROOM <span>/</span> <strong>Admin Workspace</strong></div><div class="head-actions"><span class="version">V10.0</span><a class="btn btn-small" href="../v10/?view=learning&preview=admin">ดูมุมมองนักเรียน ↗</a></div></header>
  <main id="main" tabindex="-1">
   <div class="warning" role="note"><span class="warning-icon">🛡️</span><div>
    <strong>Admin Workspace สำหรับตั้งค่าส่วนสาธารณะ — ยังไม่ใช่ระบบลงชื่อ Admin ของโรงเรียน</strong>
@@ -32,21 +33,21 @@
   </div></div>
   <section id="panel-overview" class="panel" aria-labelledby="overviewTitle">
    <div class="page-heading"><p class="eyebrow">SYSTEM OVERVIEW</p><h1 id="overviewTitle">ศูนย์จัดการห้องเรียนโครงงาน</h1><p>ห้องเรียนโครงงานภาษาอังกฤษ ป.5–6 และการจัดการการเรียนรู้ตามโครงงาน Vlog</p></div>
-   <div class="metrics"><article class="metric"><span>รุ่นห้องเรียน</span><strong>V9</strong><small>GitHub Pages สาธารณะ</small></article>
+   <div class="metrics"><article class="metric"><span>รุ่นห้องเรียน</span><strong>V10</strong><small>GitHub Pages สาธารณะ</small></article>
      <article class="metric"><span>กระบวนการเรียนรู้</span><strong>20 ขั้น</strong><small>English Video Tour</small></article>
      <article class="metric"><span>หัวข้อสถานที่</span><strong>6 แบบ</strong><small>โรงเรียน / วัด / ชุมชน</small></article>
      <article class="metric"><span>ตัวเลือกภาษา</span><strong id="summaryLanguage">กำลังตรวจ…</strong><small>อ่านค่าจริงจากเว็บไซต์</small></article>
    </div>
    <div class="two-cols">
     <article class="card"><h2>🎓 เข้าในมุมมองนักเรียน</h2><p>ผู้ดูแลทดลองใช้หน้าห้องเรียนได้โดยไม่สวมตัวตนนักเรียน ไม่เข้าถึงข้อมูลของผู้อื่น และไม่เปลี่ยนสิทธิ์</p>
-      <div class="actions"><a class="btn btn-primary" href="../v9/?view=learning&preview=admin">Student Preview (อ่านอย่างเดียว)</a><a class="btn" href="../v9/?view=learning&role=demo">ทดลองเรียนจริงในโหมดตัวอย่าง</a></div>
+      <div class="actions"><a class="btn btn-primary" href="../v10/?view=learning&preview=admin">Student Preview (อ่านอย่างเดียว)</a><a class="btn" href="../v10/?view=learning&role=demo">ทดลองเรียนจริงในโหมดตัวอย่าง</a></div>
     </article>
     <article class="card"><h2>⚙️ ตั้งค่าหน้าเว็บ</h2><p>เปิดหรือปิดตัวเลือกภาษา UI และเลือกภาษาเริ่มต้น โดยให้ GitHub ยืนยันสิทธิ์ก่อน Commit และเผยแพร่ค่า</p>
       <div class="actions"><button type="button" class="btn btn-primary" data-go="settings">เปิดการตั้งค่า</button></div>
     </article>
    </div>
    <div class="card"><h2>ความพร้อมของระบบ</h2><div class="status-lines">
-     <div><span class="pill pass">เปิดใช้งาน</span><strong>หน้าเรียนและ Student View V9</strong><small>ตัวอย่างเรียนรู้ในเบราว์เซอร์ — ธีมนักเรียนสว่าง</small></div>
+     <div><span class="pill pass">เปิดใช้งาน</span><strong>หน้าเรียนและ Student View V10</strong><small>ตัวอย่างเรียนรู้ในเบราว์เซอร์ — ธีมนักเรียนสว่าง</small></div>
      <div><span class="pill pass">ควบคุมได้</span><strong>ค่าเปลี่ยนภาษา UI</strong><small>ผ่าน Repository authorization ไม่ใช่ Public admin form</small></div>
      <div><span class="pill pending">รอระบบหลังบ้าน</span><strong>การเป็นสมาชิกกลุ่มจริง, AI, คะแนน, Log ส่วนกลาง</strong><small>ต้องมีการอนุมัติข้อมูลนักเรียนและ Server-side RBAC ก่อน</small></div>
    </div></div>
@@ -76,12 +77,38 @@
   <section id="panel-student" class="panel" aria-labelledby="studentTitle" hidden>
    <div class="page-heading"><p class="eyebrow">STUDENT VIEW</p><h1 id="studentTitle">เข้าสู่ระบบในมุมมองนักเรียน</h1><p>ตรวจประสบการณ์จริงของนักเรียนโดยไม่แก้ข้อมูลผู้เรียน ไม่สวมบัญชีผู้อื่น</p></div>
    <div class="two-cols">
-    <article class="card"><div class="feature-icon">👁️</div><h2>Student Preview</h2><p>ดูตัวอย่างบทเรียนและการนำทางแบบอ่านอย่างเดียว: ไม่มีการอ่านโน้ตเดิม ไม่มีการบันทึกกิจกรรม ไม่มีการส่งงาน</p><a class="btn btn-primary" href="../v9/?view=learning&preview=admin">เปิด Student Preview ↗</a></article>
-    <article class="card"><div class="feature-icon">🎒</div><h2>Practice as Student</h2><p>ทดลองทำกิจกรรมครบถ้วนด้วยข้อมูลสมมติบนเบราว์เซอร์นี้ รวมบันทึกโน้ตทดลอง ไม่ใช่บัญชีหรือข้อมูลของเด็กคนใด</p><a class="btn" href="../v9/?view=learning&role=demo">เข้าสู่โหมดทดลองเรียน ↗</a></article>
+    <article class="card"><div class="feature-icon">👁️</div><h2>Student Preview</h2><p>ดูตัวอย่างบทเรียนและการนำทางแบบอ่านอย่างเดียว: ไม่มีการอ่านโน้ตเดิม ไม่มีการบันทึกกิจกรรม ไม่มีการส่งงาน</p><a class="btn btn-primary" href="../v10/?view=learning&preview=admin">เปิด Student Preview ↗</a></article>
+    <article class="card"><div class="feature-icon">🎒</div><h2>Practice as Student</h2><p>ทดลองทำกิจกรรมครบถ้วนด้วยข้อมูลสมมติบนเบราว์เซอร์นี้ รวมบันทึกโน้ตทดลอง ไม่ใช่บัญชีหรือข้อมูลของเด็กคนใด</p><a class="btn" href="../v10/?view=learning&role=demo">เข้าสู่โหมดทดลองเรียน ↗</a></article>
    </div>
   </section>
+
+  <section id="panel-roster" class="panel" aria-labelledby="rosterTitle" hidden>
+   <div class="page-heading"><p class="eyebrow">RESTRICTED SCHOOL ROSTER</p>
+    <h1 id="rosterTitle">ทะเบียนนักเรียน ท.3 — พฤศจิกายน 2569</h1>
+    <p>ข้อมูลรายบุคคลเก็บไว้ในไฟล์ต้นฉบับของโรงเรียนที่จำกัดสิทธิ์ ไม่ส่งชื่อเด็กให้ GitHub Pages</p>
+   </div>
+   <div class="warning"><span class="warning-icon">🔐</span><div>
+    <strong>ยังไม่เปิดรายชื่อเด็กหรือการค้นหารายคนใน Admin สาธารณะ</strong>
+    <p>การเปิดรายชื่อจริงต้องผ่านบัญชีโรงเรียนที่ได้รับอนุญาต และระบบหลังบ้านที่ตรวจ RBAC รายห้องเรียนก่อน การกด QR หรือกรอกชื่อเล่นเองยังไม่ใช่หลักฐานยืนยันตัวตน</p>
+   </div></div>
+   <div class="metrics">
+    <article class="metric"><span>วันที่ของเอกสารต้นทาง</span><strong>1 พ.ย.</strong><small>ปีการศึกษา 2569</small></article>
+    <article class="metric"><span>ระดับชั้น</span><strong>อ.1–ป.6</strong><small>21 แผ่นงานรายห้อง</small></article>
+    <article class="metric"><span>สถานะข้อมูล</span><strong>Read only</strong><small>ต้องตรวจทะเบียนจริง</small></article>
+    <article class="metric"><span>การเชื่อมบัญชี</span><strong>รอสิทธิ์</strong><small>Protected School API / RBAC</small></article>
+   </div>
+   <div class="card"><h2>แหล่งข้อมูลและการตรวจรับ</h2>
+    <p>ตรวจไฟล์ Excel ฉบับวันที่ 1 พฤศจิกายน 2569 แล้ว พบเลขที่ต่อเนื่องในแต่ละห้อง แต่มีบางรายการที่ช่องนามสกุลยังไม่ครบ จึงอยู่ระหว่างตรวจสอบ ไม่สมควรนำไปสร้างบัญชีหรือจับกลุ่มเด็กโดยอัตโนมัติ</p>
+    <p>การดูและแก้ชื่อจริงให้ใช้ไฟล์ต้นฉบับภายใต้สิทธิ์โรงเรียนเท่านั้น ไม่สร้างฐานข้อมูลคู่ขนานหรือส่งรายชื่อไป GitHub Repository</p>
+   </div>
+   <div class="card"><h2>สถานะ Profile และ Group</h2><div class="status-lines">
+    <div><span class="pill pass">Demo</span><strong>โปรไฟล์ตัวอย่าง / กลุ่มตัวอย่างในเบราว์เซอร์</strong><small>ชื่อสมมติ ไม่ใช่บุคคลในทะเบียนจริง</small></div>
+    <div><span class="pill pending">Human Gate</span><strong>การเชื่อม LearnerID และบัญชีโรงเรียน</strong><small>ครู/ผู้ดูแลรับรองห้องเรียนและนักเรียนทีละรายการ</small></div>
+    <div><span class="pill pending">Human Gate</span><strong>จัดกลุ่มจริง 4–5 คน และการเก็บ Log รายคน</strong><small>ต้องตรวจสิทธิ์ Server-side และเกณฑ์ข้อมูลเด็กก่อน</small></div>
+   </div></div>
+  </section>
   <section id="panel-security" class="panel" aria-labelledby="securityTitle" hidden>
-   <div class="page-heading"><p class="eyebrow">ACCESS CONTROL</p><h1 id="securityTitle">สิทธิ์และความปลอดภัย</h1><p>ขอบเขตจริงของระบบ V9: Public Workspace ไม่ใช่ Protected School Admin</p></div>
+   <div class="page-heading"><p class="eyebrow">ACCESS CONTROL</p><h1 id="securityTitle">สิทธิ์และความปลอดภัย</h1><p>ขอบเขตจริงของระบบ V10: Public Workspace ไม่ใช่ Protected School Admin</p></div>
    <div class="card"><div class="status-lines">
     <div><span class="pill pass">GitHub ACL</span><strong>เปลี่ยนค่าจริงผ่าน GitHub Editor</strong><small>GitHub เป็นผู้ตรวจว่า Account มีสิทธิ์ Commit เข้า repo</small></div>
     <div><span class="pill neutral">Public UI</span><strong>ผู้เยี่ยมชมดู Admin Workspace ได้</strong><small>หน้าเว็บไม่มี Token, Credential, ข้อมูลนักเรียนหรือ API เขียนค่า</small></div>
@@ -90,7 +117,7 @@
    <div class="card"><h2>การควบคุมข้อมูลนักเรียนและ AI</h2><p>AI จริง การส่งงานหลายกลุ่ม การติดตามรายบุคคล การประเมินและสิทธิ์ดูสื่อเด็กยังไม่เปิดบน Public GitHub Pages</p><a class="btn" target="_blank" rel="noopener noreferrer" href="https://github.com/matra16/t3-academic-public-portal/blob/main/pbl/research/V8_PUBLIC_DESIGN_AND_AI_SAFETY.md">อ่านเอกสารข้อกำหนดความปลอดภัย ↗</a></div>
   </section>
  </main>
- <footer>ADMIN WORKSPACE V9 · DARK THEME ONLY · PUBLIC READER / GITHUB-CONTRIBUTOR WRITE</footer>
+ <footer>ADMIN WORKSPACE V10 · DARK THEME ONLY · PUBLIC READER / GITHUB-CONTRIBUTOR WRITE</footer>
 </div>
 </div>
 </body>
