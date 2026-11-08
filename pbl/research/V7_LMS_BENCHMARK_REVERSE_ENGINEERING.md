@@ -2,7 +2,7 @@
 
 Project: PBL_LEARNING | WorkID: PBLH-V7-UX-I18N-20261108
 Research date: 2026-11-08 | Source category: official public LMS help, public developer documentation, W3C accessibility standards.
-Status: RESEARCH VERIFIED; implementation local QA pass; live publication to be verified separately.
+Status: RESEARCH AND LIVE GITHUB PAGES V7 VERIFICATION COMPLETE (public synthetic classroom only).
 Scope boundary: only functional UX reverse engineering based on publicly available pages and documented behavior. No login bypass, private-data acquisition, source copying, decompilation or fabricated student data. Reuse canonical 22-tab PBL Master and existing GitHub Pages path. Protected Admin dark-only; untouched.
 
 ## Comparative LMS evidence and specific V7 decisions
@@ -75,3 +75,9 @@ Scope boundary: only functional UX reverse engineering based on publicly availab
 - Only the public student static classroom is in V7 scope. The separate protected admin surface remains dark-only. Reverse engineering does not authorize copying third-party source code or importing private student data.
 
 Next exact gate: verify live GitHub Pages V7, real Chrome TH and EN, class QR and school-safe release readback, then append the V7 source pointers/version/QA into the existing Master DB without overwriting earlier rows.
+## Live release readback, 2026-11-08
+- GitHub Pages V7 source pbl/index.html published on existing main branch, release commit 7c0b76c8c94be471d77691a88dd2a372f568c680; prior V6 remains in history. Existing portal root index unchanged.
+- Public home and V7 CSS/JS returned HTTP 200; visual live Chrome showed professional home and no GAS attribution banner; actual font loading document.fonts.check(Sarabun) passed.
+- Live Chrome CDP tests 10/10: TH default, font loaded, GAS banner absent, EN runtime switch, translated course cards, title, QR rendering, localized QR, public class language URL, deep link my-community in English.
+- Isolated local QA remains 360/360 static and 33/33 behavioral; mobile CDP 390px no horizontal overflow for Thai and English.
+- This static site cannot access protected school files, actual gradebook, assignments or an Admin interface. Protected Admin Dark-only unchanged. School data/model gate remains open for any future official LMS features.
