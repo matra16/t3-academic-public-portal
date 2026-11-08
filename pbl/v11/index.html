@@ -21,12 +21,12 @@
 <section id="welcome" class="shell">
  <div class="hero"><div class="eyebrow">LEARN • COLLABORATE • CREATE</div>
   <h1>ห้องเรียนโครงงาน<br><em>เรียนรู้ด้วยตัวเอง เติบโตไปด้วยกัน</em></h1>
-  <p>เข้าสู่พื้นที่เรียนรู้ภาษาอังกฤษแบบรายบุคคลและรายกลุ่ม โดยครูเป็นผู้กำหนดกลุ่มและลำดับกิจกรรม</p>
+  <p>สำหรับนักเรียนชั้นประถมศึกษาปีที่ 6 เท่านั้น (ป.6/1–ป.6/3) เรียนรู้ภาษาอังกฤษแบบรายบุคคลและรายกลุ่ม โดยครูเป็นผู้กำหนดกลุ่มและลำดับกิจกรรม</p>
   <div class="hero-chips"><span>✓ 20 ขั้นการเรียนรู้</span><span>✓ ฝึกภาษาอังกฤษรายบุคคล</span><span>✓ โครงงาน Vlog แบบกลุ่ม</span></div>
  </div>
  <div class="login-layout">
  <section class="login-card" aria-labelledby="studentTitle">
-  <div class="card-icon">🎒</div><p class="tag">STUDENT ACCESS</p><h2 id="studentTitle">นักเรียนเข้าสู่ระบบ</h2>
+  <div class="card-icon">🎒</div><p class="tag">STUDENT ACCESS</p><h2 id="studentTitle">นักเรียนชั้น ป.6 เข้าสู่ระบบ</h2>
   <p class="muted">เลือกห้องเรียนและชื่อของตนเอง แล้วกรอกรหัสผ่านที่ได้รับจากครู</p>
   <form id="studentLogin" autocomplete="off">
    <label for="studentClass">1. ห้องเรียน</label>
@@ -82,7 +82,7 @@
  <div class="dashboard-head"><div><p class="eyebrow">SCHOOL ADMIN WORKSPACE</p><h1>จัดการนักเรียนและกลุ่มโครงงาน</h1><p class="muted">บัญชี: matra160114 · จำกัดสิทธิ์ฝั่งเซิร์ฟเวอร์</p></div><button id="changeAdminPass" type="button" class="btn neutral">เปลี่ยนรหัสผ่าน Admin</button></div>
  <div class="admin-grid">
   <section class="panel"><p class="tag">01 / CLASS ACCESS</p><h2>เปิดห้องเรียนและออกรหัสห้อง</h2>
-   <form id="classForm"><label for="newClass">ชั้น/ห้อง เช่น 6.3 หรือ 5.1</label><input id="newClass" required placeholder="6.3" maxlength="16">
+   <form id="classForm"><label for="newClass">ชั้น/ห้อง เฉพาะ 6.1, 6.2 หรือ 6.3</label><select id="newClass" required><option value="">เลือกห้อง ป.6</option><option value="6.1">ป.6/1</option><option value="6.2">ป.6/2</option><option value="6.3">ป.6/3</option></select>
     <button type="submit" class="btn primary">สร้าง / เปลี่ยนรหัสห้อง</button></form>
    <p class="help">รหัสห้องสำหรับแสดงรายชื่อ ไม่ใช่รหัสผ่านของนักเรียน สามารถเปลี่ยนได้เมื่อจำเป็น</p>
   </section>
