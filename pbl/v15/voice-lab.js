@@ -105,7 +105,7 @@
     if(recorder&&recorder.state!=='inactive')finishRecording();
     status('เลือกเสียง British แล้วกดฟัง จากนั้นฝึกพูดตามได้');
   }
-  const ukVoice=v=>v&&/^en[-_]GB$/i.test(String(v.lang||'').replace('_','-'));
+  const ukVoice=v=>v&&v.localService===true&&/^en[-_]GB$/i.test(String(v.lang||'').replace('_','-')); // avoid sending learner-written text to remote voice services
   function availableVoices(){
     try{return [...synth.getVoices()].filter(ukVoice)}catch(e){return []}
   }
@@ -124,9 +124,9 @@
     const matches=options.filter(x=>x.gender===gender);
     const selectable=matches.length?matches:options;
     if(!options.length){
-      const o=document.createElement('option');o.value='';o.textContent='ไม่พบเสียง English (United Kingdom)';$select.append(o);
+      const o=document.createElement('option');o.value='';o.textContent='ไม่พบเสียง British ที่ติดตั้งในเครื่อง';$select.append(o);
       $select.disabled=true;$play.disabled=true;$repeat.disabled=true;
-      availability('อุปกรณ์นี้ยังไม่พบเสียง British (en-GB) กรุณาเพิ่มเสียงภาษาอังกฤษ UK ในการตั้งค่าเสียงของอุปกรณ์','warning');
+      availability('อุปกรณ์นี้ยังไม่พบเสียง British แบบภายในเครื่อง (en-GB) กรุณาติดตั้งเสียงภาษาอังกฤษ UK ในการตั้งค่าอุปกรณ์ แล้วเปิดหน้าเว็บใหม่','warning');
       return;
     }
     selectable.forEach(({voice,i,gender:g})=>{
@@ -138,7 +138,7 @@
     if(selectable.some(x=>String(x.i)===previous))$select.value=previous;
     else $select.value=String(selectable[0].i);
     if(matches.length){
-      availability('พร้อมใช้เสียง British '+(gender==='female'?'ผู้หญิง':'ผู้ชาย')+' จากอุปกรณ์นี้ ('+matches.length+' เสียง)');
+      availability('พร้อมใช้เสียง British ภายในเครื่อง '+(gender==='female'?'ผู้หญิง':'ผู้ชาย')+' จากอุปกรณ์นี้ ('+matches.length+' เสียง)');
     }else{
       availability('ไม่พบเสียง British '+(gender==='female'?'ผู้หญิง':'ผู้ชาย')+' ที่ระบุชัดในอุปกรณ์นี้ มีเสียง English (UK) ให้เลือกแทน แต่ไม่สามารถยืนยันเพศเสียงได้','warning');
     }
