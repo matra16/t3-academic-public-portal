@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><meta name="theme-color" content="#f3faf8"><meta name="description" content="ห้องเรียนโครงงานภาษาอังกฤษ สำหรับนักเรียนชั้นประถมศึกษาปีที่ 6">
+<title>ห้องเรียนโครงงานภาษาอังกฤษ · ป.6</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="v12.css?v=12-1"><script src="v12.js?v=12-1" defer></script></head>
+<body><a class="skip" href="#main">ข้ามไปเนื้อหาหลัก</a>
+<header class="bar"><div class="bar-in"><a class="brand" href="./" aria-label="กลับหน้าห้องเรียน"><span class="brand-mark"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v17H6.5A2.5 2.5 0 0 0 4 22z"/><path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H13v17h4.5A2.5 2.5 0 0 1 20 22z"/></svg></span><span class="brand-text"><strong>ห้องเรียนโครงงานภาษาอังกฤษ</strong><small>ชั้นประถมศึกษาปีที่ 6</small></span></a>
+<div class="right"><button id="adminEntry" type="button" class="admin-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11z"/><path d="m9 12 2 2 4-4"/></svg><span>ผู้ดูแลระบบ</span></button><button type="button" id="logoutBtn" class="btn subtle" hidden>ออกจากระบบ</button></div></div></header>
+<main id="main"><div id="banner" class="banner" hidden role="status" aria-live="polite"></div>
+<section id="welcome" class="shell home-shell">
+ <div class="home-orb home-orb-a" aria-hidden="true"></div><div class="home-orb home-orb-b" aria-hidden="true"></div>
+ <div class="hero"><span class="hero-symbol"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v17H6.5A2.5 2.5 0 0 0 4 22z"/><path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H13v17h4.5A2.5 2.5 0 0 1 20 22z"/></svg></span><h1>ห้องเรียนโครงงานภาษาอังกฤษ</h1><p class="hero-subhead">สำหรับนักเรียนชั้นประถมศึกษาปีที่ 6</p><p class="hero-info">ค้นหาชื่อของตนเอง แล้วเข้าสู่บทเรียน</p></div>
+ <section class="login-card student-card" aria-labelledby="studentTitle">
+  <div class="student-card-head"><span class="form-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4.5 21v-2a7.5 7.5 0 0 1 15 0v2"/></svg></span><div><h2 id="studentTitle">เข้าสู่ห้องเรียน</h2><p class="muted">เลือกชื่อของตนเอง แล้วกรอกรหัสผ่าน</p></div></div>
+  <form id="studentLogin" autocomplete="off">
+   <label for="studentSearch">ชื่อของฉัน</label>
+   <div class="field-with-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg><input id="studentSearch" type="search" placeholder="พิมพ์ชื่อเพื่อค้นหา" role="combobox" aria-expanded="false" aria-controls="searchResults" aria-autocomplete="list" autocomplete="off" maxlength="110" required></div>
+   <div id="searchResults" class="search-results" role="listbox" aria-label="รายชื่อที่ค้นพบ" hidden></div>
+   <div id="studentSelection" class="selected-student" role="status" hidden><span class="selected-mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4.5 21v-2a7.5 7.5 0 0 1 15 0v2"/></svg></span><strong id="selectedName"></strong><button type="button" id="changeSelection" class="change-selection">เปลี่ยนชื่อ</button></div>
+   <select id="studentName" hidden aria-hidden="true"><option value="">เลือกชื่อ</option></select>
+   <select id="studentClass" hidden aria-hidden="true"><option value="">เลือกห้อง</option></select>
+   <input id="classCode" type="hidden" value="">
+   <div id="passwordFields" hidden>
+    <label for="studentPassword">รหัสผ่าน</label>
+    <div class="field-with-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15.5" r="1"/></svg><input id="studentPassword" type="password" placeholder="กรอกรหัสผ่าน" autocomplete="current-password" maxlength="72" required><button type="button" class="peek" data-toggle="studentPassword" aria-label="แสดงหรือซ่อนรหัสผ่าน"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"/><circle cx="12" cy="12" r="2.5"/></svg></button></div>
+   </div>
+   <button id="studentSubmit" type="submit" class="btn primary full" disabled>เข้าสู่ห้องเรียน <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M13 5l7 7-7 7"/></svg></button>
+  </form>
+  <p class="help forgot">ลืมรหัสผ่าน กรุณาแจ้งผู้ดูแลระบบ</p>
+  <div class="lesson-explore"><button id="exploreLessons" type="button"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v17H6.5A2.5 2.5 0 0 0 4 22z"/><path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H13v17h4.5A2.5 2.5 0 0 1 20 22z"/></svg><span>สำรวจบทเรียน</span></button></div>
+ </section>
+ <section id="adminAccess" class="admin-access panel" hidden aria-labelledby="adminTitle">
+  <div class="admin-access-head"><h2 id="adminTitle">เข้าสู่ระบบผู้ดูแล</h2><button id="closeAdmin" type="button" class="close-admin" aria-label="ปิด">×</button></div>
+  <form id="adminLogin" autocomplete="off"><label for="adminUser">ชื่อบัญชีผู้ดูแล</label><input id="adminUser" value="matra160114" autocomplete="username" readonly>
+   <label for="adminPassword">รหัสผ่าน</label><div class="field-with-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15.5" r="1"/></svg><input id="adminPassword" type="password" autocomplete="current-password" maxlength="72" placeholder="กรอกรหัสผ่าน" required><button type="button" class="peek" data-toggle="adminPassword" aria-label="แสดงหรือซ่อนรหัสผ่าน"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"/><circle cx="12" cy="12" r="2.5"/></svg></button></div>
+   <button type="submit" class="btn primary full">เข้าสู่ระบบ <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M13 5l7 7-7 7"/></svg></button></form>
+ </section>
+</section>
+<section id="passwordScreen" class="shell narrow" hidden>
+ <div class="panel"><span class="tag">ตั้งค่ารหัสผ่าน</span><h2 id="passwordTitle">เปลี่ยนรหัสผ่าน</h2>
+ <p class="muted">รหัสผ่านใหม่ต้องมีอย่างน้อย 10 ตัวอักษร และไม่ใช้เลขบัตรประชาชน เมื่อเปลี่ยนสำเร็จจะต้องเข้าสู่ระบบอีกครั้ง</p>
+ <form id="changePasswordForm">
+  <label for="oldPassword">รหัสผ่านเดิม</label><input id="oldPassword" type="password" autocomplete="current-password" required>
+  <label for="newPassword">รหัสผ่านใหม่</label><input id="newPassword" type="password" autocomplete="new-password" minlength="10" maxlength="72" required>
+  <label for="confirmPassword">ยืนยันรหัสผ่านใหม่</label><input id="confirmPassword" type="password" autocomplete="new-password" minlength="10" maxlength="72" required>
+  <div class="actions"><button type="submit" class="btn primary">บันทึกรหัสผ่านใหม่</button><button type="button" id="backFromPassword" class="btn neutral">ย้อนกลับ</button></div>
+ </form></div>
+</section>
+<section id="studentScreen" class="shell" hidden>
+ <div class="dashboard-head"><div><p class="eyebrow">เส้นทางการเรียนรู้ของฉัน</p><h1 id="studentGreeting">พื้นที่เรียนรู้ของฉัน</h1><p id="studentMeta" class="muted"></p></div><button type="button" id="changeStudentPass" class="btn neutral">เปลี่ยนรหัสผ่าน</button></div>
+ <div class="learn-layout">
+  <aside class="panel sidebar"><h2>เส้นทาง 20 ขั้น</h2><p class="muted">ทำกิจกรรมตามลำดับ ครูจะกำหนดสมาชิกกลุ่ม</p><div id="stepList" class="steps" aria-label="ขั้นตอนการเรียนรู้"></div></aside>
+  <article class="panel task" id="taskPanel">
+   <span class="tag" id="taskMode">รายบุคคล</span><p class="eyebrow" id="taskCounter">STEP 01 / 20</p><h2 id="taskTitle">เริ่มต้นโครงงาน</h2><p id="taskDescription" class="muted"></p>
+   <div class="language"><small>ฝึกภาษาอังกฤษ</small><p id="taskQuestion" lang="en"></p><blockquote id="taskFrame" lang="en"></blockquote></div>
+   <label for="taskNote">บันทึกแนวคิดหรือหลักฐานการเรียนรู้</label><textarea id="taskNote" maxlength="1500" rows="6" placeholder="พิมพ์คำตอบของฉัน / แนวคิดของกลุ่ม"></textarea>
+   <div class="actions"><button type="button" class="btn primary" id="saveStep">บันทึกขั้นตอนนี้</button><button type="button" class="btn neutral" id="nextStep">ขั้นต่อไป →</button></div>
+   <p class="help" id="taskHelp" role="status"></p>
+  </article>
+ </div>
+</section>
+<section id="adminScreen" class="shell" hidden>
+ <div class="dashboard-head"><div><p class="eyebrow">จัดการห้องเรียน</p><h1>จัดการนักเรียนและกลุ่มโครงงาน</h1><p class="muted">บัญชีผู้ดูแล matra160114</p></div><button id="changeAdminPass" type="button" class="btn neutral">เปลี่ยนรหัสผ่าน Admin</button></div>
+ <div class="admin-grid">
+  
+  <section class="panel"><p class="tag">รายชื่อนักเรียน</p><h2>เพิ่มนักเรียน</h2>
+   <form id="addStudentForm"><label for="addName">ชื่อ–นามสกุล</label><input id="addName" maxlength="110" required placeholder="ใช้ข้อมูลที่โรงเรียนรับรอง">
+    <label for="addClass">ห้องเรียน</label><select id="addClass" required><option value="">เลือกห้อง</option></select>
+    <button type="submit" class="btn primary">เพิ่มบัญชีนักเรียน + ออกรหัสเริ่มต้น</button></form>
+  </section>
+  <section class="panel"><p class="tag">กลุ่มโครงงาน</p><h2>กำหนดกลุ่ม 4–5 คน</h2>
+   <form id="groupForm"><label for="groupClass">ห้องเรียน</label><select id="groupClass" required><option value="">เลือกห้อง</option></select>
+    <label for="groupName">ชื่อกลุ่ม</label><input id="groupName" maxlength="60" required placeholder="VLOG TEAM 1">
+    <label for="groupMembers">เลือกสมาชิก (Ctrl / Cmd เพื่อเลือกหลายคน)</label><select id="groupMembers" multiple size="7" required></select>
+    <p class="help">เลือกสมาชิก 4–5 คนที่อยู่ห้องเดียวกันและยังไม่อยู่ในกลุ่มอื่น</p>
+    <button type="submit" class="btn primary">บันทึกกลุ่มโครงงาน</button></form>
+  </section>
+  <section class="panel"><p class="tag">บัญชีนักเรียน</p><h2>บัญชีผู้เรียน</h2>
+   <label for="rosterFilter">กรองห้องเรียน</label><select id="rosterFilter"><option value="">ทุกห้อง</option></select>
+   <div id="rosterList" class="roster-list" aria-live="polite"></div>
+  </section>
+ </div>
+ <section class="panel group-overview"><h2>กลุ่มที่จัดแล้ว</h2><div id="groupList" class="groups"></div></section>
+</section>
+<div id="secretDialog" class="modal-wrap" hidden role="dialog" aria-modal="true" aria-labelledby="secretTitle">
+ <div class="modal"><h2 id="secretTitle">รหัสผ่านชั่วคราว</h2><p class="muted">แสดงเพียงครั้งเดียว ส่งให้นักเรียนเป็นการส่วนตัว และให้นักเรียนเปลี่ยนเมื่อเข้าสู่ระบบ ห้ามถ่ายภาพเผยแพร่</p><output id="secretValue" class="secret"></output><div class="actions"><button id="hideSecret" type="button" class="btn primary">ปิดและลบรหัสจากหน้าจอ</button></div></div>
+</div>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+</main><footer class="footer">© 2569 พัฒนาโดย Mr.Matra Yodchan</footer>
+</body></html>
