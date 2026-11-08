@@ -34,6 +34,8 @@ function apiV11(req) {
     else if(action==='login') result = login_(data);
     else {
       const session = authorize_(req.token);
+      if(publicUser_(session.user).mustChange && !['changePassword','logout'].includes(action))
+        throw Error('กรุณาเปลี่ยนรหัสผ่านเริ่มต้นก่อน');
       if(action==='dashboard') result = dashboard_(session);
       else if(action==='logout') {CacheService.getScriptCache().remove('pbl11_s_'+String(req.token));result={ok:true};}
       else if(action==='changePassword') result=changePassword_(session,data);
@@ -139,13 +141,20 @@ function getNames_(d) {
   const users=rows_('users').filter(u=>String(u.CLASS)===classId && String(u.ROLE)==='STUDENT' && (u.ACTIVE===true||String(u.ACTIVE)==='TRUE'));
   return {students:users.map(u=>({uid:String(u.UID),name:String(u.DISPLAY_NAME)})).sort((a,b)=>a.name.localeCompare(b.name,'th'))};
 }
-function throttle_(uid,ok) {
-  const cache=CacheService.getScriptCache();
-  const key='pbl11_fail_'+Utilities.base64EncodeWebSafe(Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256,String(uid))).slice(0,44);
-  const count=Number(cache.get(key)||0);
-  if(!ok) cache.put(key,String(count+1),PBL11.failedSeconds);
-  else cache.remove(key);
-  return count>=PBL11.failedLimit;
+function failureKey_(uid){
+  return 'pbl11_fail_'+Utilities.base64EncodeWebSafe(Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256,String(uid))).slice(0,44);
+}
+function blocked_(uid){
+  return Number(CacheService.getScriptCache().get(failureKey_(uid))||0)>=PBL11.failedLimit;
+}
+function recordAttempt_(uid,success){
+  const lock=LockService.getScriptLock();
+  if(!lock.tryLock(5000))throw Error('กรุณาลองใหม่อีกครั้ง');
+  try{
+    const cache=CacheService.getScriptCache(),key=failureKey_(uid);
+    if(success)cache.remove(key);
+    else cache.put(key,String(Number(cache.get(key)||0)+1),PBL11.failedSeconds);
+  }finally{lock.releaseLock();}
 }
 function login_(d) {
   const role=String(d.role||'');
@@ -158,12 +167,12 @@ function login_(d) {
   const eligible=u && String(u.ROLE)===role && (u.ACTIVE===true||String(u.ACTIVE)==='TRUE') &&
     (role==='ADMIN'||String(u.CLASS)===String(d.classId));
   const failMessage='ชื่อหรือรหัสผ่านไม่ถูกต้อง หรือบัญชีไม่พร้อมใช้งาน';
-  const hasLock=throttle_('login:'+uid,true)===true;
+  const hasLock=blocked_('login:'+uid);
   // No credential value or password hash is returned to browser.
-  if(!eligible||hasLock) {throttle_('login:'+uid,false);throw Error(failMessage);}
+  if(!eligible||hasLock) {if(!hasLock)recordAttempt_('login:'+uid,false);throw Error(failMessage);}
   const matched=same_(hash_(pass,String(u.SALT)),String(u.PASSWORD_HASH));
-  if(!matched) {throttle_('login:'+uid,false);throw Error(failMessage);}
-  throttle_('login:'+uid,true);
+  if(!matched) {recordAttempt_('login:'+uid,false);throw Error(failMessage);}
+  recordAttempt_('login:'+uid,true);
   const token=random_();
   CacheService.getScriptCache().put('pbl11_s_'+token,JSON.stringify({uid,role,v:Number(u.PASSWORD_VERSION)||1}),PBL11.sessionSeconds);
   return {token,user:publicUser_(u),expiresIn:PBL11.sessionSeconds};
