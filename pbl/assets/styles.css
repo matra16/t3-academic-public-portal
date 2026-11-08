@@ -1,0 +1,136 @@
+/* T3 PBL Classroom V6 — student light-only UI. Protected Admin is not hosted or changed here. */
+:root{
+  color-scheme:light;
+  font-family:"Noto Sans Thai",Tahoma,"Leelawadee UI",system-ui,sans-serif;
+  font-synthesis:none;
+  text-rendering:optimizeLegibility;
+  -webkit-font-smoothing:antialiased;
+  --bg:#f4faf8;--ink:#193648;--muted:#425e69;--surface:#ffffff;--line:#c7dedd;
+  --mint:#e5f7ed;--aqua:#eaf6ff;--sun:#fff3d8;--peach:#fff0e6;
+  --teal:#126b5a;--teal-hover:#0b5144;--blue:#12658d;--focus:#bc4f12;
+  --panel:#ffffff;--shadow:0 14px 36px rgba(29,78,91,.08);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:100px}
+body{margin:0;min-height:100vh;color:var(--ink);font-size:17px;line-height:1.75;
+ background:linear-gradient(160deg,#e6f7f4 0%,#f5fbf8 37%,#fdfaf2 100%);}
+body[data-surface="student"]{color-scheme:light}
+h1,h2,h3,p{overflow-wrap:break-word}
+h1,h2,h3{letter-spacing:-.015em;line-height:1.35}
+a{color:var(--blue);text-underline-offset:3px}
+a:hover{text-decoration-thickness:2px}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer;min-height:46px;transition:background-color .15s ease,transform .15s ease,border-color .15s ease}
+button:disabled{opacity:.57;cursor:not-allowed}
+:where(a,button,input,select,textarea,[tabindex]):focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+.skip{position:fixed;left:-9999px;top:10px;padding:12px 18px;background:#fff;color:var(--ink);z-index:100;border:2px solid var(--teal);border-radius:10px}
+.skip:focus{left:12px}
+header{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:16px;
+ padding:14px clamp(16px,4vw,52px);background:#ffffffed;border-bottom:1px solid var(--line);backdrop-filter:blur(9px)}
+header .brand{display:flex;align-items:center;gap:12px;font-weight:900;font-size:18px;line-height:1.25;color:#194b5b}
+header .brand>span{background:#e4f7ed;border-radius:14px;width:43px;height:43px;display:grid;place-items:center;font-size:26px}
+header small{display:block;color:#416878;font-size:12px;letter-spacing:.035em;font-weight:700;margin-top:3px}
+.pill{display:inline-flex;align-items:center;gap:6px;border:1px solid #b3d7e5;background:#eaf6ff;color:#195b75;
+ border-radius:999px;padding:5px 13px;font-size:13px;font-weight:700;letter-spacing:.005em}
+button.primary{color:#fff;background:var(--teal);border:1px solid var(--teal);border-radius:14px;padding:12px 21px;font-weight:800;box-shadow:0 6px 18px #126b5a21}
+button.primary:hover{background:var(--teal-hover);border-color:var(--teal-hover)}
+button.secondary{background:#f3fbff;color:#175375;border:1px solid #9cc7d9;border-radius:13px;padding:11px 18px;font-weight:800}
+button.secondary:hover{background:#e2f4fc}
+button.ghost{background:#fff;color:#285264;border:1px solid #b6d1d8;border-radius:13px;padding:9px 15px;font-weight:700}
+button.ghost:hover{background:#eef9f9}
+main{max-width:1200px;margin:auto;padding:28px clamp(16px,4vw,42px) 80px}
+.hero{position:relative;overflow:hidden;padding:clamp(24px,4vw,52px);background:
+ radial-gradient(circle at 96% 8%,#ffdfad99 0,transparent 33%),
+ linear-gradient(115deg,#e3f8ed 3%,#e4f4ff 63%,#fff4df 100%);
+ border:1px solid #b8d9db;border-radius:29px;box-shadow:var(--shadow)}
+.eyebrow{font-size:14px;color:#176650;font-weight:900;letter-spacing:.13em}
+h1{font-size:clamp(32px,4vw,50px);margin:12px 0 17px;font-weight:900}
+h2{font-size:clamp(24px,2.6vw,31px);margin:0 0 16px;font-weight:900}
+h3{font-size:20px;margin:0 0 9px;font-weight:800}
+.lead{max-width:790px;font-size:clamp(17px,1.7vw,20px);color:#294d62;line-height:1.85}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px;color:#2a605c;font-size:13px}
+.section{margin-top:38px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,285px),1fr));gap:19px}
+.card,.panel{border:1px solid var(--line);border-radius:22px;background:var(--surface);padding:25px;box-shadow:var(--shadow)}
+.card{min-height:240px;display:flex;flex-direction:column;gap:9px;position:relative}
+.card::before{content:"";position:absolute;inset:0 auto 0 0;width:6px;background:linear-gradient(#6bcbaa,#7fc9ef);border-radius:22px 0 0 22px}
+.card:nth-child(2n)::before{background:linear-gradient(#f8cc80,#91c3ec)}
+.card p,.muted{color:var(--muted);line-height:1.85}
+.card h3{font-size:21px}
+.card .icon{display:inline-grid;place-items:center;font-size:34px;line-height:1;min-width:64px;min-height:64px;width:64px;
+ background:var(--mint);border:1px solid #c2e3d6;border-radius:19px}
+.card:nth-child(2n) .icon{background:var(--sun);border-color:#f0d79f}
+.card button{margin-top:auto;align-self:flex-start}
+.lesson{border:1px solid #bedfdd;background:#f4fbf8;border-radius:19px;padding:21px;margin:14px 0}
+.lesson:nth-child(2n){background:#f1f9fe;border-color:#c7dfe8}
+.lesson blockquote{margin:12px 0;border-left:4px solid #29876f;padding:9px 14px;color:#20566a;background:#fff;border-radius:0 10px 10px 0;font-weight:700}
+.lesson label{display:block;margin:14px 0 6px;font-weight:800}
+.lesson textarea{min-height:105px;width:100%;background:#fff;border:1.5px solid #95b9c0;border-radius:12px;padding:12px;color:var(--ink);resize:vertical}
+.columns{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(240px,.65fr);gap:20px}
+.field{margin:15px 0}
+.field label{display:block;margin-bottom:8px;font-weight:800}
+.field input,.field select{background:#fff;color:var(--ink);border:1.5px solid #95b9c0;border-radius:12px;padding:12px;width:100%;max-width:480px}
+.note{border-left:4px solid #cf8634;background:#fff3df;padding:12px 17px;color:#684415;border-radius:8px;font-size:14px;line-height:1.8}
+.safe{border-left:4px solid #259077;background:#e6f7ef;padding:13px 16px;color:#205345;border-radius:8px}
+.banner{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:17px 0}
+.badge{border:1px solid #b2d7c9;border-radius:22px;padding:5px 13px;color:#17614f;background:#f6fffb;font-size:13px;font-weight:800}
+.view[hidden],#overlay[hidden],#drawer[hidden],#toast[hidden]{display:none!important}
+#overlay{position:fixed;inset:0;background:#172c3a85;z-index:40}
+#drawer{position:fixed;inset:0 0 0 auto;max-width:395px;width:min(94vw,395px);height:100dvh;overflow:auto;
+ z-index:41;padding:25px;background:#f8fcff;border-left:1px solid #abc8d3;box-shadow:-15px 0 45px #0d2f4740}
+#drawer h2{margin-bottom:19px}
+#drawer nav{display:grid;gap:10px}
+#drawer nav button{border:1px solid #b7d7e0;background:#fff;color:#245267;border-radius:13px;text-align:left;padding:14px 18px;font-weight:800}
+#drawer nav button:hover{background:#eaf7fa}
+.drawer-head{display:flex;align-items:center;justify-content:space-between;gap:9px}
+footer{padding:25px 15px;text-align:center;border-top:1px solid var(--line);color:#496678;font-size:13px;background:#f8fcfb}
+#toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:70;background:#20554a;color:#fff;
+ border:1px solid #71cdb0;padding:13px 21px;border-radius:14px;box-shadow:0 8px 35px #0002;max-width:94vw}
+.avatar{font-size:62px;line-height:1.3}
+.share-wrap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:center}
+#qr{width:196px;min-height:196px;background:#fff;border:1px solid #c3d6df;border-radius:14px;padding:10px;display:grid;place-items:center;color:#2f4e60;overflow:hidden}
+#qr img,#qr canvas{max-width:100%;max-height:100%}
+#shareUrl{overflow-wrap:anywhere;line-height:1.85;font-size:14px}
+.short-home{margin-top:22px;background:#eff8fe;border:1px solid #b6dbe8;border-radius:16px;padding:18px}
+.short-home h3{margin:0 0 6px;font-size:18px}
+.short-home a{font-size:20px;font-weight:900;word-break:break-all}
+.short-home p{font-size:14px;color:#385d70}
+.short-home .hero-actions{margin-top:10px}
+html[data-font-scale="large"] body{font-size:19px}
+html[data-font-scale="large"] .lead{font-size:22px}
+html[data-font-scale="large"] .card h3{font-size:24px}
+html[data-font-scale="large"] .pill,html[data-font-scale="large"] .badge{font-size:15px}
+@media(max-width:760px){
+ main{padding-top:18px}.columns{grid-template-columns:1fr}.hero{padding:25px 20px}.share-wrap{grid-template-columns:1fr}
+ #qr{margin:auto}.card{min-height:initial}h1{font-size:clamp(30px,8vw,40px)}header .brand{font-size:15px}
+ header small{font-size:10px}.grid{gap:14px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
+@media(prefers-reduced-motion:no-preference){.card:hover{transform:translateY(-2px)}}
+@media(prefers-contrast:more){:root{--line:#667c8a;--muted:#274352}button,.card,.panel,.lesson{border-width:2px}}
+@media print{
+ body{background:#fff!important;color:#000}
+ header,footer,#drawer,#overlay,.hero-actions,button,#toast{display:none!important}
+ .hero,.card,.panel,.lesson{box-shadow:none;break-inside:avoid}
+ #share,#share .panel{display:block!important}
+}
+
+/* V6: Noto Sans Thai really loaded from Google Fonts; Tahoma local/offline fallback. */
+body,button,input,select,textarea{font-family:"Noto Sans Thai",Tahoma,"Leelawadee UI",system-ui,sans-serif}
+.hero{padding:clamp(25px,4vw,46px);border-radius:24px}
+.hero h1{font-size:clamp(31px,3.8vw,48px);line-height:1.4}
+.hero .lead{font-size:clamp(17px,1.6vw,19px);line-height:1.9;max-width:850px}
+header .brand{font-size:19px}
+header small{font-size:13px}
+.card h3{line-height:1.4}
+.short-home a{font-size:clamp(14px,1.6vw,18px)}
+@media(max-width:760px){.hero h1{font-size:clamp(28px,7.5vw,39px)}}
+
+/* V6 typography tuning: avoid overly heavy variable-font 900 for primary Thai headings. */
+h1{font-weight:700;letter-spacing:0;line-height:1.55}
+h2{font-weight:700;letter-spacing:0}
+h3{font-weight:700;letter-spacing:0}
+header .brand{font-weight:800}
+.hero .lead{font-weight:400}
+button.primary,button.secondary,button.ghost{font-weight:700}
