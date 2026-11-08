@@ -182,3 +182,11 @@ body,main,#welcome,#studentScreen,#adminScreen,#passwordScreen,.task,.roster-lis
  #studentScreen .dashboard-head p{display:none}
 }
 @media(prefers-reduced-motion:reduce){#main #welcome{scroll-behavior:auto}}
+
+
+/* Keep the learning preview discoverable on short screens; never remove a route. */
+@media(max-height:520px){
+ #main #welcome .lesson-explore{display:flex;margin-top:3px;padding-top:2px}
+ #main #welcome .lesson-explore button{font-size:11px;padding:2px 6px;min-height:22px}
+ #main #welcome .lesson-explore svg{width:13px;height:13px}
+}
