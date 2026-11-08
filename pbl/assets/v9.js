@@ -12,7 +12,7 @@ const DEFAULT_CONFIG=Object.freeze({version:8,uiLanguageSwitchEnabled:true,defau
 const $=id=>document.getElementById(id);
 const T={
  th:{
- skip:'ข้ามไปเนื้อหาหลัก',headerSub:'ระบบห้องเรียนโครงงาน · V9',returnLearning:'กลับไปเรียนรู้',
+ skip:'ข้ามไปเนื้อหาหลัก',headerSub:'ระบบห้องเรียนโครงงาน · V9',adminEntry:'ผู้ดูแลระบบ',returnLearning:'กลับไปเรียนรู้',
  appTitle:'ระบบห้องเรียนโครงงาน',appSubtitle:'Project-Based English Learning',enterLearning:'เข้าสู่การเรียนรู้',
  studioEyebrow:'ENGLISH VIDEO TOUR · VLOG',studioTitle:'สร้าง Vlog แนะนำสถานที่ด้วยภาษาอังกฤษ',
  studioIntro:'พื้นที่ฝึกสร้างสรรค์สำหรับโครงงานตัวอย่าง ป.6 โดยใช้แนวทางการเรียนร่วมและการทำงานเป็นกลุ่ม',demoNotice:'พื้นที่ฝึกทดลองบนอุปกรณ์นี้',
@@ -48,7 +48,7 @@ const T={
  coachEmpty:'กรุณาพิมพ์คำถามก่อน',tooLong:'ข้อความยาวเกินกำหนด',languageLocked:'ผู้ดูแลปิดตัวเลือกภาษาในระบบนี้'
  },
  en:{
- skip:'Skip to main content',headerSub:'Project Learning Classroom · V9',returnLearning:'Back to learning',
+ skip:'Skip to main content',headerSub:'Project Learning Classroom · V9',adminEntry:'Admin',returnLearning:'Back to learning',
  appTitle:'Project Learning Classroom',appSubtitle:'Project-Based English Learning',enterLearning:'Enter learning',
  studioEyebrow:'ENGLISH VIDEO TOUR · VLOG',studioTitle:'Create an English video tour',
  studioIntro:'A practice workspace for the Grade 6 project, including independent learning and group production.',demoNotice:'Practice area on this device',
