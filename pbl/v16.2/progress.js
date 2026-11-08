@@ -94,8 +94,8 @@ function renderTable(){
  const cg=document.createElement('colgroup');
  widths.forEach(width=>{const col=document.createElement('col');col.style.width=width;cg.append(col)});
  t.append(cg);
- const thead=document.createElement('thead'),throw=document.createElement('tr');
- headings.forEach(label=>throw.append(txt('th',label)));thead.append(throw);t.append(thead);
+ const thead=document.createElement('thead'),headingRow=document.createElement('tr');
+ headings.forEach(label=>headingRow.append(txt('th',label)));thead.append(headingRow);t.append(thead);
  const body=document.createElement('tbody');
  records.forEach(u=>{
   const tr=document.createElement('tr');
