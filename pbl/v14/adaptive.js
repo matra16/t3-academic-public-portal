@@ -27,8 +27,8 @@ function detectProfile(){
  // Hardware separation desktop vs laptop is intentionally not claimed:
  // browsers do not reliably reveal chassis form factor.
  let family;
- if(phoneUA)family='phone';
- else if(tabletUA)family='tablet';
+ if(tabletUA)family='tablet'; // iPad user agents include "Mobile": tablet takes precedence
+ else if(phoneUA)family='phone';
  else if(coarse&&width<=650)family='phone-like';
  else if(coarse&&width<=1300)family='tablet-like';
  else if(width<570)family='compact-window';
