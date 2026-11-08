@@ -1,0 +1,184 @@
+/* PBL V14 Adaptive Intelligence
+   Capability- and viewport-aware UI, no third-party AI/device fingerprinting.
+   Scrollbars are suppressed visually; essential content remains scrollable when
+   text zoom, browser keyboard or accessibility settings demand it. */
+:root{--v14-height:100dvh;--v14-width:100vw;--v14-ui:1;--v14-foot-h:48px;--v14-gap:clamp(6px,1vh,14px)}
+*,*::before,*::after{box-sizing:border-box;min-width:0}
+html{width:100%;max-width:100%;height:100%;overflow:hidden;scrollbar-width:none}
+body{width:100%;max-width:100%;height:100dvh;height:var(--v14-height);min-height:0;display:flex;flex-direction:column;overflow:hidden;scrollbar-width:none}
+body::-webkit-scrollbar,html::-webkit-scrollbar,
+#main::-webkit-scrollbar,#welcome::-webkit-scrollbar,
+#studentScreen::-webkit-scrollbar,#adminScreen::-webkit-scrollbar,
+#passwordScreen::-webkit-scrollbar,.task::-webkit-scrollbar,
+.roster-list::-webkit-scrollbar,.search-results::-webkit-scrollbar,
+.admin-grid::-webkit-scrollbar,.panel::-webkit-scrollbar{width:0;height:0;display:none}
+body,main,#welcome,#studentScreen,#adminScreen,#passwordScreen,.task,.roster-list,.search-results,.panel{scrollbar-width:none}
+#main{flex:1 1 0;min-height:0;display:flex;flex-direction:column;overflow:hidden;width:100%}
+#main>.banner:not([hidden]){flex:0 0 auto;max-height:45px;overflow:hidden}
+.footer{flex:0 0 auto;min-height:var(--v14-foot-h);padding:clamp(8px,1.4vh,14px) 8px;display:flex;align-items:center;justify-content:center;font-size:clamp(10px,1.4vh,13px);white-space:normal;text-align:center}
+#main #welcome{
+ display:flex;flex:1 1 0;flex-direction:column;
+ align-items:stretch;justify-content:center;gap:0;
+ min-height:0;min-width:0;max-height:none;max-width:none;width:100%;
+ padding:clamp(10px,2.4vh,27px) clamp(10px,2vw,28px) clamp(10px,2.2vh,22px);
+ overflow-y:auto;overflow-x:clip;overscroll-behavior:contain;
+}
+#main #welcome>.hero{flex:0 0 auto;width:min(100%,870px);margin:0 auto clamp(8px,2vh,18px)}
+#main #welcome>.hero .hero-symbol{width:clamp(35px,5.7vh,60px);height:clamp(35px,5.7vh,60px);border-radius:clamp(11px,1.7vh,19px);margin-bottom:clamp(5px,.9vh,12px)}
+#main #welcome>.hero .hero-symbol svg{width:60%;height:60%}
+#main #welcome>.hero h1{font-size:clamp(22px,min(3.5vw,4.7vh),44px);line-height:1.22;margin:0 auto clamp(3px,.8vh,7px);text-wrap:balance}
+#main #welcome>.hero .hero-subhead{font-size:clamp(14px,min(2.0vw,2.7vh),21px);margin:0 auto clamp(2px,.65vh,7px)}
+#main #welcome>.hero .hero-info{font-size:clamp(11px,min(1.45vw,1.95vh),15px);line-height:1.4;margin:0}
+#main #welcome>.student-card{flex:0 0 auto;width:min(100%,500px);padding:clamp(13px,2.5vh,30px) clamp(15px,2.9vw,36px) clamp(12px,2vh,24px);margin:0 auto}
+#main #welcome .student-card-head{margin-bottom:clamp(7px,1.4vh,14px);gap:clamp(8px,1.2vw,13px)}
+#main #welcome .form-icon{width:clamp(32px,4.6vh,45px);height:clamp(32px,4.6vh,45px);border-radius:12px}
+#main #welcome .student-card h2{font-size:clamp(17px,2.8vh,22px)}
+#main #welcome .student-card .muted{font-size:clamp(11px,1.7vh,13px)}
+#main #welcome .student-card form{gap:clamp(4px,.8vh,9px)}
+#main #welcome .student-card form label{font-size:clamp(12px,1.8vh,14px);margin-top:clamp(2px,.6vh,6px)}
+#main #welcome .field-with-icon input{height:clamp(42px,6.1vh,53px);min-height:0;padding-top:8px;padding-bottom:8px;font-size:clamp(14px,1.9vh,16px)}
+#main #welcome .student-card .btn.full{min-height:clamp(42px,6.2vh,53px);margin-top:clamp(5px,1vh,10px);font-size:clamp(14px,2vh,16px)}
+#main #welcome .student-card .forgot{font-size:clamp(11px,1.65vh,12px);margin:clamp(7px,1.1vh,14px) 0 0}
+#main #welcome .lesson-explore{margin-top:clamp(8px,1.4vh,16px);padding-top:clamp(4px,.8vh,9px)}
+#main #welcome .lesson-explore button{padding:clamp(4px,.8vh,8px)}
+#main #welcome .admin-launch{flex:0 0 auto;width:min(500px,100%);margin:clamp(7px,1.2vh,12px) auto 0}
+#main #welcome .admin-launch-button{min-height:clamp(36px,5.3vh,44px);padding:7px 15px;font-size:clamp(11px,1.7vh,13px)}
+#main #welcome .search-results{max-height:min(21vh,180px);overflow:auto;overscroll-behavior:contain;flex:none}
+#main #welcome .selected-student{margin:0;padding:clamp(6px,1.3vh,11px)}
+#main #welcome #passwordFields{margin-top:clamp(2px,.7vh,8px)}
+#main #welcome .home-orb{pointer-events:none;max-width:100%}
+#adminBackdrop,#secretDialog{max-width:100vw;max-height:var(--v14-height);overflow:hidden}
+.admin-backdrop{inset:0;height:var(--v14-height);max-height:var(--v14-height);padding:clamp(8px,2vh,22px);overflow:auto;overscroll-behavior:contain;scrollbar-width:none}
+.admin-backdrop::-webkit-scrollbar,.admin-backdrop .admin-access::-webkit-scrollbar{display:none;width:0;height:0}
+.admin-backdrop .admin-access{max-width:min(485px,100%);max-height:calc(var(--v14-height) - 18px);overflow:auto;scrollbar-width:none;padding:clamp(18px,3.6vh,36px) clamp(16px,3vw,34px)}
+.admin-backdrop .admin-signin-heading{margin-bottom:clamp(9px,2vh,20px)}
+.admin-backdrop .admin-signin-mark{width:clamp(38px,6vh,53px);height:clamp(38px,6vh,53px)}
+.admin-backdrop .admin-access form{gap:clamp(6px,1vh,10px)}
+.admin-backdrop .admin-access input,.admin-backdrop .admin-access .field-with-icon>input{min-height:clamp(40px,6.2vh,51px)}
+#studentScreen,#adminScreen,#passwordScreen{
+ width:min(100%,1300px);max-width:none;margin:0 auto;
+ flex:1 1 0;min-height:0;max-height:100%;overflow:hidden;
+ padding:clamp(12px,2vh,22px) clamp(12px,2.2vw,30px) clamp(8px,1.5vh,18px);
+}
+#studentScreen:not([hidden]),#adminScreen:not([hidden]){
+ display:flex;flex-direction:column;gap:clamp(8px,1.3vh,14px);
+}
+#passwordScreen:not([hidden]){overflow-y:auto;overflow-x:clip}
+#studentScreen .dashboard-head,#adminScreen .dashboard-head{flex:0 0 auto;min-height:0;margin:0;gap:8px}
+#studentScreen .dashboard-head h1,#adminScreen .dashboard-head h1{font-size:clamp(18px,min(2.4vw,3.5vh),32px)}
+#studentScreen .dashboard-head p,#adminScreen .dashboard-head p{font-size:clamp(11px,1.6vh,14px)}
+#studentScreen .dashboard-head .btn,#adminScreen .dashboard-head .btn{font-size:clamp(11px,1.5vh,13px);min-height:36px;padding:7px 12px}
+#studentScreen .learn-layout{display:grid;grid-template-columns:minmax(205px,270px) minmax(0,1fr);gap:clamp(8px,1.3vw,15px);flex:1 1 0;min-height:0;overflow:hidden;align-items:stretch}
+#studentScreen .learn-layout .sidebar{position:static;min-height:0;overflow:hidden;padding:clamp(12px,2vh,20px)}
+#studentScreen .learn-layout .sidebar h2{font-size:clamp(16px,2.5vh,21px);margin:0 0 5px}
+#studentScreen .learn-layout .sidebar>.muted{font-size:clamp(11px,1.6vh,13px);line-height:1.45;margin:5px 0}
+#studentScreen .steps{display:none!important}
+.v14-step-controls{display:flex;flex-direction:column;gap:8px;margin-top:clamp(7px,1.2vh,13px)}
+.v14-step-controls label{font-size:12px;font-weight:800;color:#225a71}
+.v14-step-controls .v14-step-actions{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr) minmax(0,1fr);gap:5px}
+.v14-step-controls button,.v14-step-controls select{width:100%;min-width:0;min-height:40px;border-radius:9px;border:1px solid #b9dfdb;background:#f6fffd;color:#206b74;font-size:12px;padding:7px;text-overflow:ellipsis}
+.v14-step-controls select{font-weight:800;background:#e7f8f1}
+.v14-step-controls button:disabled{opacity:.48}
+.v14-step-controls button:focus-visible,.v14-step-controls select:focus-visible{outline:3px solid #32ac91;outline-offset:2px}
+#studentScreen .learn-layout .task{min-height:0;min-width:0;overflow-y:auto;overflow-x:clip;overscroll-behavior:contain;scrollbar-width:none;padding:clamp(12px,2vh,22px)}
+#studentScreen .task h2{font-size:clamp(17px,min(2.5vw,3.3vh),29px)}
+#studentScreen .task .language{padding:clamp(10px,1.6vh,17px);margin:clamp(7px,1.1vh,13px) 0}
+#studentScreen .task .language p{font-size:clamp(14px,2.2vh,18px)}
+#studentScreen .task .language blockquote{font-size:clamp(12px,1.8vh,15px)}
+#studentScreen .task textarea{min-height:70px;max-height:min(19vh,150px);rows:3}
+#studentScreen .task .actions button{min-height:38px;padding:7px 12px;font-size:12px}
+#adminScreen .dashboard-head{flex:0 0 auto}
+#adminScreen .v14-admin-tabs{display:flex;flex:0 0 auto;gap:6px;overflow:hidden;padding:2px 0}
+#adminScreen .v14-admin-tabs button{flex:1;min-width:0;border:1px solid #bde1de;border-radius:10px;background:#e4f4f4;color:#286577;font-size:clamp(11px,1.65vh,14px);font-weight:800;min-height:40px;padding:7px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#adminScreen .v14-admin-tabs button[aria-selected="true"]{background:linear-gradient(115deg,#0a9a8b,#227fca);color:#fff;border-color:#0b9e97}
+#adminScreen .admin-grid{flex:1 1 0;min-height:0;overflow:hidden;display:flex;flex-direction:column;align-items:stretch;gap:0}
+#adminScreen .admin-grid>.panel{display:none;flex:1 1 0;min-height:0;overflow-y:auto;overflow-x:clip;padding:clamp(12px,2vh,22px);height:auto}
+#adminScreen .admin-grid>.panel.v14-active-panel{display:block}
+#adminScreen .group-overview{display:none;flex:1 1 0;min-height:0;overflow-y:auto;overflow-x:clip;margin:0;padding:clamp(12px,2vh,22px)}
+#adminScreen .group-overview.v14-active-panel{display:block}
+#adminScreen .roster-list{max-height:none;overflow-y:auto;overflow-x:clip}
+#adminScreen #groupMembers{max-height:min(26vh,190px);min-height:95px}
+#adminScreen .admin-grid form{gap:5px}
+#adminScreen .admin-grid form label{font-size:12px;margin-top:5px}
+#adminScreen .admin-grid input,#adminScreen .admin-grid select{min-height:38px;padding:7px 10px;font-size:13px}
+#adminScreen .admin-grid .btn{min-height:39px;font-size:12px}
+#secretDialog{height:var(--v14-height);overscroll-behavior:contain}
+#secretDialog .modal{max-width:95vw;max-height:calc(var(--v14-height) - 16px);overflow-y:auto}
+#toast{max-width:calc(100vw - 24px);right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px))}
+@media(max-width:820px){
+ #studentScreen .learn-layout{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr)}
+ #studentScreen .learn-layout .sidebar{padding:clamp(9px,1.5vh,15px)}
+ #studentScreen .learn-layout .sidebar>.muted{display:none}
+ .v14-step-controls{margin-top:2px}
+ .v14-step-controls .v14-step-actions{grid-template-columns:76px minmax(0,1fr) 76px}
+ #studentScreen .learn-layout .sidebar h2{font-size:15px}
+}
+@media(max-width:480px){
+ #main #welcome>.hero h1{font-size:clamp(21px,6.1vw,28px)}
+ #main #welcome>.hero .hero-subhead{font-size:clamp(13px,3.8vw,17px)}
+ #studentScreen,#adminScreen{padding:9px 9px 7px}
+ #studentScreen .dashboard-head,#adminScreen .dashboard-head{flex-direction:row;align-items:center}
+ #studentScreen .dashboard-head h1,#adminScreen .dashboard-head h1{font-size:clamp(16px,4.5vw,21px)}
+ #studentScreen .dashboard-head .btn,#adminScreen .dashboard-head .btn{max-width:105px;white-space:normal;line-height:1.2}
+ #studentScreen .dashboard-head .eyebrow,#adminScreen .dashboard-head .eyebrow{display:none}
+ #studentScreen .learn-layout{gap:7px}
+ #adminScreen .v14-admin-tabs button{padding:7px 3px;font-size:11px}
+}
+@media(max-height:700px){
+ #main #welcome{padding:8px 10px}
+ #main #welcome .hero-symbol{display:none}
+ #main #welcome>.hero{margin-bottom:clamp(6px,1.4vh,12px)}
+ #main #welcome .hero-info{display:none}
+ #main #welcome>.student-card{padding:clamp(10px,2vh,17px) clamp(14px,2.5vw,23px)}
+ #main #welcome .student-card-head{margin-bottom:5px}
+ #main #welcome .student-card .muted{display:none}
+ #main #welcome .lesson-explore{margin-top:6px;padding-top:4px}
+ #main #welcome .forgot{margin-top:6px!important}
+ #main #welcome .admin-launch{margin-top:6px}
+ .footer{min-height:31px;font-size:11px;padding:6px}
+}
+@media(max-height:520px){
+ #main #welcome .hero-symbol{display:none}
+ #main #welcome>.hero .hero-info{display:none}
+ #main #welcome>.hero{margin-bottom:5px}
+ #main #welcome>.hero h1{font-size:clamp(17px,3.8vw,25px)}
+ #main #welcome>.hero .hero-subhead{font-size:13px}
+ #main #welcome>.student-card{padding:10px 14px 8px}
+ #main #welcome .student-card-head{margin-bottom:2px}
+ #main #welcome .student-card h2{font-size:16px}
+ #main #welcome .student-card .form-icon{width:30px;height:30px}
+ #main #welcome .student-card form{gap:4px}
+ #main #welcome .student-card form label{margin-top:1px}
+ #main #welcome .field-with-icon input{height:39px;font-size:13px}
+ #main #welcome .student-card .btn.full{min-height:37px;margin-top:4px}
+ #main #welcome .lesson-explore{display:none}
+ #main #welcome .forgot{font-size:10px}
+ #main #welcome .admin-launch-button{min-height:34px;padding:5px 12px}
+ #studentScreen .dashboard-head .muted,#adminScreen .dashboard-head .muted{display:none}
+ #studentScreen .dashboard-head .btn,#adminScreen .dashboard-head .btn{min-height:33px}
+ .v14-step-controls button,.v14-step-controls select{min-height:32px}
+ #studentScreen .learn-layout .sidebar{padding:8px}
+ #studentScreen .learn-layout .sidebar h2{margin:0}
+ #studentScreen .task h2{font-size:16px}
+ #studentScreen .task .language{padding:8px;margin:5px 0}
+ #studentScreen .task textarea{min-height:65px}
+}
+@media (orientation:landscape) and (max-height:520px) and (min-width:600px){
+ #main #welcome{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(270px,1.1fr);
+  grid-template-rows:minmax(0,1fr) auto;column-gap:18px;row-gap:4px;
+  align-content:center;align-items:center;justify-content:center;
+  padding:8px 16px;overflow-y:auto;
+ }
+ #main #welcome>.hero{grid-column:1;grid-row:1 / span 2;width:100%;max-width:540px;justify-self:end;margin:0}
+ #main #welcome>.hero h1{font-size:clamp(22px,3.2vw,35px);line-height:1.26}
+ #main #welcome>.hero .hero-subhead{font-size:clamp(13px,2vw,17px);margin-top:6px}
+ #main #welcome>.student-card{grid-column:2;grid-row:1;width:min(100%,430px);align-self:end;justify-self:start}
+ #main #welcome>.admin-launch{grid-column:2;grid-row:2;width:min(100%,430px);margin:0;justify-self:start}
+ #main #welcome .student-card .forgot{margin-top:4px}
+ #main #welcome .student-card .lesson-explore{display:none}
+ #studentScreen .learn-layout{grid-template-columns:185px minmax(0,1fr);grid-template-rows:minmax(0,1fr)}
+ #studentScreen .dashboard-head{height:42px}
+ #studentScreen .dashboard-head p{display:none}
+}
+@media(prefers-reduced-motion:reduce){#main #welcome{scroll-behavior:auto}}
