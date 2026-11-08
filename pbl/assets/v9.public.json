@@ -1,0 +1,11 @@
+{
+  "version": 9,
+  "uiLanguageSwitchEnabled": true,
+  "defaultUiLanguage": "th",
+  "aiExpertEnabled": false,
+  "centralActivityLogEnabled": false,
+  "cloudGroupSyncEnabled": false,
+  "videoUploadsEnabled": false,
+  "changedBy": "authenticated-github-repository-contributor-only",
+  "scope": "public-ui-config; editing requires Github repo access; protected admin RBAC is not enabled"
+}
