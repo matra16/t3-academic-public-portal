@@ -190,3 +190,12 @@ body,main,#welcome,#studentScreen,#adminScreen,#passwordScreen,.task,.roster-lis
  #main #welcome .lesson-explore button{font-size:11px;padding:2px 6px;min-height:22px}
  #main #welcome .lesson-explore svg{width:13px;height:13px}
 }
+
+
+/* In phone landscape, keep BOTH actions in one low-profile row (no lost lesson link). */
+@media(orientation:landscape) and (max-height:520px) and (min-width:600px){
+ #main #welcome .admin-launch{display:flex;flex-direction:row;align-items:center;justify-content:center;gap:8px}
+ #main #welcome .admin-launch>.lesson-explore{display:flex;flex:1;margin:0;padding:0;border:0;justify-content:center;min-width:0}
+ #main #welcome .admin-launch>.lesson-explore button{display:flex;align-items:center;justify-content:center;min-height:34px;width:100%;padding:5px 8px;font-size:11px;color:#0b7189;border:1px solid #b8dde8;border-radius:999px;background:rgba(255,255,255,.8)}
+ #main #welcome .admin-launch>.admin-launch-button{flex:1;min-width:0;justify-content:center;margin:0}
+}
