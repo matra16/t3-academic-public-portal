@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer"><meta name="robots" content="noindex">
+<meta name="theme-color" content="#0d2536">
+<title>T3 PBL LMS V11 — ห้องเรียนและระบบจัดการนักเรียน</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://matra16.github.io/t3-academic-public-portal/pbl/v11/v11.css?v=11-1" rel="stylesheet">
+<script src="https://matra16.github.io/t3-academic-public-portal/pbl/v11/v11.js?v=11-1" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">ข้ามไปเนื้อหาหลัก</a>
+<header class="bar"><div class="bar-in">
+ <a class="brand" href="https://matra16.github.io/t3-academic-public-portal/pbl/"><span class="brand-mark">✦</span><span><strong>T3 PBL LEARNING</strong><small>PROJECT-BASED ENGLISH · V11</small></span></a>
+ <div class="right"><span class="version">V11 SCHOOL WORKSPACE</span><button id="logoutBtn" type="button" class="btn subtle" hidden>ออกจากระบบ</button></div>
+</div></header>
+<main id="main">
+<div id="banner" class="banner" role="status" aria-live="polite">กำลังตรวจสอบช่องทางเชื่อมต่อระบบโรงเรียน…</div>
+<section id="welcome" class="shell">
+ <div class="hero"><div class="eyebrow">LEARN • COLLABORATE • CREATE</div>
+  <h1>ห้องเรียนโครงงาน<br><em>เรียนรู้ด้วยตัวเอง เติบโตไปด้วยกัน</em></h1>
+  <p>เข้าสู่พื้นที่เรียนรู้ภาษาอังกฤษแบบรายบุคคลและรายกลุ่ม โดยครูเป็นผู้กำหนดกลุ่มและลำดับกิจกรรม</p>
+  <div class="hero-chips"><span>✓ 20 ขั้นการเรียนรู้</span><span>✓ ฝึกภาษาอังกฤษรายบุคคล</span><span>✓ โครงงาน Vlog แบบกลุ่ม</span></div>
+ </div>
+ <div class="login-layout">
+ <section class="login-card" aria-labelledby="studentTitle">
+  <div class="card-icon">🎒</div><p class="tag">STUDENT ACCESS</p><h2 id="studentTitle">นักเรียนเข้าสู่ระบบ</h2>
+  <p class="muted">เลือกห้องเรียนและชื่อของตนเอง แล้วกรอกรหัสผ่านที่ได้รับจากครู</p>
+  <form id="studentLogin" autocomplete="off">
+   <label for="studentClass">1. ห้องเรียน</label>
+   <select id="studentClass" required><option value="">เลือกห้องเรียน</option></select>
+   <label for="classCode">2. รหัสเข้าห้องเรียนจากครู</label>
+   <div class="inline"><input id="classCode" type="text" maxlength="40" autocomplete="off" placeholder="รหัสประจำห้องเรียน" required><button id="loadNames" type="button" class="btn neutral">แสดงรายชื่อ</button></div>
+   <label for="studentName">3. เลือกชื่อของฉัน</label>
+   <select id="studentName" required disabled><option value="">กรอกรหัสเข้าห้องก่อน</option></select>
+   <label for="studentPassword">4. รหัสผ่าน</label>
+   <div class="inline"><input id="studentPassword" type="password" autocomplete="current-password" maxlength="72" required placeholder="รหัสผ่านของฉัน"><button type="button" class="peek" data-toggle="studentPassword" aria-label="แสดงหรือซ่อนรหัสผ่าน">👁</button></div>
+   <button type="submit" class="btn primary full">เข้าสู่การเรียนรู้ <span aria-hidden="true">→</span></button>
+  </form>
+  <p class="help">ลืมรหัสผ่าน? แจ้งครูผู้ดูแลระบบเพื่อออกรหัสผ่านชั่วคราวใหม่ ห้ามใช้เลขบัตรประชาชน</p>
+ </section>
+ <section class="login-card admin-card" aria-labelledby="adminTitle">
+  <div class="card-icon">🛡️</div><p class="tag">SCHOOL ADMIN</p><h2 id="adminTitle">ผู้ดูแลระบบ</h2>
+  <p class="muted">จัดการนักเรียน กำหนดกลุ่ม และรีเซตรหัสผ่านผ่านระบบที่ตรวจสอบสิทธิ์</p>
+  <form id="adminLogin" autocomplete="off">
+   <label for="adminUser">ชื่อบัญชีผู้ดูแล</label><input id="adminUser" value="matra160114" autocomplete="username" readonly>
+   <label for="adminPassword">รหัสผ่านผู้ดูแล</label>
+   <div class="inline"><input id="adminPassword" type="password" maxlength="72" autocomplete="current-password" required placeholder="รหัสผ่านผู้ดูแล"><button type="button" class="peek" data-toggle="adminPassword" aria-label="แสดงหรือซ่อนรหัสผ่าน">👁</button></div>
+   <button type="submit" class="btn admin-primary full">เข้าสู่ Admin <span aria-hidden="true">→</span></button>
+  </form>
+  <div class="admin-foot"><span class="dot"></span> บัญชี Admin และสิทธิ์จัดการต้องตรวจสอบจากเซิร์ฟเวอร์ทุกครั้ง</div>
+ </section>
+ </div>
+ <div class="preview-links"><a href="../">เปิด V10 ที่ใช้งานได้</a><a href="../v10/">ดูบทเรียนตัวอย่างเดิม</a></div>
+</section>
+<section id="passwordScreen" class="shell narrow" hidden>
+ <div class="panel"><span class="tag">ACCOUNT SECURITY</span><h2 id="passwordTitle">เปลี่ยนรหัสผ่าน</h2>
+ <p class="muted">รหัสผ่านใหม่ต้องมีอย่างน้อย 10 ตัวอักษร และไม่ใช้เลขบัตรประชาชน เมื่อเปลี่ยนสำเร็จจะต้องเข้าสู่ระบบอีกครั้ง</p>
+ <form id="changePasswordForm">
+  <label for="oldPassword">รหัสผ่านเดิม</label><input id="oldPassword" type="password" autocomplete="current-password" required>
+  <label for="newPassword">รหัสผ่านใหม่</label><input id="newPassword" type="password" autocomplete="new-password" minlength="10" maxlength="72" required>
+  <label for="confirmPassword">ยืนยันรหัสผ่านใหม่</label><input id="confirmPassword" type="password" autocomplete="new-password" minlength="10" maxlength="72" required>
+  <div class="actions"><button type="submit" class="btn primary">บันทึกรหัสผ่านใหม่</button><button type="button" id="backFromPassword" class="btn neutral">ย้อนกลับ</button></div>
+ </form></div>
+</section>
+<section id="studentScreen" class="shell" hidden>
+ <div class="dashboard-head"><div><p class="eyebrow">MY PROJECT JOURNEY</p><h1 id="studentGreeting">พื้นที่เรียนรู้ของฉัน</h1><p id="studentMeta" class="muted"></p></div><button type="button" id="changeStudentPass" class="btn neutral">เปลี่ยนรหัสผ่าน</button></div>
+ <div class="learn-layout">
+  <aside class="panel sidebar"><h2>เส้นทาง 20 ขั้น</h2><p class="muted">ทำกิจกรรมตามลำดับ ครูจะกำหนดสมาชิกกลุ่ม</p><div id="stepList" class="steps" aria-label="ขั้นตอนการเรียนรู้"></div></aside>
+  <article class="panel task" id="taskPanel">
+   <span class="tag" id="taskMode">INDIVIDUAL</span><p class="eyebrow" id="taskCounter">STEP 01 / 20</p><h2 id="taskTitle">เริ่มต้นโครงงาน</h2><p id="taskDescription" class="muted"></p>
+   <div class="language"><small>ENGLISH PRACTICE</small><p id="taskQuestion" lang="en"></p><blockquote id="taskFrame" lang="en"></blockquote></div>
+   <label for="taskNote">บันทึกแนวคิดหรือหลักฐานการเรียนรู้</label><textarea id="taskNote" maxlength="1500" rows="6" placeholder="พิมพ์คำตอบของฉัน / แนวคิดของกลุ่ม"></textarea>
+   <div class="actions"><button type="button" class="btn primary" id="saveStep">บันทึกขั้นตอนนี้</button><button type="button" class="btn neutral" id="nextStep">ขั้นต่อไป →</button></div>
+   <p class="help" id="taskHelp" role="status"></p>
+  </article>
+ </div>
+</section>
+<section id="adminScreen" class="shell" hidden>
+ <div class="dashboard-head"><div><p class="eyebrow">SCHOOL ADMIN WORKSPACE</p><h1>จัดการนักเรียนและกลุ่มโครงงาน</h1><p class="muted">บัญชี: matra160114 · จำกัดสิทธิ์ฝั่งเซิร์ฟเวอร์</p></div><button id="changeAdminPass" type="button" class="btn neutral">เปลี่ยนรหัสผ่าน Admin</button></div>
+ <div class="admin-grid">
+  <section class="panel"><p class="tag">01 / CLASS ACCESS</p><h2>เปิดห้องเรียนและออกรหัสห้อง</h2>
+   <form id="classForm"><label for="newClass">ชั้น/ห้อง เช่น 6.3 หรือ 5.1</label><input id="newClass" required placeholder="6.3" maxlength="16">
+    <button type="submit" class="btn primary">สร้าง / เปลี่ยนรหัสห้อง</button></form>
+   <p class="help">รหัสห้องสำหรับแสดงรายชื่อ ไม่ใช่รหัสผ่านของนักเรียน สามารถเปลี่ยนได้เมื่อจำเป็น</p>
+  </section>
+  <section class="panel"><p class="tag">02 / STUDENT ROSTER</p><h2>เพิ่มนักเรียน</h2>
+   <form id="addStudentForm"><label for="addName">ชื่อ–นามสกุล</label><input id="addName" maxlength="110" required placeholder="ใช้ข้อมูลที่โรงเรียนรับรอง">
+    <label for="addClass">ห้องเรียน</label><select id="addClass" required><option value="">เลือกห้อง</option></select>
+    <button type="submit" class="btn primary">เพิ่มบัญชีนักเรียน + ออกรหัสเริ่มต้น</button></form>
+  </section>
+  <section class="panel"><p class="tag">03 / TEACHER-DEFINED GROUPS</p><h2>กำหนดกลุ่ม 4–5 คน</h2>
+   <form id="groupForm"><label for="groupClass">ห้องเรียน</label><select id="groupClass" required><option value="">เลือกห้อง</option></select>
+    <label for="groupName">ชื่อกลุ่ม</label><input id="groupName" maxlength="60" required placeholder="VLOG TEAM 1">
+    <label for="groupMembers">เลือกสมาชิก (Ctrl / Cmd เพื่อเลือกหลายคน)</label><select id="groupMembers" multiple size="7" required></select>
+    <p class="help">เลือกสมาชิก 4–5 คนที่อยู่ห้องเดียวกันและยังไม่อยู่ในกลุ่มอื่น</p>
+    <button type="submit" class="btn primary">บันทึกกลุ่มโครงงาน</button></form>
+  </section>
+  <section class="panel"><p class="tag">04 / STUDENT ACCOUNTS</p><h2>บัญชีผู้เรียน</h2>
+   <label for="rosterFilter">กรองห้องเรียน</label><select id="rosterFilter"><option value="">ทุกห้อง</option></select>
+   <div id="rosterList" class="roster-list" aria-live="polite"></div>
+  </section>
+ </div>
+ <section class="panel group-overview"><h2>กลุ่มที่จัดแล้ว</h2><div id="groupList" class="groups"></div></section>
+</section>
+<div id="secretDialog" class="modal-wrap" hidden role="dialog" aria-modal="true" aria-labelledby="secretTitle">
+ <div class="modal"><h2 id="secretTitle">รหัสผ่านชั่วคราว</h2><p class="muted">แสดงเพียงครั้งเดียว ส่งให้นักเรียนเป็นการส่วนตัว และให้นักเรียนเปลี่ยนเมื่อเข้าสู่ระบบ ห้ามถ่ายภาพเผยแพร่</p><output id="secretValue" class="secret"></output><div class="actions"><button id="hideSecret" type="button" class="btn primary">ปิดและลบรหัสจากหน้าจอ</button></div></div>
+</div>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+</main><footer class="footer">T3 PBL LEARNING · V11 · No student Google account required · <span id="environment">STAGING</span></footer>
+</body></html>
