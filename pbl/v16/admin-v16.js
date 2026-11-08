@@ -196,5 +196,25 @@
    search.value='';classFilter.value='';setState('เลือกทะเบียนรายชื่อ');
   }else refresh();
  }).observe(screen,{attributes:true,attributeFilter:['hidden']});
+
+ // Full dark mode is tied to the authenticated Admin workspace, never to student UI.
+ let adminPasswordContext=false;
+ const adminScreen=$('adminScreen'),passwordScreen=$('passwordScreen');
+ const welcome=$('welcome'),studentScreen=$('studentScreen');
+ const adminForm=$('adminLogin');
+ if(adminForm)adminForm.addEventListener('submit',()=>{adminPasswordContext=true},true);
+ const changeAdmin=$('changeAdminPass');
+ if(changeAdmin)changeAdmin.addEventListener('click',()=>{adminPasswordContext=true});
+ function syncAdminTheme(){
+  if((welcome&&!welcome.hidden)||(studentScreen&&!studentScreen.hidden))adminPasswordContext=false;
+  if(adminScreen&&!adminScreen.hidden)adminPasswordContext=true;
+  const isAdmin=Boolean((adminScreen&&!adminScreen.hidden)||
+    (passwordScreen&&!passwordScreen.hidden&&adminPasswordContext));
+  document.body.classList.toggle('v16-admin-dark',isAdmin);
+ }
+ const appearance=new MutationObserver(syncAdminTheme);
+ [adminScreen,passwordScreen,welcome,studentScreen].filter(Boolean)
+  .forEach(x=>appearance.observe(x,{attributes:true,attributeFilter:['hidden']}));
+ syncAdminTheme();
  window.PBLV16Admin=Object.freeze({refresh});
 })();
