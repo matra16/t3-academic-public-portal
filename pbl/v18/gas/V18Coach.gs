@@ -184,8 +184,7 @@ function v18CoachAsk_(session,d){
  const sessionRecord=v18ReadSession_(session,d.sessionId);
  if(sessionRecord.state.ownerKey!==owner.ownerKey||sessionRecord.state.step!==step||
     sessionRecord.state.place!==place)throw Error('กรุณาเริ่มบทสนทนาใหม่เมื่อเปลี่ยนสถานที่หรือขั้น');
- const rateKey='pbl18_rate_'+owner.uid;
- if(v18Cache_().get(rateKey))throw Error('โปรดรอสักครู่ก่อนส่งคำถามถัดไป');
+ const rateKey='pbl18_rate_'+owner.uid+'_'+owner.ownerKey.replace(/[^A-Za-z0-9]/g,'');
  const reply=v18GuidedReply_(text,step,place);
  return withLock_(()=>{
   const messages=v18Rows_('message');
@@ -195,6 +194,7 @@ function v18CoachAsk_(session,d){
    return{source:'LIVE',mode:'GUIDED_SCHOOL',reply:response?v18PublicMessage_(response):null,duplicate:true,
     messages:messages.filter(x=>x.OWNER_KEY===owner.ownerKey&&Number(x.STEP)===step).slice(-32).map(v18PublicMessage_)};
   }
+  if(v18Cache_().get(rateKey))throw Error('โปรดรอสักครู่ก่อนส่งคำถามถัดไป');
   const ownToday=messages.filter(x=>x.ACTOR_UID===owner.uid&&x.ROLE==='student'&&
    new Date(x.CREATED_AT).toISOString().slice(0,10)===new Date().toISOString().slice(0,10)).length;
   if(ownToday>=80)throw Error('ครบจำนวนคำถามของวันนี้แล้ว ให้ครูช่วยวางแผนต่อ');
