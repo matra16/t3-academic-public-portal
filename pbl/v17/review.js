@@ -208,7 +208,8 @@
    const btn=document.createElement('button');btn.type='button';
    btn.className='v17-portfolio-step';
    const complete=Boolean(info?.done);
-   btn.dataset.state=review?.status==='NEEDS_REVISION'?'revise':
+   btn.dataset.state=review && info && Number(info.revision)>Number(review.revision)?'submitted':
+    review?.status==='NEEDS_REVISION'?'revise':
     review?.status==='APPROVED'?'approved':complete?'submitted':'open';
    btn.append(make('strong',String(n).padStart(2,'0')));
    btn.append(make('span',own.has(n)?'ของฉัน':'กลุ่ม'));
