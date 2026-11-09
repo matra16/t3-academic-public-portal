@@ -1,0 +1,120 @@
+/* PBL V17 review & feedback: bright child-facing cards, dark teacher desk.
+   Scoped styles only; preserve V14 no visible page scrollbars and V16.2 print. */
+#studentScreen .v17-student-review{
+ margin-top:clamp(10px,2vh,18px);padding:clamp(12px,1.8vh,18px);
+ background:linear-gradient(120deg,#f4fff9,#f1f8ff);
+ border:1px solid #9de0d4;border-radius:17px;
+ box-shadow:0 8px 20px rgba(18,88,117,.08);
+ color:#1b4965;min-width:0;
+}
+#studentScreen .v17-student-head{display:flex;justify-content:space-between;gap:9px;align-items:center;flex-wrap:wrap}
+#studentScreen .v17-eyebrow{margin:0 0 4px;color:#178e81;font-size:10px;font-weight:850;letter-spacing:.07em}
+#studentScreen .v17-student-head h3{font-size:clamp(17px,2.2vh,21px);line-height:1.3;margin:0;color:#164766}
+#studentScreen .v17-status-chip{display:inline-flex;align-items:center;min-height:30px;padding:6px 11px;background:#e7f4ff;border:1px solid #b6ddec;color:#286a85;border-radius:99px;font-size:12px;font-weight:800}
+#studentScreen .v17-status-chip[data-status="revise"]{background:#fff0d9;color:#885417;border-color:#eecb95}
+#studentScreen .v17-status-chip[data-status="approved"]{background:#dff9e9;color:#116650;border-color:#a2e5c6}
+#studentScreen .v17-student-guidance{font-size:13px;line-height:1.6;color:#4a7187;margin:9px 0}
+#studentScreen .v17-student-comment{
+ padding:11px 12px;border-radius:12px;background:white;
+ border-left:4px solid #169f94;border-top:1px solid #cce5e5;
+ border-right:1px solid #cce5e5;border-bottom:1px solid #cce5e5;
+}
+#studentScreen .v17-student-comment[hidden],#studentScreen .v17-rubric-read[hidden],#studentScreen .v17-primary-light[hidden]{display:none!important}
+#studentScreen .v17-student-comment strong{display:block;color:#105971;font-size:13px}
+#studentScreen .v17-student-comment p{color:#264c69;font-size:13px;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere}
+#studentScreen .v17-student-comment small{font-size:11px;color:#728da0}
+#studentScreen .v17-rubric-read{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin:10px 0}
+#studentScreen .v17-rubric-read p{font-size:11px;line-height:1.5;background:#e2f3f0;padding:9px;border-radius:9px;margin:0;color:#2a6266}
+#studentScreen .v17-primary-light{
+ display:block;width:100%;min-height:44px;border-radius:11px;border:1px solid #279e89;
+ background:linear-gradient(110deg,#1aae98,#2486cd);color:#fff;font-size:13px;font-weight:800;margin:9px 0;
+}
+#studentScreen .v17-portfolio{border-top:1px solid #c5e4e2;margin-top:10px;padding-top:10px}
+#studentScreen .v17-portfolio summary{font-weight:800;color:#277787;font-size:13px;min-height:33px;cursor:pointer}
+#studentScreen .v17-portfolio-grid{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:5px;padding:7px 0}
+#studentScreen .v17-portfolio-step{border-radius:9px;border:1px solid #c4dbe5;background:#eef5f9;color:#5b788d;min-height:40px;padding:5px 0;font-size:10px}
+#studentScreen .v17-portfolio-step strong,#studentScreen .v17-portfolio-step span{display:block}
+#studentScreen .v17-portfolio-step strong{font-size:12px}
+#studentScreen .v17-portfolio-step[data-state="submitted"]{background:#d5eff9;color:#236a89;border-color:#87cce2}
+#studentScreen .v17-portfolio-step[data-state="approved"]{background:#c0f2dd;color:#12664e;border-color:#83d8ad}
+#studentScreen .v17-portfolio-step[data-state="revise"]{background:#ffedcf;color:#8b531d;border-color:#eec082}
+#studentScreen .v17-learning-disclaimer{font-size:11px;color:#648395;line-height:1.6;margin:8px 0 0}
+#studentScreen .v17-student-review button:focus-visible{outline:3px solid #188bad;outline-offset:2px}
+@media(max-width:520px){
+ #studentScreen .v17-rubric-read{grid-template-columns:1fr}
+ #studentScreen .v17-portfolio-grid{grid-template-columns:repeat(5,minmax(0,1fr))}
+}
+#adminScreen #v17ReviewPanel{display:flex;flex-direction:column;gap:13px}
+#adminScreen #v17ReviewPanel .v17-review-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap}
+#adminScreen #v17ReviewPanel .v17-review-head h2{font-size:clamp(19px,2.8vh,25px);margin:0 0 6px;color:#f3fbff}
+#adminScreen #v17ReviewPanel .v17-review-head p:not(.tag){color:#b8d5e0;font-size:12px;line-height:1.6;margin:0}
+#adminScreen .v17-review-secondary{background:#1d465c;color:#def9fb;border:1px solid #457989;border-radius:10px;padding:8px 12px;min-height:42px;font-size:12px;font-weight:800}
+#adminScreen .v17-review-meta{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:12px;color:#b2cedd}
+#adminScreen #v17ReviewSource{border-radius:99px;padding:6px 11px;background:#124e51;border:1px solid #3a9088;color:#b6ffe4;font-weight:800}
+#adminScreen #v17ReviewSource[data-source="DEMO"]{background:#644827;border-color:#937249;color:#ffe0ab}
+#adminScreen .v17-review-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+#adminScreen .v17-review-metric{padding:12px;background:#16374d;border:1px solid #315b73;border-radius:12px}
+#adminScreen .v17-review-metric small{display:block;font-size:11px;color:#b7d2df;line-height:1.4}
+#adminScreen .v17-review-metric strong{display:block;font-size:clamp(20px,3vh,27px);margin-top:6px;color:#f2ffff}
+#adminScreen .v17-review-filters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+#adminScreen .v17-review-filters label{display:flex;flex-direction:column;gap:5px;font-size:12px}
+#adminScreen .v17-review-filters select,#adminScreen .v17-review-filters input{width:100%;min-height:43px;background:#071e30;color:#f2f8fc;border:1px solid #426b82;border-radius:10px;font-size:13px;padding:7px 9px}
+#adminScreen .v17-review-body{display:grid;grid-template-columns:minmax(250px,.95fr) minmax(270px,1.3fr);gap:10px;min-width:0}
+#adminScreen .v17-review-queue{border:1px solid #2f5a74;background:#0b2338;border-radius:13px;min-height:220px;max-height:min(54vh,520px);overflow:auto;scrollbar-width:none}
+#adminScreen .v17-review-queue::-webkit-scrollbar{display:none}
+#adminScreen .v17-review-list{display:flex;flex-direction:column;gap:7px;padding:8px}
+#adminScreen .v17-empty{font-size:13px;color:#b0cbd8;line-height:1.6;margin:13px 5px}
+#adminScreen .v17-review-item{width:100%;display:flex;flex-direction:column;gap:6px;text-align:left;
+ background:#153247;border:1px solid #365a70;color:#e9f7fb;border-radius:11px;padding:10px 12px;cursor:pointer}
+#adminScreen .v17-review-item[data-active="true"],#adminScreen .v17-review-item:hover{background:#18566a;border-color:#49c8b7}
+#adminScreen .v17-review-item-title{display:flex;justify-content:space-between;gap:6px;align-items:center;font-size:13px}
+#adminScreen .v17-review-item-title strong{overflow-wrap:anywhere}
+#adminScreen .v17-review-item-title span{white-space:nowrap;color:#aed8e6;font-size:12px}
+#adminScreen .v17-review-item small{font-size:11px;color:#adc9d6}
+#adminScreen .v17-review-item-bottom{display:flex;justify-content:space-between;gap:5px;align-items:center}
+#adminScreen .v17-review-item-bottom time{font-size:10px;color:#9ab8c8;text-align:right}
+#adminScreen .v17-review-badge{font-size:11px;border-radius:99px;padding:4px 8px;border:1px solid #4984a5;background:#224b66;color:#c8eafa}
+#adminScreen .v17-review-badge[data-status="revise"]{background:#5d4525;border-color:#a17a46;color:#ffdfa7}
+#adminScreen .v17-review-badge[data-status="approved"]{background:#124b3e;border-color:#35ab88;color:#9cf6d3}
+#adminScreen .v17-reviewer{display:flex;flex-direction:column;gap:10px;border:1px solid #3e7182;border-radius:13px;padding:13px;background:#0e2e42;min-width:0;max-height:min(69vh,800px);overflow:auto;scrollbar-width:none}
+#adminScreen .v17-reviewer[hidden]{display:none!important}
+#adminScreen .v17-reviewer::-webkit-scrollbar{display:none}
+#adminScreen .v17-review-selected h3{color:#f0fbff;font-size:17px;margin:0 0 5px}
+#adminScreen .v17-review-selected p{color:#b5d0da;font-size:12px;line-height:1.5;margin:0}
+#adminScreen .v17-submission{background:#142f44;border:1px solid #3e6177;padding:11px;border-radius:10px}
+#adminScreen .v17-submission strong{font-size:12px;color:#9be5da}
+#adminScreen .v17-submission p{white-space:pre-wrap;overflow-wrap:anywhere;color:#e6f6f9;font-size:13px;line-height:1.6}
+#adminScreen #v17ReviewForm label{font-size:12px;display:flex;flex-direction:column;gap:6px;color:#deeff4;margin:0 0 11px}
+#adminScreen #v17ReviewForm textarea,#adminScreen #v17ReviewForm select{
+ background:#082137;color:#f1fcff;border:1px solid #4b7890;border-radius:10px;padding:9px;font-size:13px;
+}
+#adminScreen #v17ReviewForm textarea{min-height:105px;resize:vertical}
+#adminScreen .v17-rubric-field{border:1px solid #3b6075;border-radius:11px;padding:12px;margin:12px 0}
+#adminScreen .v17-rubric-field legend{font-weight:800;color:#b7f2e0;font-size:12px}
+#adminScreen .v17-rubric-field>p{font-size:11px;color:#b6cfda;line-height:1.5;margin:0 0 10px}
+#adminScreen .v17-rubric-inputs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+#adminScreen .v17-review-info{font-size:11px;line-height:1.6;color:#acc9d4}
+#adminScreen .v17-review-submit{display:block;width:100%;min-height:46px;font-size:13px;font-weight:800;color:white;
+ background:linear-gradient(105deg,#079c89,#2c80c8);border:1px solid #57babb;border-radius:11px}
+#adminScreen .v17-review-submit:disabled{background:#324b5b;color:#a1bac7;cursor:not-allowed;border-color:#4b6675}
+#adminScreen .v17-review-history{border-top:1px solid #385e71;padding-top:11px}
+#adminScreen .v17-review-history h4{font-size:13px;color:#cbeced;margin:0 0 7px}
+#adminScreen .v17-review-history>p{font-size:12px;color:#aac7d2}
+#adminScreen .v17-history-item{padding:8px 10px;border-radius:9px;border:1px solid #315a70;background:#183b4f;margin:7px 0}
+#adminScreen .v17-history-item strong,#adminScreen .v17-history-item small{display:block;line-height:1.6}
+#adminScreen .v17-history-item strong{color:#a5f6e4;font-size:12px}
+#adminScreen .v17-history-item small{color:#a9c7d5;font-size:11px}
+#adminScreen .v17-history-item p{overflow-wrap:anywhere;font-size:12px;line-height:1.6;white-space:pre-wrap}
+#adminScreen .v17-review-error{padding:9px 12px;background:#604039;color:#ffe3dc;border-radius:8px;font-size:12px}
+@media(max-width:920px){
+ #adminScreen .v17-review-body{grid-template-columns:1fr}
+ #adminScreen .v17-review-queue{max-height:30vh}
+ #adminScreen .v17-reviewer{max-height:58vh}
+ #adminScreen .v17-review-filters{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:540px){
+ #adminScreen .v17-review-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #adminScreen .v17-review-filters{grid-template-columns:1fr}
+ #adminScreen .v17-rubric-inputs{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){#studentScreen .v17-student-review *{transition:none!important}}
