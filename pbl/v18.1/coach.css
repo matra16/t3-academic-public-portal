@@ -1,0 +1,84 @@
+/* PBL V18 - vivid, inclusive Grade 6 coaching, no cartoon assets.
+   Scope all rules; preserve legacy V14 layouts, Admin full Dark Mode,
+   and the existing viewport-friendly hidden-scrollbar navigation. */
+#studentScreen .v18-coach{margin:clamp(10px,2vh,17px) 0;padding:clamp(11px,2.2vh,17px);
+ border-radius:16px;border:1px solid #8bcbd2;
+ background:linear-gradient(132deg,#eefdf7 0%,#eef8ff 67%,#fffaf0 100%);
+ box-shadow:0 10px 24px rgba(10,70,100,.09);color:#12415d;min-width:0}
+#studentScreen .v18-coach-heading{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+#studentScreen .v18-coach-logo{width:44px;height:44px;display:grid;place-items:center;flex:none;
+ background:linear-gradient(128deg,#1cb8a2,#218ed9);color:#fff;border-radius:13px}
+#studentScreen .v18-coach-heading>div:nth-child(2){flex:1;min-width:190px}
+#studentScreen .v18-coach-heading h3{font-size:clamp(16px,2.6vh,20px);margin:2px 0;color:#154566}
+#studentScreen .v18-coach-heading p{margin:2px 0;font-size:12px;color:#46778a;line-height:1.4}
+#studentScreen .v18-eyebrow{letter-spacing:.08em;font-weight:850!important;font-size:10px!important;color:#148c94!important}
+#studentScreen .v18-coach-badge{border-radius:99px;border:1px solid #ade0cd;color:#197b73;background:#def7ee;
+ font-size:11px;font-weight:800;padding:6px 10px}
+#studentScreen .v18-coach-context{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:14px 0 10px}
+#studentScreen .v18-coach-context label,#studentScreen .v18-coach-form>label{display:flex;flex-direction:column;gap:5px;color:#26596b;font-size:12px;font-weight:750}
+#studentScreen .v18-coach-context select{border:1px solid #a8d7d7;background:#fff;color:#1d4a67;border-radius:10px;
+ min-height:42px;padding:7px 10px;width:100%;font-size:13px}
+#studentScreen .v18-coach-quick{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:10px}
+#studentScreen .v18-coach-quick button{padding:8px 11px;background:#e5f4ff;border-radius:10px;color:#236888;
+ border:1px solid #b6dbe9;font-size:12px;font-weight:750;min-height:38px}
+#studentScreen .v18-coach-quick button:nth-child(2){background:#e9faed;border-color:#b4e1bc;color:#227853}
+#studentScreen .v18-coach-quick button:nth-child(3){background:#fff1de;border-color:#eed5a6;color:#92641e}
+#studentScreen .v18-coach-quick button:nth-child(4){background:#f2f0ff;border-color:#dad2fa;color:#64529f}
+#studentScreen .v18-coach-messages{min-height:130px;max-height:min(29vh,285px);overflow:auto;scrollbar-width:none;
+ padding:10px;display:flex;flex-direction:column;gap:9px;
+ background:rgba(255,255,255,.85);border:1px solid #c1e0e3;border-radius:12px}
+#studentScreen .v18-coach-messages::-webkit-scrollbar{display:none}
+#studentScreen .v18-coach-empty{margin:auto;color:#6b8996;font-size:12px;text-align:center;line-height:1.6}
+#studentScreen .v18-bubble{border-radius:11px;padding:9px 11px;max-width:96%;background:#e6f2fa;
+ border:1px solid #c6deec;align-self:flex-start;min-width:0}
+#studentScreen .v18-bubble[data-role="student"]{background:#d4f4e9;border-color:#a9e0d0;align-self:flex-end}
+#studentScreen .v18-bubble-title{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:11px}
+#studentScreen .v18-bubble-title time{color:#6a8a9e}
+#studentScreen .v18-bubble p{margin:5px 0 0;color:#21465e;font-size:13px;line-height:1.65;white-space:pre-wrap;overflow-wrap:anywhere}
+#studentScreen .v18-coach-form{margin-top:12px}
+#studentScreen .v18-coach-compose{display:flex;gap:7px;align-items:stretch;margin-top:6px}
+#studentScreen .v18-coach-compose textarea{flex:1;min-width:0;min-height:65px;border-radius:10px;
+ background:#fff;border:1px solid #a9d6d6;resize:vertical;padding:10px;font-size:13px;color:#174860}
+#studentScreen .v18-coach-compose button{background:linear-gradient(130deg,#08a896,#237dc1);color:#fff;border:0;
+ min-width:94px;border-radius:10px;font-size:13px;font-weight:800}
+#studentScreen .v18-coach-compose button:disabled{opacity:.52;cursor:wait}
+#studentScreen .v18-coach-info{font-size:11px;line-height:1.5;margin:9px 0;color:#3a7991;font-weight:650}
+#studentScreen .v18-coach-info[data-error="true"]{color:#a84d37}
+#studentScreen .v18-coach-privacy{margin:4px 0 0;font-size:11px;color:#6f8a99;line-height:1.55}
+#studentScreen .v18-coach :is(button,select,textarea):focus-visible{outline:3px solid #168aaf;outline-offset:2px}
+#adminScreen #v18AnalyticsPanel{display:flex;flex-direction:column;gap:13px}
+#adminScreen .v18-analytics-head{display:flex;justify-content:space-between;gap:9px;align-items:flex-start;flex-wrap:wrap}
+#adminScreen .v18-analytics-head h2{color:#e9f8ff;font-size:clamp(19px,2.8vh,26px);margin:4px 0}
+#adminScreen .v18-analytics-head p:not(.tag){margin:0;color:#b4ccdb;font-size:12px;line-height:1.6}
+#adminScreen .v18-analytics-refresh{min-height:43px;border-radius:11px;padding:8px 14px;
+ background:#19465d;color:#d9f4f8;border:1px solid #417d91;font-size:13px;font-weight:800}
+#adminScreen #v18AnalyticsSource{font-size:12px;color:#acd2de;line-height:1.5;margin:0}
+#adminScreen .v18-analytics-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+#adminScreen .v18-analytic-metric{padding:13px;background:#15384b;border:1px solid #365b72;border-radius:11px}
+#adminScreen .v18-analytic-metric small{display:block;color:#a9c7d8;font-size:11px}
+#adminScreen .v18-analytic-metric strong{display:block;margin-top:6px;color:#f6feff;font-size:clamp(19px,3vh,27px)}
+#adminScreen .v18-analytics-filters{display:grid;grid-template-columns:1fr 1fr 1.8fr;gap:9px}
+#adminScreen .v18-analytics-filters label{display:flex;flex-direction:column;gap:5px;color:#d2eaf3;font-size:12px}
+#adminScreen .v18-analytics-filters :is(select,input){min-width:0;min-height:43px;border-radius:9px;padding:8px 10px;
+ background:#092439;color:#edfaff;border:1px solid #407489;font-size:12px}
+#adminScreen .v18-analytics-list{min-height:210px;max-height:min(51vh,580px);overflow:auto;scrollbar-width:none;
+ background:#071f33;border:1px solid #365f77;border-radius:13px}
+#adminScreen .v18-analytics-list::-webkit-scrollbar{display:none}
+#adminScreen .v18-log-table{width:100%;border-collapse:collapse;font-size:12px}
+#adminScreen .v18-log-table thead{position:sticky;top:0;background:#1a4257;z-index:1}
+#adminScreen .v18-log-table :is(th,td){text-align:left;padding:10px 11px;border-bottom:1px solid #315268;
+ color:#d3e8f0;vertical-align:top;overflow-wrap:anywhere;max-width:240px}
+#adminScreen .v18-log-table th{color:#b7f8e6;font-weight:800}
+#adminScreen .v18-log-table tr:hover td{background:#0f3548}
+#adminScreen .v18-analytics-empty{color:#aecad9;padding:20px;font-size:13px}
+#adminScreen .v18-analytics-note{font-size:11px;color:#9ec2d2;line-height:1.7}
+@media(max-width:720px){
+ #studentScreen .v18-coach-context{grid-template-columns:1fr}
+ #studentScreen .v18-coach-compose{flex-direction:column}
+ #studentScreen .v18-coach-compose button{min-height:43px}
+ #adminScreen .v18-analytics-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #adminScreen .v18-analytics-filters{grid-template-columns:1fr}
+ #adminScreen .v18-analytics-list{overflow:auto}
+ #adminScreen .v18-log-table{min-width:620px}
+}
+@media(prefers-reduced-motion:reduce){#studentScreen .v18-coach *,#adminScreen .v18-analytics *{transition:none!important}}
