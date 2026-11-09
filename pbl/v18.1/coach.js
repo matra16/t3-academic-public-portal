@@ -141,8 +141,47 @@ function filterEvents(){
   (!q||[x.actorId,x.ownerKey,x.eventType,x.step].some(v=>String(v??'').toLowerCase().includes(q)))
  ).slice(-500).reverse();
 }
+function drawBreakdown(rows){
+ const target=E.breakdown;if(!target)return;
+ target.replaceChildren();
+ const summarize=(keyFn)=>{
+  const grouped=new Map();
+  for(const e of rows){
+   const key=keyFn(e);if(!key)continue;
+   const value=grouped.get(key)||{key,events:0,sessions:0,questions:0,pulses:0,seconds:0,latest:''};
+   value.events++;
+   if(e.eventType==='SESSION_START')value.sessions++;
+   if(e.eventType==='COACH_ASK')value.questions++;
+   if(e.eventType==='SESSION_PULSE'){
+     value.pulses++;
+     value.seconds+=Math.min(30,Math.max(0,Number(e.durationSec)||0));
+   }
+   if(!value.latest||String(e.at)>value.latest)value.latest=String(e.at);
+   grouped.set(key,value);
+  }
+  return [...grouped.values()].sort((a,b)=>b.events-a.events||a.key.localeCompare(b.key));
+ };
+ const render=(label,rows)=>{
+  const article=document.createElement('article');article.className='v181-summary-group';
+  article.append(make('h3',label));
+  if(!rows.length){article.append(make('p','ไม่มีข้อมูลตามตัวกรอง'));return article}
+  const tab=document.createElement('table');tab.className='v181-summary-table';
+  const head=document.createElement('thead');const tr=document.createElement('tr');
+  ['รหัส','กิจกรรม','เข้าใช้งาน','ถามผู้ช่วย','ช่วงเวลาเปิดหน้าจอ (ประมาณ)','ล่าสุด'].forEach(x=>tr.append(make('th',x)));
+  head.append(tr);
+  const body=document.createElement('tbody');
+  rows.slice(0,100).forEach(x=>{
+    const r=document.createElement('tr');
+    [x.key,x.events,x.sessions,x.questions,x.seconds+' วินาที',date(x.latest)].forEach(v=>r.append(make('td',v)));
+    body.append(r);
+  });
+  tab.append(head,body);article.append(tab);return article;
+ };
+ target.append(render('รายบุคคล (รหัสผู้เรียน)',summarize(e=>e.actorId||'')));
+ target.append(render('รายกลุ่ม (รหัสพื้นที่กลุ่ม)',summarize(e=>e.scope==='group'?e.ownerKey:'')));
+}
 function drawLogs(){
- const rows=filterEvents();
+ const rows=filterEvents();drawBreakdown(rows);
  E.logList.replaceChildren();E.metrics.replaceChildren();
  const events=rows.length,actors=new Set(rows.map(x=>x.actorId)).size;
  const groups=new Set(rows.filter(x=>x.scope==='group').map(x=>x.ownerKey)).size;
@@ -171,7 +210,9 @@ async function adminReload(){
   if(!B()?.isAdmin?.())return;
   state.admin=data;
   E.source.textContent=(data.source==='DEMO'?'ข้อมูลสมมติสำหรับทดลอง':'ข้อมูลจากฐานโรงเรียนที่ได้รับอนุญาต')+
-   ' • อัปเดต '+date(data.generatedAt);
+   ' • อัปเดต '+date(data.generatedAt)+
+   (data.window==='LATEST_500_EVENTS'?' • แสดงเหตุการณ์ล่าสุดไม่เกิน 500 รายการ':'')+
+   (data.truncated?' • มีข้อมูลก่อนหน้าเกินช่วงที่แสดง':'');
   drawLogs();
  }catch(e){state.admin=null;E.source.textContent=String(e?.message||'โหลดไม่สำเร็จ');drawLogs()}
 }
@@ -180,6 +221,7 @@ function init(){
  E.mode=$('v18CoachModeBadge');E.form=$('v18CoachForm');E.input=$('v18CoachInput');E.send=$('v18CoachSend');
  E.source=$('v18AnalyticsSource');E.metrics=$('v18AnalyticsMetrics');E.logList=$('v18AnalyticsList');
  E.room=$('v18AnalyticsRoom');E.filterScope=$('v18AnalyticsScope');E.search=$('v18AnalyticsSearch');
+ E.breakdown=$('v181BreakdownLists');
  if(!E.form||!E.scope||!E.messages||!E.logList)return;
  E.form.addEventListener('submit',send);
  E.scope.addEventListener('change',()=>{if(state.sessionId)record('SESSION_END');state.scope=E.scope.value;begin(true)});
@@ -193,7 +235,7 @@ function init(){
  E.search.addEventListener('input',drawLogs);
  const student=$('studentScreen'),admin=$('adminScreen');
  new MutationObserver(()=>studentChanged()).observe(student,{attributes:true,attributeFilter:['hidden']});
- new MutationObserver(()=>{if(admin.hidden){state.admin=null;E.logList.replaceChildren();E.metrics.replaceChildren();E.source.textContent='รอข้อมูลจากระบบ'}})
+ new MutationObserver(()=>{if(admin.hidden){state.admin=null;E.logList.replaceChildren();E.metrics.replaceChildren();E.breakdown.replaceChildren();E.source.textContent='รอข้อมูลจากระบบ'}})
  .observe(admin,{attributes:true,attributeFilter:['hidden']});
  const step=$('taskCounter');
  if(step)new MutationObserver(stepChanged).observe(step,{subtree:true,childList:true,characterData:true});
