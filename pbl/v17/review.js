@@ -31,7 +31,7 @@
  const allowed=['6.1','6.2','6.3'];
  let snapshot=null,selected=null,loadToken=0,studentToken=0,studentReviews=[],busy=false;
  const make=(tag,label,cls)=>{
-  const node=document.createElement(tag);node.textContent=String(label||'');
+  const node=document.createElement(tag);node.textContent=String(label??'');
   if(cls)node.className=cls;return node;
  };
  const iso=s=>{
