@@ -678,7 +678,7 @@ function adminReviewQueue_(){
  const items=works.map(w=>{
   const hist=(byKey.get(w.ownerKey+'|'+w.step)||[]).map(v17ReviewPublic_)
    .sort((a,b)=>a.revision-b.revision);
-  const current=hist.findLast(x=>x.revision===w.revision)||null;
+  const current=hist.filter(x=>x.revision===w.revision).slice(-1)[0]||null;
   return {...w,status:current?current.status:'PENDING',review:current,history:hist.slice(-10)};
  });
  return {source:'LIVE',reviewSchema:v17ReviewSheet_(false)?'READY':'NOT_CONFIGURED',
