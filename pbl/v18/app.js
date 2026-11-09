@@ -611,6 +611,7 @@ async function saveStep(){
   const result=await api('saveStep',{step:n,note,revision});
   S.dashboard=await api('dashboard');
   renderStudent();notify('บันทึกขั้นที่ '+n+' แล้ว ('+result.mode+')');
+  if(window.PBLV18Bridge?.logEvent){window.PBLV18Bridge.logEvent('TASK_SUBMIT',{step:n,scope:individualSteps.includes(n)?'individual':'group',requestId:'save'+Date.now().toString(36)}).catch(()=>{})}
  }catch(e){notify(e.message)}
 }
 async function reloadAdmin(){
