@@ -200,10 +200,14 @@ function v18CoachAsk_(session,d){
   if(ownToday>=80)throw Error('ครบจำนวนคำถามของวันนี้แล้ว ให้ครูช่วยวางแผนต่อ');
   const sh=v18Sheet_('message',true),now=new Date(),when=new Date(now.getTime()+1);
   // Never store session auth tokens or password; chat content requires explicit owner approval.
-  sh.appendRow([v18Id_('MSG'),owner.ownerKey,step,'student',owner.uid,place,
-    v18EchoSafe_(text),req,now,'GUIDED_SCHOOL',sessionRecord.sid,'SOURCE_USER']);
-  sh.appendRow([v18Id_('MSG'),owner.ownerKey,step,'coach','SYSTEM',place,
-    v18EchoSafe_(reply),req,when,'GUIDED_SCHOOL',sessionRecord.sid,'MODEL_NOT_USED']);
+  const pair=[
+   [v18Id_('MSG'),owner.ownerKey,step,'student',owner.uid,place,
+    v18EchoSafe_(text),req,now,'GUIDED_SCHOOL',sessionRecord.sid,'SOURCE_USER'],
+   [v18Id_('MSG'),owner.ownerKey,step,'coach','SYSTEM',place,
+    v18EchoSafe_(reply),req,when,'GUIDED_SCHOOL',sessionRecord.sid,'MODEL_NOT_USED']
+  ];
+  // One two-row write under ScriptLock; more reliable than two appendRow calls.
+  sh.getRange(sh.getDataRange().getValues().length+1,1,2,PBL18.header.message.length).setValues(pair);
   v18EventRecord_(session,{scope:owner.scope,step,eventType:'COACH_ASK',sessionId:sessionRecord.sid,
    requestId:req,meta:{place,characters:text.length,kind:'GUIDED_SCHOOL'}});
   v18EventRecord_(session,{scope:owner.scope,step,eventType:'COACH_REPLY',sessionId:sessionRecord.sid,
