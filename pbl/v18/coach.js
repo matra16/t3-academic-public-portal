@@ -56,12 +56,12 @@ async function refreshHistory(silent=false){
   if(!silent)showInfo(data.source==='DEMO'?'ตัวอย่างผู้ช่วยแบบคำแนะนำ • ข้อความไม่ส่งออกจากเครื่อง':'แสดงข้อความที่มีสิทธิ์เข้าถึง');
  }catch(err){if(!silent&&ticket===state.token)showInfo(String(err?.message||'โหลดข้อความไม่สำเร็จ'),true)}
 }
-async function begin(){
+async function begin(keepScope=false){
  if(!valid())return;
  ++state.token;
  const ticket=state.token;
  state.step=Number(B().currentStep())||1;
- state.scope=scopeForStep(state.step);
+ state.scope=keepScope&&['individual','group'].includes(state.scope)?state.scope:scopeForStep(state.step);
  state.place=E.place.value;
  E.scope.value=state.scope;
  E.scope.querySelector('option[value="group"]').disabled=!B().identity()?.groupId;
@@ -182,8 +182,8 @@ function init(){
  E.room=$('v18AnalyticsRoom');E.filterScope=$('v18AnalyticsScope');E.search=$('v18AnalyticsSearch');
  if(!E.form||!E.scope||!E.messages||!E.logList)return;
  E.form.addEventListener('submit',send);
- E.scope.addEventListener('change',()=>{if(state.sessionId)record('SESSION_END');state.scope=E.scope.value;begin()});
- E.place.addEventListener('change',()=>{state.place=E.place.value;showInfo('เปลี่ยนประเภทสถานที่แล้ว ลองถามต่อได้เลย')});
+ E.scope.addEventListener('change',()=>{if(state.sessionId)record('SESSION_END');state.scope=E.scope.value;begin(true)});
+ E.place.addEventListener('change',()=>{if(state.sessionId)record('SESSION_END');state.place=E.place.value;begin(true)});
  document.querySelectorAll('[data-v18-hint]').forEach(btn=>btn.addEventListener('click',()=>{
   E.input.value=tasks[btn.dataset.v18Hint]||'';E.input.focus({preventScroll:true});
  }));
@@ -199,7 +199,7 @@ function init(){
  if(step)new MutationObserver(stepChanged).observe(step,{subtree:true,childList:true,characterData:true});
  const inputNote=$('taskNote');
  inputNote?.addEventListener('change',()=>record('TASK_DRAFT'));
- $('saveStep')?.addEventListener('click',()=>record('TASK_SUBMIT'));
+ /* TASK_SUBMIT is logged after server-acknowledged saveStep in app.js, not merely on click. */
  $('voicePlay')?.addEventListener('click',()=>record('VOICE_PLAY'));
  $('voiceRecord')?.addEventListener('click',()=>record('VOICE_RECORD_START'));
  $('voiceRecordStop')?.addEventListener('click',()=>record('VOICE_RECORD_STOP'));
