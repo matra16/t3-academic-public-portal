@@ -1,0 +1,15 @@
+{
+  "project": "PBL_LEARNING",
+  "version": "19.0.0-public-demo",
+  "parent_version": "18.1",
+  "parent_commit": "fccefca64d09aae7481a0e2727b62742ea4e3c9a",
+  "classification": "SYNTHETIC_ONLY_PUBLIC",
+  "production_backend": false,
+  "student_data": false,
+  "admin_login": false,
+  "static_mock_tests": "21/21",
+  "dom_mock_tests": "13/13",
+  "live_browser_uat": "NOT_VERIFIED",
+  "school_prod_release": "BLOCKED_HUMAN_GATE",
+  "built_at": "2026-11-10"
+}
