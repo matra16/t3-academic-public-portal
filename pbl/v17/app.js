@@ -122,7 +122,7 @@ function fillClasses(items){
  ['studentClass','addClass','groupClass','rosterFilter'].forEach(id=>fillSelect($(id),items,id==='rosterFilter'?'ทุกห้อง':'เลือกห้อง'));
 }
 function previewLessons(){
- S.preview=true;S.role='STUDENT';S.dashboard={user:{uid:'DEMO0',name:'ผู้เรียนตัวอย่าง',classId:'6.3',mustChange:false},group:{id:'G-DEMO',name:'กลุ่มโครงงานตัวอย่าง',members:4},steps:[],individualSteps};
+ S.preview=true;S.role='STUDENT';S.dashboard={user:{uid:'DEMO0',name:'ผู้เรียนตัวอย่าง',classId:'6.3',mustChange:false},group:{id:'G-DEMO',name:'กลุ่มโครงงานตัวอย่าง',members:4},steps:[{step:1,mode:'individual',done:true,revision:1},{step:3,mode:'group',done:true,revision:1},{step:4,mode:'group',done:true,revision:2}],individualSteps};
  S.step=1;renderStudent();$('logoutBtn').hidden=false;show('studentScreen');
 }
 const PBLV16_DEMO_SOURCE=[
