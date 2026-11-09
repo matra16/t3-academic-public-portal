@@ -49,6 +49,26 @@ function v18Class_(session){
  if(session.role!=='STUDENT'||!session.user)throw Error('ฟังก์ชันนี้สำหรับนักเรียน ป.6 ที่เข้าสู่ระบบ');
  return requireP6Class_(session.user.CLASS);
 }
+/**
+ * Membership-epoch scoping. A new school-approved group membership set yields
+ * a DIFFERENT thread id, so newly joined learners cannot read prior members'
+ * chat history. This is not a substitute for explicit school retention policy.
+ * No raw member IDs or salt are stored in the thread key.
+ */
+function v181GroupEpoch_(group,cls,uid){
+ const gid=String(group.GROUP_ID||''),pepper=properties_().getProperty('PBL_V18_GROUP_SCOPE_PEPPER')||'';
+ if(pepper.length<32)throw Error('ผู้ดูแลโรงเรียนยังไม่ได้ตั้งค่าการแยกประวัติกลุ่ม');
+ if(!/^[A-Za-z0-9_-]{2,90}$/.test(gid))throw Error('รหัสกลุ่มไม่ถูกต้อง');
+ let memberIds;try{memberIds=JSON.parse(String(group.MEMBER_UIDS_JSON||'[]'))}catch(e){throw Error('รายชื่อสมาชิกกลุ่มไม่ถูกต้อง')}
+ if(!Array.isArray(memberIds)||memberIds.length<1||memberIds.length>12||
+   memberIds.some(x=>typeof x!=='string'||!x||x.length>120))throw Error('รายชื่อสมาชิกกลุ่มไม่ถูกต้อง');
+ const members=[...new Set(memberIds)].sort();
+ if(members.length!==memberIds.length||!members.includes(String(uid)))throw Error('ไม่พบสิทธิ์สมาชิกของผู้ใช้');
+ const source='PBL18_GROUP_EPOCH_V1|'+gid+'|'+cls+'|'+members.join('|');
+ const signed=Utilities.computeHmacSha256Signature(source,pepper);
+ const epoch=Utilities.base64EncodeWebSafe(signed).replace(/=+$/,'').slice(0,22);
+ return 'GROUP:'+gid+':E'+epoch;
+}
 function v18Scope_(session,scope){
  const cls=v18Class_(session),uid=String(session.uid),mode=String(scope||'individual');
  if(mode==='individual')return{ownerKey:'USER:'+uid,scope:mode,cls,uid};
@@ -56,12 +76,9 @@ function v18Scope_(session,scope){
  const group=groupFor_(uid,cls);
  if(!group||String(group.CLASS)!==cls||String(group.PROJECT_ID)!=='VLOG20')
   throw Error('ยังไม่ได้รับการจัดกลุ่มจากครู');
- // Group membership is derived server side, never from the student's client.
- // When group membership changes, history retention/exposure requires an owner
- // rule and revised snapshot governance; do not infer prior members.
  if(properties_().getProperty('PBL_V18_GROUP_HISTORY_APPROVED')!=='YES')
   throw Error('พื้นที่กลุ่มรอการอนุมัติสิทธิ์ประวัติสมาชิก');
- return{ownerKey:'GROUP:'+String(group.GROUP_ID),scope:mode,cls,uid};
+ return{ownerKey:v181GroupEpoch_(group,cls,uid),scope:mode,cls,uid};
 }
 function v18Step_(raw){
  const n=Number(raw);
@@ -226,10 +243,11 @@ function v18AdminAnalytics_(d){
    kind:plain_(raw.kind,35),place:plain_(raw.place,16),characters:Number(raw.chars)||0};}catch(e){}
   return{id:String(x.EVENT_ID),actorId:String(x.ACTOR_UID),ownerKey:String(x.OWNER_KEY),
    classId:String(x.CLASS),step:Number(x.STEP),eventType:String(x.EVENT_TYPE),
-   at:new Date(x.EVENT_AT).toISOString(),scope:String(x.OWNER_KEY).startsWith('GROUP:')?'group':'individual',meta};
+   at:new Date(x.EVENT_AT).toISOString(),durationSec:Math.min(30,Math.max(0,Number(x.DURATION_SEC)||0)),
+   scope:String(x.OWNER_KEY).startsWith('GROUP:')?'group':'individual',meta};
  });
  return{source:'LIVE',schema:v18Sheet_('event',false)?'READY':'NOT_CONFIGURED',
-  generatedAt:new Date().toISOString(),events,summary:{events:events.length,
+  generatedAt:new Date().toISOString(),window:'LATEST_500_EVENTS',truncated:rows.length>500,events,summary:{events:events.length,
    actors:new Set(events.map(e=>e.actorId)).size,
    groups:new Set(events.filter(e=>e.scope==='group').map(e=>e.ownerKey)).size,
    coachQuestions:events.filter(e=>e.eventType==='COACH_ASK').length},
@@ -251,4 +269,24 @@ function ownerSetupV18Coach_(){
   return{status:'OWNER_MANUAL_SCHEMA_VERIFIED',created,tables:{...PBL18.tables},
    classification:'RESTRICTED_CHILDREN',notProductionApproval:true};
  });
+}
+
+/**
+ * Owner-only read-only retention readiness inspection.
+ * No purge action is exposed: real deletion needs consent, backup, exact
+ * principals, retention policy, irreversible-operation approval, and audit.
+ */
+function ownerPreviewV181Retention_(){
+ if(!v18Gate_())throw Error('โครงสร้างยังไม่ผ่านอนุมัติ');
+ const messages=v18Rows_('message'),events=v18Rows_('event'),now=Date.now();
+ const aged=(rows,col,days)=>rows.filter(x=>{
+  const ts=new Date(x[col]).getTime();
+  return Number.isFinite(ts)&&now-ts>days*86400000;
+ }).length;
+ return{classification:'RESTRICTED_CHILDREN',mode:'READ_ONLY_NO_PURGE',
+   policy:'PBL18-CHILD-MINIMISE-01',
+   messageCount:messages.length,eventCount:events.length,
+   messagesOlderThan30Days:aged(messages,'CREATED_AT',30),
+   eventsOlderThan90Days:aged(events,'EVENT_AT',90),
+   approverRequired:true,writePerformed:false};
 }
