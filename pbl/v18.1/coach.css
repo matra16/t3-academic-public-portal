@@ -82,3 +82,15 @@
  #adminScreen .v18-log-table{min-width:620px}
 }
 @media(prefers-reduced-motion:reduce){#studentScreen .v18-coach *,#adminScreen .v18-analytics *{transition:none!important}}
+
+/* PBL V18.1 — readable anonymised actor/team evidence, no scores. */
+#adminScreen .v181-breakdown{border:1px solid #3c697a;background:#102f42;border-radius:12px;padding:10px 12px;color:#d1ecf2}
+#adminScreen .v181-breakdown summary{cursor:pointer;font-size:13px;font-weight:800;min-height:32px}
+#adminScreen .v181-breakdown p{font-size:11px;line-height:1.6;color:#b0ccd8}
+#adminScreen .v181-breakdown-tables{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+#adminScreen .v181-summary-group{min-width:0;overflow-x:auto;scrollbar-width:thin;border-radius:9px}
+#adminScreen .v181-summary-group h3{font-size:13px;margin:6px 0;color:#9de9d7}
+#adminScreen .v181-summary-table{border-collapse:collapse;font-size:11px;width:100%;min-width:460px}
+#adminScreen .v181-summary-table th,#adminScreen .v181-summary-table td{padding:7px;border-bottom:1px solid #3d6477;text-align:left;overflow-wrap:anywhere}
+#adminScreen .v181-summary-table th{color:#b8eada}
+@media(max-width:900px){#adminScreen .v181-breakdown-tables{grid-template-columns:1fr}}
