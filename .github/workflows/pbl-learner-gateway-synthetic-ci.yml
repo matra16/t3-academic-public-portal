@@ -1,0 +1,24 @@
+name: PBL Learner Gateway - synthetic contract tests
+
+on:
+  pull_request:
+    paths:
+      - "pbl/staging/learner-gateway/**"
+      - ".github/workflows/pbl-learner-gateway-synthetic-ci.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  synthetic-contracts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Verify fictional learner gateway contracts
+        run: node --test pbl/staging/learner-gateway/GatewayTests.cjs
