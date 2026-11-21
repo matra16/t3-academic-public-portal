@@ -47,3 +47,19 @@ Assertions cover one-time invitation, negative login, expiry, role/session, clas
 ## Integration safety
 
 Do not copy this module directly to a public deployment and enable it for real children. Existing pbl20SchoolRpc remains fail-closed and the public synthetic LMS remains unchanged until storage, identity and production policies are accepted. This is a contract/staging artifact.
+
+## Review and hardening (2026-11-22)
+
+Codex performed a read-only source security review, after which the staging module was hardened:
+- Revalidation of invitation, account activity/tenant/class, teacher grants, learner session and task status inside the repository transaction consistency boundary.
+- Fail-closed nonnumeric/missing invite or session expiry.
+- Password-change rate limiting, transaction-based credential/epoch readback and session revocation check.
+- Uniform public login errors for unknown users and accounts awaiting activation.
+- Only OPEN tasks accept new work; closed tasks may be used for limited passive events.
+- Strict numeric safe-integer work revisions rather than coercion from strings/null/false.
+- Exact audit and work field readback; teacher feedback must persist in learner-readable work.
+- Tests include grant revocation and task closure during a transaction, review no-op, readback corruption, passive event concurrency, revoked/expired session, and rollback on failing session revocation.
+
+**QA:** 45/45 deterministic Node tests pass on a fictional in-memory adapter. This is *not* a guarantee of Google Sheets atomicity or real-school RBAC. Before production, the school-owned adapter must demonstrate crash recovery, repeatability across process restart, password-service audit, and owner-signed UAT.
+
+**CI scope:** A pull-request-only GitHub Actions check may run these synthetic tests. No cron, automated public deployment, payment upgrade, student personal data, or direct write to the canonical school database is authorized by this staging work.

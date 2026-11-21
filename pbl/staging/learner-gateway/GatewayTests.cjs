@@ -25,7 +25,7 @@ function fixture(approved=true){
   listOwnEvents:(uid,room)=>E.filter(x=>x.actor===uid&&x.classId===room),
   listClass:room=>[...W.values()].filter(x=>x.classId===room),
   getWorkById:id=>[...W.values()].find(w=>w.id===id),
-  review:(id,feedback,revision)=>{R.set(id,{feedback,revision});const row=[...W.values()].find(w=>w.id===id);if(row){row.status='NEEDS_REVISION';row.revision=revision}}
+  review:(id,feedback,revision)=>{R.set(id,{feedback,revision});const row=[...W.values()].find(w=>w.id===id);if(row){row.status='NEEDS_REVISION';row.revision=revision;row.feedback=feedback}}
  };
  const deps={
   release:approved?{mode:'SYNTHETIC_QA',syntheticOnly:true}:{mode:'SCHOOL_PRODUCTION',ownerApproved:false},
@@ -51,7 +51,7 @@ test('bootstrap credential required',()=>{const f=fixture();rejects(()=>f.api({o
 test('weak change rejected',()=>{const f=fixture();rejects(()=>f.api({op:'ACTIVATE',inviteCode:INV_A,initialPassword:PIN,newPassword:'weak'}),'WEAK_NEW_CREDENTIAL')});
 test('activation consumes invite and changes epoch',()=>{const f=fixture();f.act();assert.equal(f.I.get(INV_A).used,true);assert.equal(f.A.get('S-A01').passwordEpoch,2)});
 test('activation cannot replay',()=>{const f=fixture();f.act();rejects(()=>f.act(),'INVITE_INVALID')});
-test('login requires activation',()=>{const f=fixture();rejects(()=>f.api({op:'LOGIN',learnerUid:'S-A01',password:PIN}),'ACTIVATION_REQUIRED')});
+test('login requires activation',()=>{const f=fixture();rejects(()=>f.api({op:'LOGIN',learnerUid:'S-A01',password:PIN}),'INVALID_CREDENTIAL')});
 test('login rejects wrong password',()=>{const f=fixture();f.act();rejects(()=>f.login('S-A01','WRONG_12345678'),'INVALID_CREDENTIAL')});
 test('login gives server session',()=>{const f=fixture();f.act();const r=f.login();assert.equal(r.learner.classId,'A');assert.ok(r.token.length>=24);assert.ok(!JSON.stringify(r).includes(PIN))});
 test('unauthenticated read denied',()=>{const f=fixture();f.act();rejects(()=>f.api({op:'READ_OWN'}),'INVALID_INPUT')});
@@ -74,3 +74,18 @@ test('logout revokes session',()=>{const f=fixture();f.act();const t=f.login().t
 test('expiry revokes session',()=>{const f=fixture();f.act();const t=f.login().token;f.advance(1200001);rejects(()=>f.api({op:'READ_OWN',authToken:t}),'SESSION_INVALID')});
 test('throttle blocks claims',()=>{const f=fixture();f.ratelimit(true);rejects(()=>f.api({op:'CLAIM',inviteCode:INV_A}),'RATE_LIMITED')});
 test('no public school RPC and no real children present',()=>{assert.equal(typeof ctx.pbl20SchoolRpc,'undefined');const src=fs.readFileSync(path.join(__dirname,'LearnerGateway.gs'),'utf8');assert.ok(!src.includes('@tamaprang'));assert.ok(!/\b\d{9}\b/.test(src))});
+
+test('malformed invite expiry fails closed',()=>{const f=fixture();f.I.get(INV_A).expiresAt='not-a-date';rejects(()=>f.api({op:'CLAIM',inviteCode:INV_A}),'INVITE_INVALID')});
+test('malformed session expiry fails closed',()=>{const f=fixture();f.act();const t=f.login().token;f.S.get(t).expiresAt='not-a-date';rejects(()=>f.api({op:'READ_OWN',authToken:t}),'SESSION_INVALID')});
+test('non-mutating STEP_VIEW allows subsequent revision-zero SUBMIT',()=>{const f=fixture();f.act();const t=f.login().token;const e=f.api({op:'STEP_VIEW',authToken:t,requestId:'request_view_001',payload:{taskId:'task-A'}});assert.equal(e.revision,0);assert.equal(f.submit(t).revision,1);assert.equal(f.E.length,2)});
+test('draft assignment rejects submission',()=>{const f=fixture();f.repo.task('task-A').status='DRAFT';f.act();const t=f.login().token;rejects(()=>f.submit(t),'TASK_SCOPE_OR_STATUS_DENIED')});
+test('submission expectedRevision must be numeric integer',()=>{const f=fixture();f.act();const t=f.login().token;for(const [i,r] of ['0',null,false,0.3].entries())rejects(()=>f.submit(t,'req_bad_revision_'+i,{expectedRevision:r}),'STALE_REVISION')});
+test('teacher review task mismatch denied',()=>{const f=fixture();f.act();const t=f.login().token;f.submit(t);rejects(()=>f.api({op:'TEACHER_REVIEW',authToken:f.teacher(),room:'A',requestId:'request_review_wrong_task',payload:{taskId:'task-B',workId:'W-S-A01-task-A',feedback:'Please revise your writing.',expectedRevision:1}}),'WORK_SCOPE_DENIED')});
+test('feedback saved and readable by learner',()=>{const f=fixture();f.act();const t=f.login().token;f.submit(t);f.api({op:'TEACHER_REVIEW',authToken:f.teacher(),room:'A',requestId:'request_000222',payload:{taskId:'task-A',workId:'W-S-A01-task-A',feedback:'Improve the conclusion and add examples.',expectedRevision:1}});const own=f.api({op:'READ_OWN',authToken:t});assert.equal(own.works[0].feedback,'Improve the conclusion and add examples.')});
+test('grant revoked inside transaction denies teacher review',()=>{const f=fixture();f.act();const t=f.login().token;f.submit(t);const orig=f.repo.transaction;f.repo.transaction=fn=>orig(tx=>{f.A.get('T-A01').assignedClasses=[];return fn(tx)});rejects(()=>f.api({op:'TEACHER_REVIEW',authToken:f.teacher(),room:'A',requestId:'request_000223',payload:{taskId:'task-A',workId:'W-S-A01-task-A',feedback:'Please add more details.',expectedRevision:1}}),'TEACHER_GRANT_CHANGED')});
+test('assignment closed inside transaction blocks submission',()=>{const f=fixture();f.act();const t=f.login().token;const orig=f.repo.transaction;f.repo.transaction=fn=>orig(tx=>{f.repo.task('task-A').status='CLOSED';return fn(tx)});rejects(()=>f.submit(t),'TASK_SCOPE_OR_STATUS_DENIED')});
+test('password change rollback if session revocation fails',()=>{const f=fixture();f.act();const t=f.login().token;f.deps.sessions.revokeAll=()=>{throw Error('REVOCATION_FAIL')};rejects(()=>f.api({op:'CHANGE_PASSWORD',authToken:t,oldPassword:PASS,newPassword:'Fictional-Next-Pass-9876'}),'REVOCATION_FAIL');assert.equal(f.A.get('S-A01').passwordEpoch,2);assert.equal(f.deps.credentials.verifyPassword('S-A01',PASS),true)});
+test('password change endpoint is throttled',()=>{const f=fixture();f.act();const t=f.login().token;f.ratelimit(true);rejects(()=>f.api({op:'CHANGE_PASSWORD',authToken:t,oldPassword:PASS,newPassword:'Fictional-Next-Pass-9876'}),'RATE_LIMITED')});
+test('unknown account login reports only invalid credential',()=>{const f=fixture();rejects(()=>f.api({op:'LOGIN',learnerUid:'S-UNKNOWN',password:PASS}),'INVALID_CREDENTIAL')});
+test('mutated event fingerprint fails readback and rolls back',()=>{const f=fixture();f.act();const t=f.login().token;const original=f.repo.getEventByRequest;f.repo.getEventByRequest=id=>{const e=original(id);return e?{...e,fingerprint:'WRONG'}:e};rejects(()=>f.submit(t),'EVENT_READBACK_FAILED');assert.equal(f.E.length,0)});
+test('teacher review no-op cannot report success',()=>{const f=fixture();f.act();const t=f.login().token;f.submit(t);f.repo.review=()=>{};rejects(()=>f.api({op:'TEACHER_REVIEW',authToken:f.teacher(),room:'A',requestId:'request_000224',payload:{taskId:'task-A',workId:'W-S-A01-task-A',feedback:'More evidence is needed.',expectedRevision:1}}),'REVIEW_READBACK_FAILED');assert.equal(f.E.length,1)});
