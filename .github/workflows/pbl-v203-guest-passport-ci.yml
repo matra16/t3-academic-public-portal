@@ -1,0 +1,19 @@
+name: PBL V20.3 Synthetic Guest Passport QA
+on:
+  pull_request:
+    paths:
+      - "pbl/staging/v20.3-guest-passport/**"
+      - ".github/workflows/pbl-v203-guest-passport-ci.yml"
+permissions:
+  contents: read
+jobs:
+  fake-guest-contracts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Test fictional guest credentials and learning events
+        run: node --test pbl/staging/v20.3-guest-passport/qa_guest_passport.cjs
