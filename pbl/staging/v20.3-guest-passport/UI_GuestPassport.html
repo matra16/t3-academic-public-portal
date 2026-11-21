@@ -1,0 +1,163 @@
+<style>
+.p203-card{margin:18px 0 24px;border:1px solid #addad1;border-radius:20px;overflow:hidden;background:linear-gradient(130deg,#f5fffb,#edf7ff);box-shadow:0 7px 20px rgba(15,72,80,.07)}
+.p203-head{padding:17px 21px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;background:#def5f0}
+.p203-head h3{margin:0;font-size:1.12rem;color:#145b54}
+.p203-detail{color:#486875;font-size:.88rem;line-height:1.65}
+.p203-body{padding:16px 21px}
+.p203-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:10px 0}
+.p203-form{display:flex;gap:10px;align-items:end;flex-wrap:wrap;margin:12px 0}
+.p203-form label{display:flex;flex-direction:column;gap:6px;font-size:.88rem;font-weight:700}
+.p203-card input,.p203-card select{padding:10px 12px;border-radius:10px;border:1px solid #a4c8c6;background:#fff;font:inherit;max-width:100%}
+.p203-card button{padding:10px 13px;border-radius:10px;border:1px solid #388e81;background:white;color:#115c53;cursor:pointer;font:inherit;font-weight:700}
+.p203-card button.p203-primary{background:#146b64;color:#fff}
+.p203-card button:focus-visible,.p203-card input:focus-visible,.p203-card select:focus-visible{outline:3px solid #edbb58;outline-offset:2px}
+.p203-card button:disabled{opacity:.6;cursor:not-allowed}
+.p203-code{padding:12px;background:#fff;border:1px dashed #85bfb9;border-radius:12px;margin:12px 0}
+.p203-code code{overflow-wrap:anywhere;font-size:1.04em;color:#16516d}
+.p203-list{list-style:none;padding:0;margin:10px 0}
+.p203-list li{background:#fff;padding:10px 13px;margin:7px 0;border:1px solid #d4e5e6;border-radius:10px;line-height:1.6}
+.p203-message{color:#0d6660;font-size:.9rem;min-height:1.2em}
+.p203-feedback{font-weight:700;color:#117451}
+@media(max-width:650px){.p203-body,.p203-head{padding:13px}.p203-form{flex-direction:column;align-items:stretch}.p203-form label,.p203-card input{width:100%}}
+</style>
+<section id="p203StudentCard" class="p203-card" aria-label="Student Learning Passport ทดลอง">
+ <div class="p203-head"><h3>🔐 Student Learning Passport <small>V20.3</small></h3><span class="p203-detail">บัญชีสมมติส่วนตัว · บันทึกความก้าวหน้าถาวร</span></div>
+ <div class="p203-body">
+ <p class="p203-detail">ระบบทดลองไม่เปิดเผยรายชื่อนักเรียนจริง คุณสามารถสร้างบัญชีสมมติและส่งตัวอย่างการเรียนรู้จากขั้นที่เลือกได้ ห้ามกรอกข้อมูลส่วนบุคคล</p>
+ <div id="p203GuestAccess">
+  <div class="p203-actions"><button id="p203Create" class="p203-primary" type="button">+ สร้างบัญชีทดลองส่วนตัว</button></div>
+  <form class="p203-form" id="p203LoginForm">
+   <label>รหัสบัญชีทดลอง<input id="p203LoginId" placeholder="GP-XXXXXXXXXXXX" autocomplete="username" required></label>
+   <label>กุญแจเข้าเรียนส่วนตัว<input id="p203LoginKey" type="password" autocomplete="current-password" required></label>
+   <button type="submit" id="p203LoginButton" class="p203-primary">เข้าสู่ระบบ</button>
+  </form>
+ </div>
+ <div class="p203-code" id="p203Created" hidden aria-live="polite">
+  <strong>โปรดจดรหัสเข้าระบบทดลองไว้ก่อนปิดหน้านี้</strong>
+  <p>รหัสบัญชี: <code id="p203CreatedId"></code></p>
+  <p>กุญแจส่วนตัว (แสดงครั้งเดียว): <code id="p203CreatedKey"></code></p>
+  <p class="p203-detail">เมื่อออกจากระบบต้องใช้รหัสทั้งสองส่วนเพื่อเข้าสู่บัญชีสมมติเดิม</p>
+ </div>
+ <div id="p203GuestHome" hidden>
+  <div class="p203-actions"><strong id="p203GuestName"></strong><span id="p203GuestCount" class="p203-detail"></span>
+   <button type="button" id="p203Refresh">อัปเดตผล</button><button type="button" id="p203Logout">ออกจากระบบ</button></div>
+  <div class="p203-form"><label>กิจกรรมตัวอย่างสำหรับขั้นที่เลือก
+   <select id="p203Choice"><option value="A">🔎 I explored the question.</option>
+   <option value="B">📝 I planned with my group.</option><option value="C">🛠️ I created and checked my work.</option>
+   <option value="D">💬 I shared and reflected.</option></select></label>
+   <button type="button" class="p203-primary" id="p203Submit">ส่งกิจกรรมขั้นที่เลือก</button></div>
+  <ul id="p203WorkList" class="p203-list"></ul>
+ </div>
+ <p id="p203Status" class="p203-message" role="status" aria-live="polite">พร้อมเข้าสู่ระบบบัญชีทดลอง</p>
+ </div>
+</section>
+<section id="p203TeacherCard" class="p203-card" aria-label="คิวตรวจงาน Learning Passport">
+ <div class="p203-head"><h3>📚 Learning Passport · คิวตรวจงานตัวอย่าง</h3><span class="p203-detail">เฉพาะครูที่ผ่าน Password Gate</span></div>
+ <div class="p203-body"><p class="p203-detail">ตรวจการส่งกิจกรรมบัญชีสมมติแบบไม่ระบุตัวตน และให้ข้อเสนอแนะจากตัวเลือกมาตรฐาน</p>
+  <button id="p203TeacherReload" class="p203-primary" type="button">เปิดคิวตรวจงานที่บันทึกถาวร</button>
+  <p id="p203TeacherStatus" class="p203-message" role="status" aria-live="polite"></p><ul id="p203TeacherList" class="p203-list"></ul>
+ </div>
+</section>
+<script>
+(function(){
+'use strict';
+const $=id=>document.getElementById(id);
+const esc=v=>String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let token='',passport=null,lastId='';
+const rpc=req=>new Promise((resolve,reject)=>{
+  if(!window.google?.script?.run){reject(Error('Google Apps Script is unavailable'));return}
+  google.script.run.withSuccessHandler(resolve).withFailureHandler(e=>reject(Error(e?.message||String(e)))).pbl203GuestRpc(req)
+});
+function msg(value,error){$('p203Status').textContent=value;$('p203Status').style.color=error?'#a52121':'#0d6660'}
+function busy(v){for(const id of ['p203Create','p203LoginButton','p203Submit','p203Logout'])if($(id))$(id).disabled=v}
+function render(){
+  $('p203GuestAccess').hidden=!!token;$('p203GuestHome').hidden=!token;
+  if(!token||!passport)return;
+  $('p203GuestName').textContent='Learning Passport · '+passport.guestId;
+  $('p203GuestCount').textContent='บันทึกตัวอย่าง '+passport.works.length+' ขั้น';
+  const rows=passport.works.slice().sort((a,b)=>a.courseId.localeCompare(b.courseId)||a.step-b.step);
+  $('p203WorkList').innerHTML=rows.length?rows.map(w=>'<li><strong>'+esc(w.courseId)+' · ขั้น '+w.step+
+    '</strong> · '+esc(w.note)+'<br><span class="p203-detail">'+esc(w.status)+' · Revision '+w.revision+
+    '</span>'+(w.feedback?'<br><span class="p203-feedback">ครู: '+esc(w.feedback)+'</span>':'')+'</li>').join(''):
+    '<li>ยังไม่มีตัวอย่างงานส่ง เลือกหน่วยและขั้น แล้วส่งกิจกรรม</li>';
+}
+async function create(){
+  busy(true);msg('กำลังสร้างบัญชีสมมติ...');
+  try{const r=await rpc({op:'CREATE'});token=r.token;passport=r.passport;lastId=r.guestId;
+    $('p203Created').hidden=false;$('p203CreatedId').textContent=r.guestId;
+    $('p203CreatedKey').textContent=r.passphrase;$('p203LoginId').value=r.guestId;
+    render();msg('สร้างบัญชีทดลองแล้ว กรุณาเก็บรหัสส่วนตัวเพื่อเข้าครั้งถัดไป');
+    $('p203Created').scrollIntoView({block:'nearest'})
+  }catch(e){msg(e.message,true)}finally{busy(false)}
+}
+async function login(e){
+  e.preventDefault();busy(true);msg('กำลังตรวจสิทธิ์บัญชีสมมติ...');
+  try{const r=await rpc({op:'LOGIN',guestId:$('p203LoginId').value,passphrase:$('p203LoginKey').value});
+    token=r.token;passport=r.passport;lastId=passport.guestId;$('p203LoginKey').value='';
+    $('p203Created').hidden=true;render();msg('เข้าสู่ระบบแล้ว · ผลที่บันทึกไว้ยังอยู่หลังออกจากระบบ')
+  }catch(err){msg(err.message,true);$('p203LoginKey').focus()}finally{busy(false)}
+}
+async function refresh(){
+  if(!token)return;
+  try{passport=await rpc({op:'WHOAMI',token});render();msg('อ่านผลความก้าวหน้าจากเซิร์ฟเวอร์แล้ว')}
+  catch(e){token='';passport=null;render();msg('เซสชันหมดอายุ กรุณาเข้าสู่ระบบอีกครั้ง',true)}
+}
+async function submit(){
+  const state=window.PBL20?.state||{},courseId=state.courseId,step=Number(state.step||0);
+  if(!token)return msg('ต้องเข้าสู่ระบบบัญชีทดลองก่อน',true);
+  if(!courseId||!step)return msg('เลือกหน่วยและขั้นการเรียนรู้ก่อน',true);
+  const previous=passport.works.find(w=>w.courseId===courseId&&w.step===step);
+  const requestId=(Math.random().toString(36).slice(2)+Date.now().toString(36)).slice(0,40);
+  busy(true);msg('กำลังบันทึกกิจกรรมตัวอย่าง...');
+  try{passport=await rpc({op:'SUBMIT',token,requestId,courseId,step,
+      choice:$('p203Choice').value,expectedRevision:previous?.revision||0});
+    render();msg('บันทึกกิจกรรมลงข้อมูลทดลองถาวรและตรวจอ่านกลับแล้ว')
+  }catch(e){msg(e.message,true)}finally{busy(false)}
+}
+async function logout(){
+  if(token){try{await rpc({op:'LOGOUT',token})}catch(_){}}
+  token='';passport=null;render();$('p203LoginId').value=lastId;msg('ออกจากระบบแล้ว');
+  $('p203LoginKey').focus()
+}
+async function staffRefresh(){
+  const status=$('p203TeacherStatus');
+  if(!window.PBL20Auth?.can('teacher')){status.textContent='กรุณาเข้าสู่ระบบครูก่อน';return}
+  status.textContent='กำลังโหลดคิวตรวจงาน...';
+  try{const r=await rpc({op:'TEACHER_LIST',authToken:window.PBL20Auth.token('teacher')});
+    const rows=r.records.flatMap(a=>a.works.map(w=>({...w,guestId:a.guestId})));
+    $('p203TeacherList').innerHTML=rows.length?rows.slice(-50).map(w=>
+      '<li><strong>'+esc(w.guestId)+' · '+esc(w.courseId)+' ขั้น '+w.step+'</strong> · '+
+      esc(w.status)+' · Revision '+w.revision+'<div class="p203-actions">'+
+      ['GOOD','REVISE','DETAIL'].map(k=>'<button type="button" data-gp-feedback="'+k+
+      '" data-gp-id="'+esc(w.guestId)+'" data-gp-course="'+esc(w.courseId)+
+      '" data-gp-step="'+w.step+'" data-gp-rev="'+w.revision+'">'+
+      ({GOOD:'✓ ผ่าน',REVISE:'↻ แก้ไข',DETAIL:'เพิ่มตัวอย่าง'}[k])+'</button>').join('')+
+      '</div></li>').join(''):'<li>ยังไม่มีงานตัวอย่างที่ต้องตรวจ</li>';
+    status.textContent='หลักฐานจากบัญชีทดลอง '+rows.length+' รายการ ไม่มีรายชื่อนักเรียนจริง';
+  }catch(e){status.textContent=e.message}
+}
+async function staffFeedback(b){
+  b.disabled=true;
+  try{await rpc({op:'TEACHER_FEEDBACK',authToken:window.PBL20Auth.token('teacher'),
+    guestId:b.dataset.gpId,courseId:b.dataset.gpCourse,step:Number(b.dataset.gpStep),
+    feedbackCode:b.dataset.gpFeedback,expectedRevision:Number(b.dataset.gpRev)});
+    await staffRefresh();if(token)await refresh()
+  }catch(e){$('p203TeacherStatus').textContent=e.message;b.disabled=false}
+}
+function wire(){
+  const student=$('studentWorkspace'),teacher=$('teacherWorkspace');
+  if(!student||!teacher)return;
+  student.querySelector('.section-top').after($('p203StudentCard'));
+  teacher.querySelector('.section-top').after($('p203TeacherCard'));
+  $('p203Create').addEventListener('click',create);
+  $('p203LoginForm').addEventListener('submit',login);
+  $('p203Submit').addEventListener('click',submit);
+  $('p203Refresh').addEventListener('click',refresh);
+  $('p203Logout').addEventListener('click',logout);
+  $('p203TeacherReload').addEventListener('click',staffRefresh);
+  $('p203TeacherList').addEventListener('click',e=>{const b=e.target.closest('[data-gp-feedback]');if(b)staffFeedback(b)});
+  render();
+}
+window.PBL203Guest={wire,refresh,staffRefresh};
+})();
+</script>
